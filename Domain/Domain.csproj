@@ -12,20 +12,17 @@
     <Compile Remove="Application\obj\Debug\net7.0\Application.GlobalUsings.g.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Application\obj\Debug\net7.0\Application.csproj.AssemblyReference.cache" />
-    <None Remove="Application\obj\Application.csproj.nuget.g.props" />
-    <None Remove="Application\obj\Application.csproj.nuget.dgspec.json" />
-    <None Remove="Application\obj\Application.csproj.nuget.g.targets" />
     <None Remove="Application\obj\Debug\net7.0\Application.assets.cache" />
     <None Remove="Application\obj\Debug\net7.0\Application.GeneratedMSBuildEditorConfig.editorconfig" />
     <None Remove="Application\obj\Debug\net7.0\Application.AssemblyInfoInputs.cache" />
-    <None Remove="Application\obj\project.assets.json" />
-    <None Remove="Application\obj\project.nuget.cache" />
     <None Remove="Entities\" />
     <None Remove="Entities\Base Entity\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
     <Folder Include="Entities\Base Entity\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />
   </ItemGroup>
 </Project>

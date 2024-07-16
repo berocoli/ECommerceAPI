@@ -17,9 +17,11 @@
     <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig" />
     <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.assets.cache" />
     <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.AssemblyInfoInputs.cache" />
+    <None Remove="Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contexts\" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />

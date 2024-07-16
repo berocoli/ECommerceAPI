@@ -9,4 +9,19 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Repositories\" />
+    <None Remove="Repositories\CustomerRepo\" />
+    <None Remove="Repositories\ProductRepo\" />
+    <None Remove="Repositories\OrderRepo\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+    <Folder Include="Repositories\CustomerRepo\" />
+    <Folder Include="Repositories\ProductRepo\" />
+    <Folder Include="Repositories\OrderRepo\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.csproj" />
+  </ItemGroup>
 </Project>

@@ -8,6 +8,15 @@
 
   <ItemGroup>
     <None Remove="Contexts\" />
+    <None Remove="Infrastructure\obj\Infrastructure.csproj.nuget.g.targets" />
+    <None Remove="Infrastructure\obj\project.nuget.cache" />
+    <None Remove="Infrastructure\obj\Infrastructure.csproj.nuget.dgspec.json" />
+    <None Remove="Infrastructure\obj\project.assets.json" />
+    <None Remove="Infrastructure\obj\Infrastructure.csproj.nuget.g.props" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.csproj.AssemblyReference.cache" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.assets.cache" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.AssemblyInfoInputs.cache" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contexts\" />
@@ -16,8 +25,20 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.18" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.20">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\ECommerceAPI.API\ECommerceAPI.API.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Infrastructure\obj\Debug\net7.0\.NETCoreApp,Version=v7.0.AssemblyAttributes.cs" />
+    <Compile Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.GlobalUsings.g.cs" />
+    <Compile Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.AssemblyInfo.cs" />
   </ItemGroup>
 </Project>

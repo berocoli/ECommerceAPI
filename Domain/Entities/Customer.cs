@@ -6,8 +6,7 @@ namespace Domain
     {
         public string Name { get; set; }
 
-        public ICollection<Order> orders { get; set; }
-        public Users user { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }
 

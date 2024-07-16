@@ -9,7 +9,7 @@ namespace Persistance
     {
         public static void AddPersistanceServices(this IServiceCollection services)
         {
-            services.AddDbContext<ECommerceAPIDbContext>(options => options.UseNpgsql(""));
+            services.AddDbContext<ECommerceAPIDbContext>(options => options.UseNpgsql(Configuration.ConnectionString));
         }
     }
 }

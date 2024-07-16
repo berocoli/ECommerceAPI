@@ -17,6 +17,12 @@
     <None Remove="Application\obj\Debug\net7.0\Application.AssemblyInfoInputs.cache" />
     <None Remove="Entities\" />
     <None Remove="Entities\Base Entity\" />
+    <None Remove="Application\obj\Application.csproj.nuget.dgspec.json" />
+    <None Remove="Application\obj\Application.csproj.nuget.g.targets" />
+    <None Remove="Application\obj\Application.csproj.nuget.g.props" />
+    <None Remove="Application\obj\project.nuget.cache" />
+    <None Remove="Application\obj\project.assets.json" />
+    <None Remove="Application\obj\Debug\net7.0\Application.csproj.AssemblyReference.cache" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />

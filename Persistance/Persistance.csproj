@@ -9,19 +9,30 @@
   <ItemGroup>
     <None Remove="Contexts\" />
     <None Remove="Infrastructure\obj\Infrastructure.csproj.nuget.g.targets" />
-    <None Remove="Infrastructure\obj\project.nuget.cache" />
-    <None Remove="Infrastructure\obj\Infrastructure.csproj.nuget.dgspec.json" />
-    <None Remove="Infrastructure\obj\project.assets.json" />
-    <None Remove="Infrastructure\obj\Infrastructure.csproj.nuget.g.props" />
-    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.csproj.AssemblyReference.cache" />
-    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig" />
     <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.assets.cache" />
-    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.AssemblyInfoInputs.cache" />
     <None Remove="Repositories\" />
+    <None Remove="Repositories\CustomerRepo\" />
+    <None Remove="Repositories\OrderRepo\" />
+    <None Remove="Repositories\ProductRepo\" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.csproj.FileListAbsolute.txt" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.AssemblyInfoInputs.cache" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.csproj.CoreCompileInputs.cache" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.sourcelink.json" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.dll" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\refint\Infrastructure.dll" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.pdb" />
+    <None Remove="Infrastructure\bin\Debug\net7.0\Infrastructure.deps.json" />
+    <None Remove="Infrastructure\bin\Debug\net7.0\Infrastructure.dll" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\ref\Infrastructure.dll" />
+    <None Remove="Infrastructure\bin\Debug\net7.0\Infrastructure.pdb" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contexts\" />
     <Folder Include="Repositories\" />
+    <Folder Include="Repositories\CustomerRepo\" />
+    <Folder Include="Repositories\OrderRepo\" />
+    <Folder Include="Repositories\ProductRepo\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />
@@ -33,10 +44,11 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.20" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\ECommerceAPI.API\ECommerceAPI.API.csproj" />
+    <ProjectReference Include="..\Domain\Application\Application.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Infrastructure\obj\Debug\net7.0\.NETCoreApp,Version=v7.0.AssemblyAttributes.cs" />

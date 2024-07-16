@@ -8,21 +8,44 @@
 
   <ItemGroup>
     <Compile Remove="Application\obj\Debug\net7.0\.NETCoreApp,Version=v7.0.AssemblyAttributes.cs" />
-    <Compile Remove="Application\obj\Debug\net7.0\Application.AssemblyInfo.cs" />
     <Compile Remove="Application\obj\Debug\net7.0\Application.GlobalUsings.g.cs" />
+    <Compile Remove="Application\Repositories\IReadRepository.cs" />
+    <Compile Remove="Application\Repositories\IWriteRepository.cs" />
+    <Compile Remove="Application\Repositories\IRepository.cs" />
+    <Compile Remove="Application\Repositories\CustomerRepo\ICustomerReadRepository.cs" />
+    <Compile Remove="Application\Repositories\CustomerRepo\ICustomerWriteRepository.cs" />
+    <Compile Remove="Application\Repositories\OrderRepo\IOrderReadRepository.cs" />
+    <Compile Remove="Application\Repositories\OrderRepo\IOrderWriteRepositorh.cs" />
+    <Compile Remove="Application\Repositories\ProductRepo\IProductReadRepository.cs" />
+    <Compile Remove="Application\Repositories\ProductRepo\IProductWriteRepository.cs" />
+    <Compile Remove="Application\Repositories\OrderRepo\IOrderWriteRepository.cs" />
+    <Compile Remove="Application\obj\Debug\net7.0\Application.AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Application\obj\Debug\net7.0\Application.assets.cache" />
-    <None Remove="Application\obj\Debug\net7.0\Application.GeneratedMSBuildEditorConfig.editorconfig" />
-    <None Remove="Application\obj\Debug\net7.0\Application.AssemblyInfoInputs.cache" />
     <None Remove="Entities\" />
     <None Remove="Entities\Base Entity\" />
-    <None Remove="Application\obj\Application.csproj.nuget.dgspec.json" />
     <None Remove="Application\obj\Application.csproj.nuget.g.targets" />
+    <None Remove="Application\obj\Debug\net7.0\Application.csproj.FileListAbsolute.txt" />
+    <None Remove="Application\obj\Application.csproj.nuget.dgspec.json" />
     <None Remove="Application\obj\Application.csproj.nuget.g.props" />
     <None Remove="Application\obj\project.nuget.cache" />
     <None Remove="Application\obj\project.assets.json" />
+    <None Remove="Application\obj\Debug\net7.0\Application.csproj.CoreCompileInputs.cache" />
+    <None Remove="Application\obj\Debug\net7.0\Application.AssemblyInfoInputs.cache" />
+    <None Remove="Application\obj\Debug\net7.0\Application.pdb" />
+    <None Remove="Application\obj\Debug\net7.0\Applicat.44B5EDA2.Up2Date" />
+    <None Remove="Application\obj\Debug\net7.0\Application.dll" />
     <None Remove="Application\obj\Debug\net7.0\Application.csproj.AssemblyReference.cache" />
+    <None Remove="Application\obj\Debug\net7.0\Application.sourcelink.json" />
+    <None Remove="Application\obj\Debug\net7.0\Application.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Remove="Application\obj\Debug\net7.0\ref\Application.dll" />
+    <None Remove="Application\obj\Debug\net7.0\refint\Application.dll" />
+    <None Remove="Application\bin\Debug\net7.0\Domain.pdb" />
+    <None Remove="Application\bin\Debug\net7.0\Application.pdb" />
+    <None Remove="Application\bin\Debug\net7.0\Application.deps.json" />
+    <None Remove="Application\bin\Debug\net7.0\Domain.dll" />
+    <None Remove="Application\bin\Debug\net7.0\Application.dll" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
@@ -30,5 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.20" />
   </ItemGroup>
 </Project>

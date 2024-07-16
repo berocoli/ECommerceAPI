@@ -9,7 +9,7 @@ namespace Domain
         public double Stock { get; set; }
         public double Price { get; set; }
 
-        public ICollection<Order> orders { get; set; }
+        public ICollection<Order> Orders { get; set; }
 
     }
 }

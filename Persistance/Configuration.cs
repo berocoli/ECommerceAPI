@@ -12,8 +12,8 @@ namespace Persistance
             {
                 var basePath = AppContext.BaseDirectory;
                 var configurationManager = new ConfigurationBuilder()
-                    .SetBasePath(basePath)
-                    .AddJsonFile(Path.Combine(basePath, "appsettings.json"))
+                    .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../ECommerceAPI.API"))
+                    .AddJsonFile("appsettings.json")
                     .Build();
 
                 return configurationManager.GetConnectionString("PostgreSQL");

@@ -8,9 +8,9 @@ namespace Persistance
     {
         public ECommerceAPIDbContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ECommerceAPIDbContext>();
-            optionsBuilder.UseNpgsql(Configuration.ConnectionString);
-            return new ECommerceAPIDbContext(optionsBuilder.Options);
+            DbContextOptionsBuilder<ECommerceAPIDbContext> dbContextOptionsBuilder = new();
+            dbContextOptionsBuilder.UseNpgsql(Configuration.ConnectionString);
+            return new(dbContextOptionsBuilder.Options);
         }
     }
 }

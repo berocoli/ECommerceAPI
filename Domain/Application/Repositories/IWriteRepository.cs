@@ -10,9 +10,10 @@ namespace Application.Repositories
         Task<bool> AddRangeAsync(List<T> model);
 
         bool Remove(T model);
-        bool Remove(string id);
+        bool RemoveRange(List<T> model);
+        Task<bool> RemoveAsync(string id);
 
-        Task<bool> UpdateAsync(T model);
+        bool Update(T model);
 
         Task<int> SaveAsync();
 

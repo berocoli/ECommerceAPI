@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Application.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceAPI.API.Controllers
 {
@@ -17,8 +18,8 @@ namespace ECommerceAPI.API.Controllers
             _productWriteRepository = productWriteRepository;
         }
 
-        [HttpGet]
-        public async Task Get()
+        [HttpPost]
+        public async Task Set()
         {
             await _productWriteRepository.AddRangeAsync(new()
             {
@@ -28,11 +29,33 @@ namespace ECommerceAPI.API.Controllers
             });
             var count = await _productWriteRepository.SaveAsync();
         }
-        // [HttpGet("id")]
-        // public async Task Get()
-        // {
-        //    
-        // }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(string id)
+        {
+            var product = await _productReadRepository.GetByIdAsync(id);
+            if (product == null)
+                return NotFound();
+
+            return Ok(product);
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> GetWhere([FromQuery] string name)
+        {
+            var products = await _productReadRepository.GetWhere(p => p.Name.Contains(name)).ToListAsync();
+            return Ok(products);
+        }
+
+        [HttpGet("single")]
+        public async Task<IActionResult> GetSingle([FromQuery] string name)
+        {
+            var product = await _productReadRepository.GetSingleAsync(p => p.Name == name);
+            if (product == null)
+                return NotFound();
+
+            return Ok(product);
+        }
     }
 }
 

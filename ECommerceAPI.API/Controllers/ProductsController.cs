@@ -28,6 +28,11 @@ namespace ECommerceAPI.API.Controllers
             });
             var count = await _productWriteRepository.SaveAsync();
         }
+        // [HttpGet("id")]
+        // public async Task Get()
+        // {
+        //    
+        // }
     }
 }
 

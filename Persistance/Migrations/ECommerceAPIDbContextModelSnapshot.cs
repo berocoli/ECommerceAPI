@@ -53,19 +53,20 @@ namespace Persistance.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("CustomerId1")
+                    b.Property<Guid>("CustomerId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId1");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
                 });
@@ -96,15 +97,15 @@ namespace Persistance.Migrations
 
             modelBuilder.Entity("OrderProduct", b =>
                 {
-                    b.Property<Guid>("ordersId")
+                    b.Property<Guid>("OrdersId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("productsId")
+                    b.Property<Guid>("ProductsId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("ordersId", "productsId");
+                    b.HasKey("OrdersId", "ProductsId");
 
-                    b.HasIndex("productsId");
+                    b.HasIndex("ProductsId");
 
                     b.ToTable("OrderProduct");
                 });
@@ -113,7 +114,7 @@ namespace Persistance.Migrations
                 {
                     b.HasOne("Domain.Customer", "Customer")
                         .WithMany("Orders")
-                        .HasForeignKey("CustomerId1")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -124,13 +125,13 @@ namespace Persistance.Migrations
                 {
                     b.HasOne("Domain.Order", null)
                         .WithMany()
-                        .HasForeignKey("ordersId")
+                        .HasForeignKey("OrdersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Product", null)
                         .WithMany()
-                        .HasForeignKey("productsId")
+                        .HasForeignKey("ProductsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -30,23 +30,22 @@
     <None Remove="Application\obj\Debug\net7.0\Application.csproj.CoreCompileInputs.cache" />
     <None Remove="Application\obj\Debug\net7.0\Application.AssemblyInfoInputs.cache" />
     <None Remove="Application\obj\Debug\net7.0\Application.pdb" />
-    <None Remove="Application\obj\Debug\net7.0\Applicat.44B5EDA2.Up2Date" />
     <None Remove="Application\obj\Debug\net7.0\Application.dll" />
-    <None Remove="Application\obj\Debug\net7.0\Application.sourcelink.json" />
     <None Remove="Application\obj\Debug\net7.0\Application.GeneratedMSBuildEditorConfig.editorconfig" />
-    <None Remove="Application\obj\Debug\net7.0\ref\Application.dll" />
     <None Remove="Application\obj\Debug\net7.0\refint\Application.dll" />
-    <None Remove="Application\bin\Debug\net7.0\Domain.pdb" />
-    <None Remove="Application\bin\Debug\net7.0\Application.pdb" />
     <None Remove="Application\bin\Debug\net7.0\Application.deps.json" />
-    <None Remove="Application\bin\Debug\net7.0\Domain.dll" />
-    <None Remove="Application\bin\Debug\net7.0\Application.dll" />
-    <None Remove="Application\obj\Application.csproj.nuget.dgspec.json" />
-    <None Remove="Application\obj\Application.csproj.nuget.g.props" />
-    <None Remove="Application\obj\project.nuget.cache" />
-    <None Remove="Application\obj\project.assets.json" />
-    <None Remove="Application\obj\Debug\net7.0\Application.csproj.CopyComplete" />
     <None Remove="Application\obj\Debug\net7.0\Application.csproj.AssemblyReference.cache" />
+    <None Remove="Application\obj\Application.csproj.nuget.g.props" />
+    <None Remove="Application\obj\project.assets.json" />
+    <None Remove="Application\obj\project.nuget.cache" />
+    <None Remove="Application\obj\Application.csproj.nuget.dgspec.json" />
+    <None Remove="Application\bin\Debug\net7.0\Domain.dll" />
+    <None Remove="Application\bin\Debug\net7.0\Domain.pdb" />
+    <None Remove="Application\bin\Debug\net7.0\Application.dll" />
+    <None Remove="Application\obj\Debug\net7.0\ref\Application.dll" />
+    <None Remove="Application\bin\Debug\net7.0\Application.pdb" />
+    <None Remove="Application\obj\Debug\net7.0\Application.sourcelink.json" />
+    <None Remove="Application\obj\Debug\net7.0\Applicat.44B5EDA2.Up2Date" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />

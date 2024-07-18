@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Application.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Domain;
 
 namespace ECommerceAPI.API.Controllers
 {
@@ -11,22 +12,35 @@ namespace ECommerceAPI.API.Controllers
         readonly private IOrderReadRepository _orderReadRepository;
         readonly private IOrderWriteRepository _orderWriteRepository;
 
-        public OrderController(IOrderReadRepository orderReadRepository, IOrderWriteRepository orderWriteRepository)
+        readonly private ICustomerWriteRepository _customerWriteRepository;
+
+        public OrderController(IOrderReadRepository orderReadRepository, IOrderWriteRepository orderWriteRepository, ICustomerWriteRepository customerWriteRepository)
         {
-            _orderReadRepository    = orderReadRepository;
-            _orderWriteRepository   = orderWriteRepository;
+            _orderReadRepository = orderReadRepository;
+            _orderWriteRepository = orderWriteRepository;
+            _customerWriteRepository = customerWriteRepository;
         }
 
         [HttpPost]
-        public async Task Set()
+        public async Task Get()
         {
-            await _orderWriteRepository.AddRangeAsync(new()
-            {
-                new() {Id = Guid.NewGuid(), Address = "Şehit Cevdet Özdemir Mah.", Description = "Vantilatör", Status = "Aktif",
-                    CreatedDate = DateTime.UtcNow, Customer = new()},
-            });
-        }
+            var customerId = Guid.NewGuid();
+            await _customerWriteRepository.AddAsync(new() { Id = customerId, Name = "Berke"});
 
+            await _orderWriteRepository.AddAsync(new() { Description = "zontir", Address = "Kecioren", Status = "active", CustomerId = customerId });
+            await _orderWriteRepository.AddAsync(new() { Description = "tontir", Address = "Akyurt", Status = "deactive", CustomerId = customerId});
+            await _orderWriteRepository.SaveAsync();
+        } 
+
+        [HttpGet("update")]
+        public async Task Update()
+        {
+            Order order = await _orderReadRepository.GetByIdAsync("3eaf492f-21ba-4571-86f0-59abac96fe68");
+            order.Address = "Artvin";
+            await _orderWriteRepository.SaveAsync();
+
+        }
+        /* 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
@@ -52,7 +66,7 @@ namespace ECommerceAPI.API.Controllers
             if (order == null)
                 return NotFound();
             return Ok(order);
-        }
+        } */
     }
 }
 

@@ -22,7 +22,7 @@ namespace ECommerceAPI.API.Controllers
         }
 
         [HttpPost]
-        public async Task Get()
+        public async Task Set()
         {
             var customerId = Guid.NewGuid();
             await _customerWriteRepository.AddAsync(new() { Id = customerId, Name = "Berke"});
@@ -32,15 +32,15 @@ namespace ECommerceAPI.API.Controllers
             await _orderWriteRepository.SaveAsync();
         } 
 
-        [HttpGet("update")]
-        public async Task Update()
+        [HttpPut]
+        public async Task Update(string id, string address)
         {
-            Order order = await _orderReadRepository.GetByIdAsync("3eaf492f-21ba-4571-86f0-59abac96fe68");
-            order.Address = "Artvin";
+            Order order = await _orderReadRepository.GetByIdAsync(id);
+            order.Address = address;
             await _orderWriteRepository.SaveAsync();
 
         }
-        /* 
+         
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
@@ -58,15 +58,6 @@ namespace ECommerceAPI.API.Controllers
                 return NotFound();
             return Ok(order); 
         }
-
-        [HttpGet("single")]
-        public async Task<IActionResult> GetSingle([FromQuery] string address)
-        {
-            var order = await _orderReadRepository.GetSingleAsync(p => p.Address.Contains(address));
-            if (order == null)
-                return NotFound();
-            return Ok(order);
-        } */
     }
 }
 

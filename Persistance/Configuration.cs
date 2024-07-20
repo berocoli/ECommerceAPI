@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Persistance
 {
-    static class Configuration
+    static public class Configuration
     {
         static public string ConnectionString
         {

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Application.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Domain;
 
 namespace ECommerceAPI.API.Controllers
 {
@@ -18,7 +19,7 @@ namespace ECommerceAPI.API.Controllers
             _productWriteRepository = productWriteRepository;
         }
 
-        [HttpPost]
+        /* [HttpPost]
         public async Task Set()
         {
             await _productWriteRepository.AddRangeAsync(new()
@@ -28,6 +29,21 @@ namespace ECommerceAPI.API.Controllers
                 new() { Id = Guid.NewGuid(), Name = "Ervin", Price = 243453.0, CreatedDate = DateTime.UtcNow, Stock = 1},
             });
             var count = await _productWriteRepository.SaveAsync();
+        } */
+        [HttpPost]
+        public async Task<IActionResult> Set([FromBody] List<Product> products)
+        {
+            var product = products.Select(p => new Product
+            {
+                Name = p.Name,
+                Stock = p.Stock,
+                Price = p.Price
+            }).ToList();
+
+            await _productWriteRepository.AddRangeAsync(product);
+            await _productWriteRepository.SaveAsync();
+
+            return Ok(product);
         }
 
         [HttpGet("{id}")]
@@ -43,8 +59,8 @@ namespace ECommerceAPI.API.Controllers
         [HttpGet("search")]
         public async Task<IActionResult> GetWhere([FromQuery] string name)
         {
-            var products = await _productReadRepository.GetWhere(p => p.Name.Contains(name)).ToListAsync();
-            return Ok(products);
+            var product = await _productReadRepository.GetWhere(p => p.Name.Contains(name)).ToListAsync();
+            return Ok(product);
         }
 
         [HttpGet("single")]
@@ -58,4 +74,3 @@ namespace ECommerceAPI.API.Controllers
         }
     }
 }
-

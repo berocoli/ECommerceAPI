@@ -22,15 +22,20 @@ namespace ECommerceAPI.API.Controllers
         }
 
         [HttpPost]
-        public async Task Set()
+        public async Task<IActionResult> Set([FromBody] List<Order> orders)
         {
-            var customerId = Guid.NewGuid();
-            await _customerWriteRepository.AddAsync(new() { Id = customerId, Name = "Berke"});
+            var order = orders.Select(o => new Order
+            {
+                Address = o.Address,
+                Description = o.Description,
+                Status = o.Status,
+            }).ToList();
 
-            await _orderWriteRepository.AddAsync(new() { Description = "zontir", Address = "Kecioren", Status = "active", CustomerId = customerId });
-            await _orderWriteRepository.AddAsync(new() { Description = "tontir", Address = "Akyurt", Status = "deactive", CustomerId = customerId});
+            await _orderWriteRepository.AddRangeAsync(order);
             await _orderWriteRepository.SaveAsync();
-        } 
+
+            return Ok(order);
+        }
 
         [HttpPut]
         public async Task Update(string id, string address)
@@ -40,7 +45,7 @@ namespace ECommerceAPI.API.Controllers
             await _orderWriteRepository.SaveAsync();
 
         }
-         
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
@@ -51,13 +56,12 @@ namespace ECommerceAPI.API.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<IActionResult> GetWhere([FromQuery] string address)
+        public async Task<IActionResult> GetWhere([FromBody] string address)
         {
             var order = await _orderReadRepository.GetWhere(p => p.Address.Contains(address)).ToListAsync();
             if (order == null)
                 return NotFound();
-            return Ok(order); 
+            return Ok(order);
         }
     }
 }
-

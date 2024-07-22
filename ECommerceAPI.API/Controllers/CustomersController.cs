@@ -1,4 +1,5 @@
 ﻿using System;
+using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Application.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -14,22 +15,22 @@ namespace ECommerceAPI.API.Controllers
 
         public CustomersController(ICustomerReadRepository customerReadRepository, ICustomerWriteRepository customerWriteRepository)
         {
-            _customerReadRepository     = customerReadRepository;
+            _customerReadRepository = customerReadRepository;
             _customerWriteRepository = customerWriteRepository;
         }
 
         [HttpPost]
-        public async Task Set()
+        public async Task<IActionResult> Set([FromBody] List<Customer> customers)
         {
-            await _customerWriteRepository.AddRangeAsync(new()
+            var customer = customers.Select(c => new Customer
             {
-                new() { Id = Guid.NewGuid(), Name = "Ervin Parlak", CreatedDate = DateTime.UtcNow},
-                new() { Id = Guid.NewGuid(), Name = "Berke Ozturk", CreatedDate = DateTime.UtcNow},
-                new() { Id = Guid.NewGuid(), Name = "Doga Su Turkileri", CreatedDate = DateTime.UtcNow},
-                new() { Id = Guid.NewGuid(), Name = "Gamze Naz Yildirim", CreatedDate = DateTime.UtcNow},
-                new() { Id = Guid.NewGuid(), Name = "Atakan Yildirim", CreatedDate = DateTime.UtcNow},
-            });
-            var count = await _customerWriteRepository.SaveAsync();
+                Name = c.Name,
+            }).ToList();
+
+            await _customerWriteRepository.AddRangeAsync(customer);
+            await _customerWriteRepository.SaveAsync();
+
+            return Ok(customer);
         }
 
         [HttpGet("{id}")]
@@ -46,14 +47,5 @@ namespace ECommerceAPI.API.Controllers
             var customer = await _customerReadRepository.GetWhere(p => p.Name.Contains(name)).ToListAsync();
             return Ok(customer);
         }
-        [HttpGet("single")]
-        public async Task<IActionResult> GetSingleAsync([FromQuery] string name)
-        {
-            var customer = await _customerReadRepository.GetSingleAsync(p => p.Name.Contains(name));
-            if (customer == null)
-                return NotFound();
-            return Ok(customer);
-        }
     }
 }
-

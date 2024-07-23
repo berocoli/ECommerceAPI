@@ -12,13 +12,10 @@ namespace ECommerceAPI.API.Controllers
         readonly private IOrderReadRepository _orderReadRepository;
         readonly private IOrderWriteRepository _orderWriteRepository;
 
-        readonly private ICustomerWriteRepository _customerWriteRepository;
-
-        public OrderController(IOrderReadRepository orderReadRepository, IOrderWriteRepository orderWriteRepository, ICustomerWriteRepository customerWriteRepository)
+        public OrderController(IOrderReadRepository orderReadRepository, IOrderWriteRepository orderWriteRepository)
         {
             _orderReadRepository = orderReadRepository;
             _orderWriteRepository = orderWriteRepository;
-            _customerWriteRepository = customerWriteRepository;
         }
 
         [HttpPost]

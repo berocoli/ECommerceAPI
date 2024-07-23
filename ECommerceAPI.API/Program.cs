@@ -13,14 +13,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Register persistence services
-builder.Services.AddPersistanceServices(); // Ensure method name is correct
+// Service
+builder.Services.AddPersistanceServices();
 
-// Configure DbContext using the configuration class
-builder.Services.AddDbContext<ECommerceAPIDbContext>(options =>
-    options.UseNpgsql(Configuration.ConnectionString));
-
-// Configure CORS
+// CORS Configuration
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp",

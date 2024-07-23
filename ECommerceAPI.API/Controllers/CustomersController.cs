@@ -3,6 +3,7 @@ using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Application.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Persistance.Repositories;
 
 namespace ECommerceAPI.API.Controllers
 {
@@ -33,6 +34,14 @@ namespace ECommerceAPI.API.Controllers
             return Ok(customer);
         }
 
+        [HttpPut]
+        public async Task Update(string id, string name)
+        {
+            Customer customer = await _customerReadRepository.GetByIdAsync(id);
+            customer.Name = name;
+            await _customerWriteRepository.SaveAsync();
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
@@ -47,5 +56,25 @@ namespace ECommerceAPI.API.Controllers
             var customer = await _customerReadRepository.GetWhere(p => p.Name.Contains(name)).ToListAsync();
             return Ok(customer);
         }
+        [HttpDelete]
+        public async Task Delete(string id)
+        {
+            var customer = await _customerReadRepository.GetByIdAsync(id);
+            if (customer == null)
+            {
+                Ok();
+            }
+
+            _customerWriteRepository.Remove(customer);
+            await _customerWriteRepository.SaveAsync();  
+        }
+        [HttpDelete("{range}")]
+        public async Task DeleteRange(List<Customer> customers)
+        {
+            var customer = customers.Select(c => customers).ToList();
+            await _customerWriteRepository.RemoveRange(customer);
+            await _customerWriteRepository.SaveAsync();
+        }
+
     }
 }

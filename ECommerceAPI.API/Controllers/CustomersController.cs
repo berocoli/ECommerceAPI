@@ -19,6 +19,11 @@ namespace ECommerceAPI.API.Controllers
             _customerReadRepository = customerReadRepository;
             _customerWriteRepository = customerWriteRepository;
         }
+        [HttpPost]
+        public async Task<IActionResult> SetAll([FromBody] List<Customer> customers)
+        {
+            var customer = customers.Select(c => new Customer).ToList();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Set([FromBody] List<Customer> customers)
@@ -71,7 +76,7 @@ namespace ECommerceAPI.API.Controllers
         [HttpDelete("{range}")]
         public async Task DeleteRange(List<Customer> customers)
         {
-            var customer = customers.Select(c => customers).ToList();
+            var customer = customers.Select(c => customers{ }).ToList();
             await _customerWriteRepository.RemoveRange(customer);
             await _customerWriteRepository.SaveAsync();
         }

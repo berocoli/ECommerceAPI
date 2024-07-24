@@ -1,4 +1,5 @@
 ﻿using System;
+using Application.Exceptions;
 using Domain;
 using Domain.Entities.BaseEntity;
 using Microsoft.EntityFrameworkCore;
@@ -11,8 +12,54 @@ namespace Persistance.Contexts
         { }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductsCategory> Categories { get; set; } 
         public DbSet<Order> Orders { get; set; }
         public DbSet<Customer> Customers { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+                base.OnModelCreating(modelBuilder);
+                new DbInitializer(modelBuilder).Seed();
+            // Additional configurations for each entity
+            modelBuilder.Entity<Customer>(entity =>
+            {
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity.Property(e => e.Address)
+                    .IsRequired()
+                    .HasMaxLength(200);
+                entity.Property(e => e.Description)
+                    .HasMaxLength(500);
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(100);
+                entity.Property(e => e.Stock)
+                    .IsRequired();
+                entity.Property(e => e.Price)
+                    .IsRequired();
+                entity.Property(e => e.Description)
+                    .HasMaxLength(500);
+            });
+
+            modelBuilder.Entity<ProductsCategory>(entity =>
+            {
+                entity.Property(e => e.CategoryName)
+                    .IsRequired()
+                    .HasMaxLength(100);
+            });
+        }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
@@ -21,16 +68,16 @@ namespace Persistance.Contexts
             var datas = ChangeTracker
                 .Entries<BaseEntity>();
 
-            foreach(var data in datas)
+            foreach (var data in datas)
             {
-                _  = data.State switch
+                _ = data.State switch
                 {
                     EntityState.Added => data.Entity.CreatedDate = DateTime.UtcNow,
                     EntityState.Modified => data.Entity.UpdatedDate = DateTime.UtcNow,
-                    EntityState.Unchanged => data.Entity.UpdatedDate, // No change needed for Unchanged state, just handle it
-                    EntityState.Deleted => data.Entity.UpdatedDate, // No change needed for Deleted state, just handle it
-                    EntityState.Detached => data.Entity.UpdatedDate // No change needed for Detached state, just handle it
-                } ;
+                    EntityState.Unchanged => data.Entity.UpdatedDate, // No change for Unchanged state
+                    EntityState.Deleted => data.Entity.UpdatedDate, // No change for Deleted state
+                    EntityState.Detached => data.Entity.UpdatedDate // No change for Detached state
+                };
             }
             return await base.SaveChangesAsync(cancellationToken);
         }

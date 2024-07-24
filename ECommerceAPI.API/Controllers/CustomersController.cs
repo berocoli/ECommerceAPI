@@ -19,11 +19,7 @@ namespace ECommerceAPI.API.Controllers
             _customerReadRepository = customerReadRepository;
             _customerWriteRepository = customerWriteRepository;
         }
-        [HttpPost]
-        public async Task<IActionResult> SetAll([FromBody] List<Customer> customers)
-        {
-            var customer = customers.Select(c => new Customer).ToList();
-        }
+        
 
         [HttpPost]
         public async Task<IActionResult> Set([FromBody] List<Customer> customers)
@@ -61,25 +57,23 @@ namespace ECommerceAPI.API.Controllers
             var customer = await _customerReadRepository.GetWhere(p => p.Name.Contains(name)).ToListAsync();
             return Ok(customer);
         }
-        [HttpDelete]
-        public async Task Delete(string id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
         {
             var customer = await _customerReadRepository.GetByIdAsync(id);
             if (customer == null)
             {
-                Ok();
+                return NotFound();
             }
 
-            _customerWriteRepository.Remove(customer);
-            await _customerWriteRepository.SaveAsync();  
-        }
-        [HttpDelete("{range}")]
-        public async Task DeleteRange(List<Customer> customers)
-        {
-            var customer = customers.Select(c => customers{ }).ToList();
-            await _customerWriteRepository.RemoveRange(customer);
-            await _customerWriteRepository.SaveAsync();
-        }
+            bool result = await _customerWriteRepository.RemoveAsync(id);
+            if (!result)
+            {
+                return BadRequest("Could not delete the customer.");
+            }
 
+            await _customerWriteRepository.SaveAsync();
+            return Ok();
+        }
     }
 }

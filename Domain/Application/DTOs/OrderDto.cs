@@ -1,10 +1,8 @@
-﻿using Domain.Entities.BaseEntity;
-
-namespace Domain
+﻿using System;
+namespace Application.DTOs
 {
-    public class Order : BaseEntity
+    public class OrderDTO
     {
-        public Guid CustomerId { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
         public string Status { get; set; }

@@ -14,12 +14,18 @@
     <None Remove="Repositories\CustomerRepo\" />
     <None Remove="Repositories\ProductRepo\" />
     <None Remove="Repositories\OrderRepo\" />
+    <None Remove="DTOs\" />
+    <None Remove="Repositories\CategoryRepo\" />
+    <None Remove="Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />
     <Folder Include="Repositories\CustomerRepo\" />
     <Folder Include="Repositories\ProductRepo\" />
     <Folder Include="Repositories\OrderRepo\" />
+    <Folder Include="DTOs\" />
+    <Folder Include="Repositories\CategoryRepo\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain.csproj" />

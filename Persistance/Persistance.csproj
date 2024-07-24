@@ -26,6 +26,7 @@
     <None Remove="Infrastructure\bin\Debug\net7.0\Infrastructure.dll" />
     <None Remove="Infrastructure\obj\Debug\net7.0\ref\Infrastructure.dll" />
     <None Remove="Infrastructure\bin\Debug\net7.0\Infrastructure.pdb" />
+    <None Remove="Repositories\CategoryRepo\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contexts\" />
@@ -33,6 +34,7 @@
     <Folder Include="Repositories\CustomerRepo\" />
     <Folder Include="Repositories\OrderRepo\" />
     <Folder Include="Repositories\ProductRepo\" />
+    <Folder Include="Repositories\CategoryRepo\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />

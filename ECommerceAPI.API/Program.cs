@@ -19,14 +19,25 @@ builder.Services.AddPersistanceServices();
 // CORS Configuration
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngularApp",
+    options.AddPolicy("AllowSpecificOrigin",
         builder => builder
-            .WithOrigins("http://localhost:4200") // Update with your Angular app URL
+            .WithOrigins("http://http://127.0.0.1") // Update with your Angular app URL
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
 
 var app = builder.Build();
+
+// Apply migrations and seed the database
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ECommerceAPIDbContext>();
+    dbContext.Database.Migrate(); // Apply migrations
+
+    // Seed the database
+    var dbInitializer = new DbInitializer(dbContext);
+    dbInitializer.SeedDatabase();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -39,7 +50,7 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 // Use CORS
-app.UseCors("AllowAngularApp");
+app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthorization();
 

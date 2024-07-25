@@ -18,14 +18,18 @@ namespace Persistance.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-                base.OnModelCreating(modelBuilder);
-                new DbInitializer(modelBuilder).Seed();
+            base.OnModelCreating(modelBuilder);
+            DbInitializer.SeedModel(modelBuilder);
+
             // Additional configurations for each entity
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(100);
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(20);
             });
 
             modelBuilder.Entity<Order>(entity =>

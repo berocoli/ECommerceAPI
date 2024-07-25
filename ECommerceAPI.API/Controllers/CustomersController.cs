@@ -1,8 +1,10 @@
 ﻿using System;
 using Domain;
+using Application.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Application.Repositories;
 using Microsoft.EntityFrameworkCore;
+
 using Persistance.Repositories;
 
 namespace ECommerceAPI.API.Controllers
@@ -19,10 +21,15 @@ namespace ECommerceAPI.API.Controllers
             _customerReadRepository = customerReadRepository;
             _customerWriteRepository = customerWriteRepository;
         }
-        
+        [HttpGet("list")]
+        public async Task<IActionResult> ListCustomers()
+        {
+            var customer =  _customerReadRepository.GetAll();
+            return Ok(customer);
+        }
 
-        [HttpPost]
-        public async Task<IActionResult> Set([FromBody] List<Customer> customers)
+        [HttpPost("setter")]
+        public async Task<IActionResult> Set([FromForm] List<Customer> customers)
         {
             var customer = customers.Select(c => new Customer
             {
@@ -35,11 +42,13 @@ namespace ECommerceAPI.API.Controllers
             return Ok(customer);
         }
 
-        [HttpPut]
-        public async Task Update(string id, string name)
+        [HttpPut("update")]
+        public async Task Update(string id, string name, string email)
         {
             Customer customer = await _customerReadRepository.GetByIdAsync(id);
+
             customer.Name = name;
+            customer.Email = email;
             await _customerWriteRepository.SaveAsync();
         }
 
@@ -47,6 +56,7 @@ namespace ECommerceAPI.API.Controllers
         public async Task<IActionResult> GetById(string id)
         {
             var customer = await _customerReadRepository.GetByIdAsync(id);
+       
             if (customer == null)
                 return NotFound();
             return Ok(customer);
@@ -57,7 +67,7 @@ namespace ECommerceAPI.API.Controllers
             var customer = await _customerReadRepository.GetWhere(p => p.Name.Contains(name)).ToListAsync();
             return Ok(customer);
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("byId")]
         public async Task<IActionResult> Delete(string id)
         {
             var customer = await _customerReadRepository.GetByIdAsync(id);

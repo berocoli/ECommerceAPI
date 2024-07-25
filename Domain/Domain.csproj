@@ -27,6 +27,8 @@
     <Compile Remove="Application\DTOs\ProductsCategoryDto.cs" />
     <Compile Remove="Application\DTOs\CustomerDTO.cs" />
     <Compile Remove="Application\Exceptions\SeedNotPlantedException.cs" />
+    <Compile Remove="Application\DTOs\CustomerDto.cs" />
+    <Compile Remove="Application\DTOs\OrderDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Application\obj\Debug\net7.0\Application.assets.cache" />
@@ -53,6 +55,7 @@
     <None Remove="Application\bin\Debug\net7.0\Application.dll" />
     <None Remove="Application\obj\Debug\net7.0\ref\Application.dll" />
     <None Remove="Application\bin\Debug\net7.0\Application.pdb" />
+    <None Remove="Application\obj\Debug\net7.0\Application.csproj.CopyComplete" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />

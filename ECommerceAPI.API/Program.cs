@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Persistance;
 using Persistance.Contexts;
 using Microsoft.Extensions.Configuration;
+using Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,13 +16,14 @@ builder.Services.AddSwaggerGen();
 
 // Service
 builder.Services.AddPersistanceServices();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // CORS Configuration
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
         builder => builder
-            .WithOrigins("http://http://127.0.0.1") // Update with your Angular app URL
+            .WithOrigins("http://localhost:5174") 
             .AllowAnyHeader()
             .AllowAnyMethod());
 });

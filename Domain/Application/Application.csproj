@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Repositories\" />
@@ -17,6 +19,9 @@
     <None Remove="DTOs\" />
     <None Remove="Repositories\CategoryRepo\" />
     <None Remove="Exceptions\" />
+    <None Remove="DTOs\Customer\" />
+    <None Remove="DTOs\Order\" />
+    <None Remove="DTOs\Product\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />
@@ -26,6 +31,9 @@
     <Folder Include="DTOs\" />
     <Folder Include="Repositories\CategoryRepo\" />
     <Folder Include="Exceptions\" />
+    <Folder Include="DTOs\Customer\" />
+    <Folder Include="DTOs\Order\" />
+    <Folder Include="DTOs\Product\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain.csproj" />

@@ -8,5 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />
+    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="7.0.20" />
+    <PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.1" />
+  </ItemGroup>
+
+  <!-- Optionally include the folder for organizational purposes -->
+  <ItemGroup>
+    <Folder Include="Operations\" />
   </ItemGroup>
 </Project>

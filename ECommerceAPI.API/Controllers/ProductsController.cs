@@ -4,6 +4,8 @@ using Application.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Domain;
 
+// safe delete yap
+
 namespace ECommerceAPI.API.Controllers
 {
     [Route("api/[controller]")]

@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Application.DTOs
 {
-    public class CustomerDTO
+    public class CustomerDto
     {
         public string Name { get; set; }
         public string EMail { get; set; }

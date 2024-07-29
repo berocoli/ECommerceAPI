@@ -41,6 +41,11 @@ namespace Persistance.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -51,115 +56,129 @@ namespace Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("021b2992-64c1-4160-836f-36b0a6446dc2"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7050),
+                            Id = new Guid("a44c91dd-e978-4b75-8efa-fea0135b3cd6"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 115, DateTimeKind.Utc).AddTicks(5910),
                             Email = "example1@mail.com",
                             Name = "Berke Öztürk",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7050)
+                            Password = "G5OZmLjVFiadwqIxAlUK0QOz+suIAeDM1hcL+JY8GSc=",
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 115, DateTimeKind.Utc).AddTicks(5910)
                         },
                         new
                         {
-                            Id = new Guid("9e95f67b-5093-4e7d-a40c-1bfba880a368"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7060),
+                            Id = new Guid("a943810d-1ed5-4d6e-a72b-37288197de53"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 121, DateTimeKind.Utc).AddTicks(9820),
                             Email = "example2@mail.com",
                             Name = "Doğa Su Türkileri",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7060)
+                            Password = "ekf3DGLYwCm85q3SMnJlebSHL78d+tf0Io7LQZ8qSac=",
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 121, DateTimeKind.Utc).AddTicks(9820)
                         },
                         new
                         {
-                            Id = new Guid("bd104b34-10fe-495f-bda9-01aff45faa3d"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7060),
+                            Id = new Guid("b864c69f-bb05-4af6-8830-de7c889ba2cd"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 128, DateTimeKind.Utc).AddTicks(2520),
                             Email = "example3@mail.com",
                             Name = "Ervin Parlak",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7060)
+                            Password = "F+0/bzdyBsWqn2k3QLbMVKMo6pkI9QyeSXRQa+9THy4=",
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 128, DateTimeKind.Utc).AddTicks(2520)
                         },
                         new
                         {
-                            Id = new Guid("db447099-d227-46e3-8ea5-6d0af8f87e2f"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7060),
+                            Id = new Guid("92474f7d-70ee-430e-80fb-c4ab74c5ddbe"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 134, DateTimeKind.Utc).AddTicks(4210),
                             Email = "example4@mail.com",
                             Name = "Gamze Naz Yıldırım",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7060)
+                            Password = "3jx5Ce8sgeA1EP5Lgd0MIcBlnRjn2bk7RBi5Yi7E2Ng=",
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 134, DateTimeKind.Utc).AddTicks(4210)
                         },
                         new
                         {
-                            Id = new Guid("7d24d476-08c9-4a0c-b063-8d4c720a9167"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7070),
+                            Id = new Guid("17c157ea-ea01-4501-897b-08a762e1539d"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 142, DateTimeKind.Utc).AddTicks(2590),
                             Email = "example5@mail.com",
                             Name = "Atakan Yıldırım",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7070)
+                            Password = "4Dim7oiKc4+2QPXLWAnb7u8FIyDrVvQPz4eoasJp72w=",
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 142, DateTimeKind.Utc).AddTicks(2590)
                         },
                         new
                         {
-                            Id = new Guid("6b03d16b-c16a-4994-bd07-b2325542292c"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7070),
+                            Id = new Guid("764abf2f-a4d3-4e8e-98e3-f4e501bdae0c"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 148, DateTimeKind.Utc).AddTicks(3970),
                             Email = "example6@mail.com",
                             Name = "Ahmet Mümtaz Taylan",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7070)
+                            Password = "xCRJNghD4RxLFXd3T7Tu8WS4aePqZyY0Fmv/GKyS9q4=",
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 148, DateTimeKind.Utc).AddTicks(3970)
                         },
                         new
                         {
-                            Id = new Guid("defe0b94-726e-4095-a7eb-e9523bc3bebd"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7070),
+                            Id = new Guid("41a7a8c4-fdcd-4266-adc4-a5f3915cc20b"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 154, DateTimeKind.Utc).AddTicks(5420),
                             Email = "example7@mail.com",
                             Name = "Cem Yılmaz",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7080)
+                            Password = "9ezQBox1rnCK+yOiPjduKD+fodzr5OOeyXdAuh7BGzM=",
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 154, DateTimeKind.Utc).AddTicks(5420)
                         },
                         new
                         {
-                            Id = new Guid("823b9562-6dd4-4875-a894-d760a9928c2b"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7080),
+                            Id = new Guid("cca027b5-5d27-406a-9d70-241285b6c021"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 160, DateTimeKind.Utc).AddTicks(6400),
                             Email = "example8@mail.com",
                             Name = "Şahan Gökbakar",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7080)
+                            Password = "fIkEDckDcFAz7rm82kBY8+76jH3MeTQ9QGWAtxDgHiU=",
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 160, DateTimeKind.Utc).AddTicks(6400)
                         },
                         new
                         {
-                            Id = new Guid("71b3b994-6efb-4dd2-a075-a1116a967d49"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7080),
+                            Id = new Guid("9de7b83c-0d07-47af-b98e-6884519b68d5"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 166, DateTimeKind.Utc).AddTicks(7480),
                             Email = "example9@mail.com",
                             Name = "Mahsun Kırmızıgül",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7080)
+                            Password = "zXhWrrk5YLmI0EHCEdVX0MU0Z0BU7OlZ2CQXtQfN+Dw=",
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 166, DateTimeKind.Utc).AddTicks(7480)
                         },
                         new
                         {
-                            Id = new Guid("b7037f28-11e5-437d-8eff-a2226cd19c2e"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7100),
+                            Id = new Guid("a7a8ac66-721f-437f-9ca2-ab91b017405a"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 172, DateTimeKind.Utc).AddTicks(8700),
                             Email = "example10@mail.com",
                             Name = "Erkin Karaçay",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7100)
+                            Password = "tRhpVUl5mRe9n5hPcyjUhH/ZvttHt+9PuCHe30X3ngY=",
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 172, DateTimeKind.Utc).AddTicks(8700)
                         },
                         new
                         {
-                            Id = new Guid("5c4f0c1c-f5e4-41a5-842c-72220ecec0fc"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7100),
+                            Id = new Guid("d7f9084d-c1da-45ac-b8e0-d095f467305c"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 178, DateTimeKind.Utc).AddTicks(9980),
                             Email = "example11@mail.com",
                             Name = "Ozan İmamhatipoğlu",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7110)
+                            Password = "EdcBcJ8iKXqsXnPF7ylNN8jv3Kjx4ox5bU1YCZPaTtg=",
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 178, DateTimeKind.Utc).AddTicks(9980)
                         },
                         new
                         {
-                            Id = new Guid("5104002b-fc7b-4ff1-a992-8159aef78837"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7110),
+                            Id = new Guid("2d1027eb-593b-438c-a0a5-dab66c3f5e27"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 185, DateTimeKind.Utc).AddTicks(5880),
                             Email = "example12@mail.com",
                             Name = "Barkın Özkaplan",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7110)
+                            Password = "67pGUJ62P6tGT+eXz4miZkWFLsJyz19HL6uNVPJHTO0=",
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 185, DateTimeKind.Utc).AddTicks(5880)
                         },
                         new
                         {
-                            Id = new Guid("b975bc43-fb3e-4e8a-8181-e1392f8a2aaf"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7110),
+                            Id = new Guid("1574c5a5-eaac-4627-a3a1-4f154d779280"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 191, DateTimeKind.Utc).AddTicks(6760),
                             Email = "example13@mail.com",
                             Name = "Barış Onur Aydın",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7110)
+                            Password = "XZvGMmcpRIRQ4ij/QUJv4vNnKosFQ1HoMyRTNstSP8U=",
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 191, DateTimeKind.Utc).AddTicks(6760)
                         },
                         new
                         {
-                            Id = new Guid("02bbe1a6-b908-4f7f-8577-69601fa9dbf9"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7120),
+                            Id = new Guid("ec98ee00-c824-4666-aafa-b932e569203b"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6690),
                             Email = "example14@mail.com",
                             Name = "Deniz Zarshat",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7120)
+                            Password = "D1A3oRXnOikirXRt3UYGUv2z11iQgwBzq4xpE8GzUdk=",
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6690)
                         });
                 });
 
@@ -200,103 +219,103 @@ namespace Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("957a1a2b-5130-432a-a77f-be335feb289d"),
+                            Id = new Guid("8030d00e-7304-498a-b4dc-9a6e7d0ae338"),
                             Address = "2222 Oak Drive, Hillcrest, NY 10001",
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7190),
-                            CustomerId = new Guid("2012fe04-c7c6-4940-84f0-a1e0f543fe5e"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6850),
+                            CustomerId = new Guid("70231cce-0530-40c4-916d-f2e6122e40f4"),
                             Description = " Please leave the package at the front porch if no one is home.",
                             Status = "Pending",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7190)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6850)
                         },
                         new
                         {
-                            Id = new Guid("05ce36b4-859e-4467-860d-fb99ba0dc49b"),
+                            Id = new Guid("42134d94-1b79-459a-a269-59076cfc6d2f"),
                             Address = "456 Elm Avenue, Oakville, CA 94022",
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7190),
-                            CustomerId = new Guid("f0448773-a9f2-4820-9ceb-7d545af15b7e"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6860),
+                            CustomerId = new Guid("12e6b107-eb5b-4fc3-a76c-72ff53789db4"),
                             Description = " Please leave the package at the front porch if no one is home.",
                             Status = "Pending",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7190)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6860)
                         },
                         new
                         {
-                            Id = new Guid("9dac4830-1c29-4d3f-bf1b-68936d70269a"),
+                            Id = new Guid("6025fb7d-cb29-401a-86ab-bf74a21c64f8"),
                             Address = "10101 Juniper Avenue, Blue Ridge, NC 27501",
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7200),
-                            CustomerId = new Guid("a74daf87-beb2-4307-99a8-18d55717c3c8"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6860),
+                            CustomerId = new Guid("7f713619-576e-4528-b821-ddf9d0a0000a"),
                             Description = " Please leave the package at the front porch if no one is home.",
                             Status = "Pending",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7200)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6860)
                         },
                         new
                         {
-                            Id = new Guid("b1544082-ffbf-4423-b24f-41a796fa7530"),
+                            Id = new Guid("8e32e065-8275-4652-a15c-c6d9ca4ea815"),
                             Address = "9999 Spruce Place, Highland, UT 84003",
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7210),
-                            CustomerId = new Guid("282b3e41-363c-4f0f-87e4-87f5fc01db17"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6870),
+                            CustomerId = new Guid("54d7e148-18c5-4677-96f4-0b60348fbb96"),
                             Description = " Please leave the package at the front porch if no one is home.",
                             Status = "Pending",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7210)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6870)
                         },
                         new
                         {
-                            Id = new Guid("7c909f5a-4a31-44d2-b670-f5d5fa7faac7"),
+                            Id = new Guid("2b7174a8-e388-4584-bfdc-047249d80924"),
                             Address = "4444 Aspen Court, Meadowbrook, OR 97001",
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7210),
-                            CustomerId = new Guid("57205986-1877-4445-975b-4ad086a7c1b0"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6880),
+                            CustomerId = new Guid("bbe61aae-85db-4fdf-a226-52020a680d01"),
                             Description = " Please leave the package at the front porch if no one is home.",
                             Status = "Pending",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7210)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6880)
                         },
                         new
                         {
-                            Id = new Guid("2f190b66-749c-48c6-b6b9-0bd31ef056be"),
+                            Id = new Guid("9c815b78-97bd-4040-aae6-4f63290ae46f"),
                             Address = "789 Pine Lane, Rivertown, TX 75001",
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7220),
-                            CustomerId = new Guid("27302df3-ed18-4454-810f-86655a14da73"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6890),
+                            CustomerId = new Guid("033e9422-2800-4afc-858d-fbaa2d1a8597"),
                             Description = " Please leave the package at the front porch if no one is home.",
                             Status = "Pending",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7220)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6890)
                         },
                         new
                         {
-                            Id = new Guid("571a7949-72a0-4d42-8b86-6d50eed9dcf2"),
+                            Id = new Guid("e2ca0f14-5252-48ac-836c-cb000b0aaf60"),
                             Address = "5555 Redwood Street, Greenfield, AZ 85001",
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7230),
-                            CustomerId = new Guid("1f7aceb3-6109-43d9-a362-729b578006e8"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6890),
+                            CustomerId = new Guid("75ca78fc-2f7e-4594-b8c0-e872209ce250"),
                             Description = " Please leave the package at the front porch if no one is home.",
                             Status = "Pending",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7230)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6890)
                         },
                         new
                         {
-                            Id = new Guid("94a2b707-d968-4a76-ba07-77d6bffcb673"),
+                            Id = new Guid("60b56e23-2305-42ca-80c6-a0dc9fd04cad"),
                             Address = "7777 Poplar Path, Brookhaven, GA 30301",
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7230),
-                            CustomerId = new Guid("d6a5c7bb-6bfd-4417-8acb-7f9a03d5ac17"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6900),
+                            CustomerId = new Guid("26eca96a-77d8-4448-97d0-df46ba00fc40"),
                             Description = " Please leave the package at the front porch if no one is home.",
                             Status = "Pending",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7230)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6900)
                         },
                         new
                         {
-                            Id = new Guid("481829c7-a28a-467b-8822-b5254a23b36e"),
+                            Id = new Guid("894bea55-364f-4dac-b0a2-09707f411eb4"),
                             Address = "1010 Birch Road, Forestville, WA 98001",
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7240),
-                            CustomerId = new Guid("08cd19c3-7f17-4d6e-9abd-d2dbe870e1a6"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6900),
+                            CustomerId = new Guid("f205e09b-acce-4781-a212-ef5ee3180339"),
                             Description = " Please leave the package at the front porch if no one is home.",
                             Status = "Pending",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7240)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6910)
                         },
                         new
                         {
-                            Id = new Guid("92f53599-543a-4d90-af8c-f48d9d7efa94"),
+                            Id = new Guid("68967530-a4cc-4dc9-9593-11b0c181664a"),
                             Address = "8888 Cypress Circle, Riverview, MI 48201",
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7250),
-                            CustomerId = new Guid("9aab7462-78af-4fea-b9dc-c2821cd47a6d"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6910),
+                            CustomerId = new Guid("e32a838d-ee1b-4e24-b6a9-8697131eaa3b"),
                             Description = " Please leave the package at the front porch if no one is home.",
                             Status = "Pending",
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7250)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6910)
                         });
                 });
 
@@ -338,201 +357,201 @@ namespace Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("57b9e375-53c2-4df5-9986-24781db1b4ae"),
-                            CategoryId = new Guid("35fa0668-ac2b-4ff3-aaa4-f25eb8a36c37"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7270),
+                            Id = new Guid("154a678d-8b66-4467-90c9-9a6fe9a08971"),
+                            CategoryId = new Guid("38563825-e48f-4166-9dcd-be27bdb2baaf"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6940),
                             Description = "An ergonomic office chair with adjustable height and lumbar support. Ideal for long hours of work.",
                             Name = "BirchCraft Office Chair",
                             Price = 149.99000000000001,
                             Stock = 150.0,
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7270)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6940)
                         },
                         new
                         {
-                            Id = new Guid("386c2f54-ad3f-468a-8982-19a36e00d597"),
-                            CategoryId = new Guid("3dbc50d8-01ff-4504-9b5a-8806ddc1d688"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7270),
+                            Id = new Guid("2dc5979e-2185-45ee-9adf-00b9daedfa00"),
+                            CategoryId = new Guid("9f644a59-c6b3-4c66-acb8-c4d5398ed136"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6950),
                             Description = "Lightweight and comfortable running shoes with breathable mesh and cushioned sole.",
                             Name = "OakHill Running Shoes",
                             Price = 89.989999999999995,
                             Stock = 300.0,
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7270)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6950)
                         },
                         new
                         {
-                            Id = new Guid("54437af2-8b29-4f17-90a2-abf477aed745"),
-                            CategoryId = new Guid("aa93bad0-3991-4a8a-854e-1e8c8eb41125"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7280),
+                            Id = new Guid("0fc2d043-0714-4a4d-ab96-e9b73a21e9e5"),
+                            CategoryId = new Guid("67afe7d7-ea69-48c1-9979-a74d4f9bfc72"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6950),
                             Description = "A portable Bluetooth speaker with high-quality sound and long battery life. Perfectforoutdooractivities.",
                             Name = "WillowWave Bluetooth Speaker",
                             Price = 59.990000000000002,
                             Stock = 250.0,
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7280)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6950)
                         },
                         new
                         {
-                            Id = new Guid("aa64b996-e9f2-450b-b9cb-47706e857437"),
-                            CategoryId = new Guid("d695ba01-ae33-468e-8f33-63180b4d7dbe"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7290),
+                            Id = new Guid("3a0320f0-a2ce-4580-8d36-b136f0005d8c"),
+                            CategoryId = new Guid("403f5b02-d059-42be-b644-ea1d6fd3a833"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6960),
                             Description = "A stylish LED lamp with adjustable brightness and color temperature. Ideal for reading and working.",
                             Name = "AspenGlow LED Lamp",
                             Price = 39.990000000000002,
                             Stock = 180.0,
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7290)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6960)
                         },
                         new
                         {
-                            Id = new Guid("0f1d1e36-521f-4a1d-8819-07f70451e559"),
-                            CategoryId = new Guid("b16e1256-86af-4099-bafd-db06787f68fc"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7290),
+                            Id = new Guid("08667153-bf9d-4915-8f84-001916476eeb"),
+                            CategoryId = new Guid("a16f567b-5b84-4398-917c-c5ac5d998b7f"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6960),
                             Description = "A powerful gaming laptop with high-end graphics and fast processing speed. Ideal for gamers.",
                             Name = "RedwoodX Gaming Laptop",
                             Price = 1299.99,
                             Stock = 30.0,
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7290)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6960)
                         },
                         new
                         {
-                            Id = new Guid("51c74c43-5d3b-4b68-b5ad-57a24a68c62f"),
-                            CategoryId = new Guid("718bcaec-40dd-4743-9fe2-5a9668594482"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7300),
+                            Id = new Guid("a6d17b8b-5c6a-4482-9a57-6a457782c0a5"),
+                            CategoryId = new Guid("3d5c72a6-3fc4-404e-9f76-f8554182849e"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6970),
                             Description = "A smart home security camera with night vision and motion detection. Connects to your smartphone.",
                             Name = "FirNest Home Security Camera",
                             Price = 99.989999999999995,
                             Stock = 100.0,
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7300)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6970)
                         },
                         new
                         {
-                            Id = new Guid("17c49146-62ca-40c6-9f67-661dfbaba6b6"),
-                            CategoryId = new Guid("a291f8cf-43fe-4fd9-b126-21d08fa0b289"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7300),
+                            Id = new Guid("dcd2c947-6079-4529-b92b-0da24e40f26e"),
+                            CategoryId = new Guid("8bb87764-34f0-4a1d-aa2a-7c46ef8275b8"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6980),
                             Description = "A fitness tracker with heart rate monitoring, step counting, and sleep tracking. Waterproof design.",
                             Name = "PoplarPulse Fitness Tracker",
                             Price = 49.990000000000002,
                             Stock = 220.0,
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7300)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6980)
                         },
                         new
                         {
-                            Id = new Guid("2bed43a5-fffd-4935-bba4-8342b23a4e46"),
-                            CategoryId = new Guid("ca55d5b5-9651-4f18-8ba5-6bd73bdcf163"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7310),
+                            Id = new Guid("71874edc-e11b-4c3f-8299-a81f91c40cc2"),
+                            CategoryId = new Guid("bfb4778f-44b2-456b-ad6f-f05e1f9c03e8"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6980),
                             Description = "A non-slip yoga mat with extra cushioning for comfort. Perfect for yoga and pilates.",
                             Name = "CypressFlow Yoga Mat",
                             Price = 29.989999999999998,
                             Stock = 500.0,
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7310)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6980)
                         },
                         new
                         {
-                            Id = new Guid("a1239caf-37e7-40d3-8d4a-08e400e92496"),
-                            CategoryId = new Guid("dd3a167f-f108-438a-9587-ad6c3504873d"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7320),
+                            Id = new Guid("bb1d520a-fb43-4ca6-9718-49745d4222e6"),
+                            CategoryId = new Guid("8f6d99a3-13d6-49f2-9643-1234d886ee62"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6990),
                             Description = "A high-performance drone with HD camera and long battery life. Ideal for aerial photography.",
                             Name = "SpruceSky Drone",
                             Price = 349.99000000000001,
                             Stock = 60.0,
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7320)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(6990)
                         },
                         new
                         {
-                            Id = new Guid("d7190fe0-03f4-4292-bfb3-9d3e790352de"),
-                            CategoryId = new Guid("d7c60025-1686-477a-94b3-14fbfd7ef26c"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7320),
+                            Id = new Guid("8b92dfd3-d7b7-40aa-a6b4-7b1bd1597719"),
+                            CategoryId = new Guid("caddc477-7ed0-4c2f-84ac-2f0093ef1394"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(7000),
                             Description = "An insulated water bottle that keeps drinks hot or cold for hours. Made from stainless steel.",
                             Name = "JuniperPure Water Bottle",
                             Price = 24.989999999999998,
                             Stock = 400.0,
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7320)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(7000)
                         },
                         new
                         {
-                            Id = new Guid("3465eec2-4082-4981-a052-80e4c1787c84"),
-                            CategoryId = new Guid("fb35511e-fe7a-406a-b20a-b80c7c608bad"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7330),
+                            Id = new Guid("657f3107-e583-4bf5-a19c-cec337d83f3c"),
+                            CategoryId = new Guid("285e9f5d-9f6f-4eb0-8975-ca83190bc541"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(7000),
                             Description = "A durable and flexible smartphone case that provides excellent protection. Compatible with most models.",
                             Name = "MapleFlex Smartphone Case",
                             Price = 19.989999999999998,
                             Stock = 350.0,
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7330)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(7000)
                         },
                         new
                         {
-                            Id = new Guid("b4b4534c-cc35-4e62-a496-397dd72d5ce1"),
-                            CategoryId = new Guid("fe5cf69b-555a-4cc7-a1cf-5b221de463df"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7340),
+                            Id = new Guid("f5ce7751-8e6b-42e8-b2c3-29ff1a3a36a7"),
+                            CategoryId = new Guid("b99a3cbe-8560-4257-9581-e96c4f132963"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(7010),
                             Description = "A contemporary table lamp with touch control and adjustable brightness. Perfect for any room.",
                             Name = "ElmGlow Table Lamp",
                             Price = 34.990000000000002,
                             Stock = 140.0,
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7340)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(7010)
                         },
                         new
                         {
-                            Id = new Guid("422e433e-d817-474e-ba63-12e81608f4f6"),
-                            CategoryId = new Guid("4e023979-b606-4b6d-8e73-a33906604f7e"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7340),
+                            Id = new Guid("a5d7bf2a-c07a-4f11-93fc-f20556bd930e"),
+                            CategoryId = new Guid("a266e915-9ea9-489d-9f90-c25dba1acb58"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(7010),
                             Description = "A professional kitchen knife set with high-carbon stainless steel blades. Includes 6 knives and ablock.",
                             Name = "PineEdge Kitchen Knife Set",
                             Price = 89.989999999999995,
                             Stock = 85.0,
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7340)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(7010)
                         },
                         new
                         {
-                            Id = new Guid("6eba8dda-ec0b-47a2-900f-9c14430e63c8"),
-                            CategoryId = new Guid("9e2d05a5-fc78-4537-88d6-dc94e6015f59"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7350),
+                            Id = new Guid("872d3421-5038-49e1-8a15-008068ea46fa"),
+                            CategoryId = new Guid("dc585a8a-b9d5-4c56-86e2-20a13fec79c1"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(7020),
                             Description = "High-quality wireless earbuds with noise cancellation and long battery life. Comes with a chargingcase.",
                             Name = "BirchSound Wireless Earbuds",
                             Price = 79.989999999999995,
                             Stock = 300.0,
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7350)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(7020)
                         },
                         new
                         {
-                            Id = new Guid("4639e332-6d30-4d56-9049-bb6153d792a0"),
-                            CategoryId = new Guid("c248b181-00b9-4661-8018-40c379dd795a"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7360),
+                            Id = new Guid("c9683cb5-a495-482c-bc28-9daefabc5c63"),
+                            CategoryId = new Guid("a4482f7e-9184-4b75-8a54-378be8939bea"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(7030),
                             Description = "A programmable coffee maker with a built-in grinder and timer. Makes up to 12 cups of coffee.",
                             Name = "OakPure Coffee Maker",
                             Price = 129.99000000000001,
                             Stock = 90.0,
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7360)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(7030)
                         },
                         new
                         {
-                            Id = new Guid("168a1ef2-b01a-43fd-8ad4-20b19e76e5ad"),
-                            CategoryId = new Guid("9d96387e-c8b1-4504-b803-632ec7be9f06"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7360),
+                            Id = new Guid("39e167dd-00e9-42a1-bc0a-cf4f2c0b4c6d"),
+                            CategoryId = new Guid("5e4e264d-e5ad-4160-8aa6-cdf608c766ae"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(7030),
                             Description = "A lightweight and durable camping tent that accommodates up to 4 people. Easy to set up.",
                             Name = "WillowLite Camping Tent",
                             Price = 199.99000000000001,
                             Stock = 70.0,
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7360)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(7030)
                         },
                         new
                         {
-                            Id = new Guid("a3382b72-5452-44a2-990d-d060b4780ae9"),
-                            CategoryId = new Guid("e6a79807-08df-4a07-8fde-6be7373803b3"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7370),
+                            Id = new Guid("810d90ef-56f5-48ea-8682-d38b9fcc61e8"),
+                            CategoryId = new Guid("c2e85e5a-92d6-4a08-a0ef-567d18f54e84"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(7040),
                             Description = "A compact mini fridge with adjustable temperature settings. Perfect for dorm rooms and offices.",
                             Name = "AspenCool Mini Fridge",
                             Price = 149.99000000000001,
                             Stock = 120.0,
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7370)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(7040)
                         },
                         new
                         {
-                            Id = new Guid("31b9ca67-1956-4da1-ad92-414203ac30cc"),
-                            CategoryId = new Guid("47112e0f-7a07-4803-8be3-cc521966860a"),
-                            CreatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7370),
+                            Id = new Guid("8f1509cd-e282-4b0f-ab82-4b457ea90ebc"),
+                            CategoryId = new Guid("fc3daa74-0b85-438e-8e87-8a7db31df605"),
+                            CreatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(7040),
                             Description = "A high-capacity power bank with fast charging technology. Compatible with all USB devices.",
                             Name = "RedwoodMax Power Bank",
                             Price = 39.990000000000002,
                             Stock = 250.0,
-                            UpdatedDate = new DateTime(2024, 7, 25, 11, 21, 8, 52, DateTimeKind.Utc).AddTicks(7370)
+                            UpdatedDate = new DateTime(2024, 7, 29, 14, 40, 4, 197, DateTimeKind.Utc).AddTicks(7040)
                         });
                 });
 

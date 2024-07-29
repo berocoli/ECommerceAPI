@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Persistance.Contexts;
 using Persistance.Repositories;
+using Application;
 
 namespace Persistance
 {

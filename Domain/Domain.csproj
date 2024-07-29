@@ -17,7 +17,6 @@
     <Compile Remove="Application\Repositories\ProductRepo\IProductReadRepository.cs" />
     <Compile Remove="Application\Repositories\ProductRepo\IProductWriteRepository.cs" />
     <Compile Remove="Application\Repositories\OrderRepo\IOrderWriteRepository.cs" />
-    <Compile Remove="Application\obj\Debug\net7.0\Application.AssemblyInfo.cs" />
     <Compile Remove="Application\Repositories\IReadRepository.cs" />
     <Compile Remove="Application\Repositories\CategoryRepo\ICategoryReadRepository.cs" />
     <Compile Remove="Application\Repositories\CustomerRepo\ICustomerReadRepository.cs" />
@@ -26,9 +25,17 @@
     <Compile Remove="Application\DTOs\ProductDto.cs" />
     <Compile Remove="Application\DTOs\ProductsCategoryDto.cs" />
     <Compile Remove="Application\DTOs\CustomerDTO.cs" />
-    <Compile Remove="Application\Exceptions\SeedNotPlantedException.cs" />
     <Compile Remove="Application\DTOs\CustomerDto.cs" />
     <Compile Remove="Application\DTOs\OrderDto.cs" />
+    <Compile Remove="Application\Exceptions\SeedNotPlantedException.cs" />
+    <Compile Remove="Application\DTOs\Order\OrderDto.cs" />
+    <Compile Remove="Application\DTOs\Product\ProductDto.cs" />
+    <Compile Remove="Application\DTOs\Product\ProductsCategoryDto.cs" />
+    <Compile Remove="Application\DTOs\Customer\CreateCustomerDTO.cs" />
+    <Compile Remove="Application\DTOs\Customer\CreateCustomerDto.cs" />
+    <Compile Remove="Application\DTOs\Customer\CustomerDto.cs" />
+    <Compile Remove="Application\MappingProfile.cs" />
+    <Compile Remove="Application\obj\Debug\net7.0\Application.AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Application\obj\Debug\net7.0\Application.assets.cache" />
@@ -36,26 +43,29 @@
     <None Remove="Entities\Base Entity\" />
     <None Remove="Application\obj\Application.csproj.nuget.g.targets" />
     <None Remove="Application\obj\Debug\net7.0\Application.csproj.FileListAbsolute.txt" />
-    <None Remove="Application\obj\Debug\net7.0\Application.csproj.CoreCompileInputs.cache" />
-    <None Remove="Application\obj\Debug\net7.0\Application.AssemblyInfoInputs.cache" />
-    <None Remove="Application\obj\Debug\net7.0\Application.pdb" />
-    <None Remove="Application\obj\Debug\net7.0\Application.dll" />
-    <None Remove="Application\obj\Debug\net7.0\Application.GeneratedMSBuildEditorConfig.editorconfig" />
-    <None Remove="Application\obj\Debug\net7.0\refint\Application.dll" />
-    <None Remove="Application\bin\Debug\net7.0\Application.deps.json" />
-    <None Remove="Application\obj\Debug\net7.0\Application.csproj.AssemblyReference.cache" />
+    <None Remove="Application\obj\Debug\net7.0\Application.csproj.CopyComplete" />
+    <None Remove="Application\.DS_Store" />
+    <None Remove="Entities\.DS_Store" />
+    <None Remove=".DS_Store" />
     <None Remove="Application\obj\Application.csproj.nuget.g.props" />
     <None Remove="Application\obj\project.assets.json" />
     <None Remove="Application\obj\project.nuget.cache" />
     <None Remove="Application\obj\Application.csproj.nuget.dgspec.json" />
+    <None Remove="Application\obj\Debug\net7.0\Application.csproj.AssemblyReference.cache" />
+    <None Remove="Application\obj\Debug\net7.0\Application.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Remove="Application\obj\Debug\net7.0\Application.AssemblyInfoInputs.cache" />
+    <None Remove="Application\obj\Debug\net7.0\Application.csproj.CoreCompileInputs.cache" />
     <None Remove="Application\obj\Debug\net7.0\Application.sourcelink.json" />
-    <None Remove="Application\bin\Debug\net7.0\Domain.dll" />
+    <None Remove="Application\obj\Debug\net7.0\Application.dll" />
+    <None Remove="Application\obj\Debug\net7.0\refint\Application.dll" />
+    <None Remove="Application\obj\Debug\net7.0\Application.pdb" />
     <None Remove="Application\bin\Debug\net7.0\Domain.pdb" />
+    <None Remove="Application\bin\Debug\net7.0\Domain.dll" />
     <None Remove="Application\obj\Debug\net7.0\Applicat.44B5EDA2.Up2Date" />
+    <None Remove="Application\bin\Debug\net7.0\Application.deps.json" />
     <None Remove="Application\bin\Debug\net7.0\Application.dll" />
     <None Remove="Application\obj\Debug\net7.0\ref\Application.dll" />
     <None Remove="Application\bin\Debug\net7.0\Application.pdb" />
-    <None Remove="Application\obj\Debug\net7.0\Application.csproj.CopyComplete" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />

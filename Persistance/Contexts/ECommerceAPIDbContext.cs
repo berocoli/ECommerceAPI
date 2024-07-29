@@ -2,6 +2,7 @@
 using Application.Exceptions;
 using Domain;
 using Domain.Entities.BaseEntity;
+using Infrastructure.Operations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistance.Contexts
@@ -30,6 +31,9 @@ namespace Persistance.Contexts
                 entity.Property(e => e.Email)
                     .IsRequired()
                     .HasMaxLength(20);
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(256);
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -74,13 +78,27 @@ namespace Persistance.Contexts
 
             foreach (var data in datas)
             {
-                _ = data.State switch
+                switch(data.State)
                 {
-                    EntityState.Added => data.Entity.CreatedDate = DateTime.UtcNow,
-                    EntityState.Modified => data.Entity.UpdatedDate = DateTime.UtcNow,
-                    EntityState.Unchanged => data.Entity.UpdatedDate, // No change for Unchanged state
-                    EntityState.Deleted => data.Entity.UpdatedDate, // No change for Deleted state
-                    EntityState.Detached => data.Entity.UpdatedDate // No change for Detached state
+                    case EntityState.Added:
+                        data.Entity.CreatedDate = DateTime.UtcNow;
+                        if(data.Entity is Customer customer && !string.IsNullOrWhiteSpace(customer.Password))
+                        {
+                            customer.Password = PasswordHasher.HashPassword(customer.Password);
+                        }
+                        break;
+                    case EntityState.Modified:
+                        data.Entity.UpdatedDate = DateTime.UtcNow;
+                        if(data.Entity is Customer modifiedCustomer && !string.IsNullOrWhiteSpace(modifiedCustomer.Password))
+                        {
+                            modifiedCustomer.Password = PasswordHasher.HashPassword(modifiedCustomer.Password);
+                        }
+                        break;
+                    case EntityState.Unchanged:
+                    case EntityState.Deleted:
+                    case EntityState.Detached:
+                    data.Entity.UpdatedDate = data.Entity.UpdatedDate;
+                    break;
                 };
             }
             return await base.SaveChangesAsync(cancellationToken);

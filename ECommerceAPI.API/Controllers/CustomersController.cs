@@ -1,11 +1,11 @@
 ﻿using System;
+using AutoMapper;
+using System.Collections.Generic;
 using Domain;
 using Application.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Application.Repositories;
 using Microsoft.EntityFrameworkCore;
-
-using Persistance.Repositories;
 
 namespace ECommerceAPI.API.Controllers
 {
@@ -13,11 +13,15 @@ namespace ECommerceAPI.API.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
+        readonly private IMapper _mapper;
+
         readonly private ICustomerReadRepository _customerReadRepository;
         readonly private ICustomerWriteRepository _customerWriteRepository;
 
-        public CustomersController(ICustomerReadRepository customerReadRepository, ICustomerWriteRepository customerWriteRepository)
+        public CustomersController(IMapper mapper, ICustomerReadRepository customerReadRepository, ICustomerWriteRepository customerWriteRepository)
         {
+            _mapper = mapper;
+
             _customerReadRepository = customerReadRepository;
             _customerWriteRepository = customerWriteRepository;
         }

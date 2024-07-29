@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Infrastructure.Operations;
 using Microsoft.EntityFrameworkCore;
 using Persistance.Contexts;
 
@@ -23,6 +24,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Berke Öztürk",
                         Email = "example1@mail.com",
+                        Password = PasswordHasher.HashPassword("password1"),
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -31,6 +33,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Doğa Su Türkileri",
                         Email = "example2@mail.com",
+                        Password = PasswordHasher.HashPassword("password2"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -39,6 +42,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Ervin Parlak",
                         Email = "example3@mail.com",
+                        Password = PasswordHasher.HashPassword("password3"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -47,6 +51,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Gamze Naz Yıldırım",
                         Email = "example4@mail.com",
+                        Password = PasswordHasher.HashPassword("password4"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -55,6 +60,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Atakan Yıldırım",
                         Email = "example5@mail.com",
+                        Password = PasswordHasher.HashPassword("password5"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -63,6 +69,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Ahmet Mümtaz Taylan",
                         Email = "example6@mail.com",
+                        Password = PasswordHasher.HashPassword("password6"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -71,6 +78,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Cem Yılmaz",
                         Email = "example7@mail.com",
+                        Password = PasswordHasher.HashPassword("password7"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -79,6 +87,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Şahan Gökbakar",
                         Email = "example8@mail.com",
+                        Password = PasswordHasher.HashPassword("password8"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -87,6 +96,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Mahsun Kırmızıgül",
                         Email = "example9@mail.com",
+                        Password = PasswordHasher.HashPassword("password9"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -95,6 +105,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Erkin Karaçay",
                         Email = "example10@mail.com",
+                        Password = PasswordHasher.HashPassword("password10"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -103,6 +114,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Ozan İmamhatipoğlu",
                         Email = "example11@mail.com",
+                        Password = PasswordHasher.HashPassword("password11"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -111,6 +123,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Barkın Özkaplan",
                         Email = "example12@mail.com",
+                        Password = PasswordHasher.HashPassword("password12"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -119,6 +132,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Barış Onur Aydın",
                         Email = "example13@mail.com",
+                        Password = PasswordHasher.HashPassword("password13"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -127,10 +141,11 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Deniz Zarshat",
                         Email = "example14@mail.com",
+                        Password = PasswordHasher.HashPassword("password14"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     }
-                    );
+                    ) ;
             modelBuilder.Entity<Order>().HasData(
                     new Order()
                     {
@@ -444,6 +459,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Berke Öztürk",
                         Email = "example1@mail.com",
+                        Password = PasswordHasher.HashPassword("password1"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -452,6 +468,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Doğa Su Türkileri",
                         Email = "example2@mail.com",
+                        Password = PasswordHasher.HashPassword("password2"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -460,6 +477,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Ervin Parlak",
                         Email = "example3@mail.com",
+                        Password = PasswordHasher.HashPassword("password3"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -468,6 +486,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Gamze Naz Yıldırım",
                         Email = "example4@mail.com",
+                        Password = PasswordHasher.HashPassword("password4"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -476,6 +495,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Atakan Yıldırım",
                         Email = "example5@mail.com",
+                        Password = PasswordHasher.HashPassword("password5"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -484,6 +504,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Ahmet Mümtaz Taylan",
                         Email = "example6@mail.com",
+                        Password = PasswordHasher.HashPassword("password6"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -492,6 +513,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Cem Yılmaz",
                         Email = "example7@mail.com",
+                        Password = PasswordHasher.HashPassword("password7"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -500,6 +522,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Şahan Gökbakar",
                         Email = "example8@mail.com",
+                        Password = PasswordHasher.HashPassword("password8"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -508,6 +531,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Mahsun Kırmızıgül",
                         Email = "example9@mail.com",
+                        Password = PasswordHasher.HashPassword("password9"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -516,6 +540,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Erkin Karaçay",
                         Email = "example10@mail.com",
+                        Password = PasswordHasher.HashPassword("password10"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -524,6 +549,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Ozan İmamhatipoğlu",
                         Email = "example11@mail.com",
+                        Password = PasswordHasher.HashPassword("password11"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -532,6 +558,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Barkın Özkaplan",
                         Email = "example12@mail.com",
+                        Password = PasswordHasher.HashPassword("password12"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -540,6 +567,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Barış Onur Aydın",
                         Email = "example13@mail.com",
+                        Password = PasswordHasher.HashPassword("password13"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -548,6 +576,7 @@ namespace Persistance
                         Id = Guid.NewGuid(),
                         Name = "Deniz Zarshat",
                         Email = "example14@mail.com",
+                        Password = PasswordHasher.HashPassword("password14"), // Add and hash password
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     }

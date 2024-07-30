@@ -1,11 +1,7 @@
-﻿using System;
-using AutoMapper;
-using System.Collections.Generic;
-using Domain;
+﻿using System.Threading.Tasks;
 using Application.DTOs;
+using Application.Services;
 using Microsoft.AspNetCore.Mvc;
-using Application.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceAPI.API.Controllers
 {
@@ -13,81 +9,61 @@ namespace ECommerceAPI.API.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        readonly private IMapper _mapper;
+        private readonly ICustomerService _customerService;
 
-        readonly private ICustomerReadRepository _customerReadRepository;
-        readonly private ICustomerWriteRepository _customerWriteRepository;
-
-        public CustomersController(IMapper mapper, ICustomerReadRepository customerReadRepository, ICustomerWriteRepository customerWriteRepository)
+        public CustomersController(ICustomerService customerService)
         {
-            _mapper = mapper;
-
-            _customerReadRepository = customerReadRepository;
-            _customerWriteRepository = customerWriteRepository;
+            _customerService = customerService;
         }
+
         [HttpGet("list")]
         public async Task<IActionResult> ListCustomers()
         {
-            var customer =  _customerReadRepository.GetAll();
-            return Ok(customer);
-        }
-
-        [HttpPost("setter")]
-        public async Task<IActionResult> Set([FromForm] List<Customer> customers)
-        {
-            var customer = customers.Select(c => new Customer
-            {
-                Name = c.Name,
-            }).ToList();
-
-            await _customerWriteRepository.AddRangeAsync(customer);
-            await _customerWriteRepository.SaveAsync();
-
-            return Ok(customer);
-        }
-
-        [HttpPut("update")]
-        public async Task Update(string id, string name, string email)
-        {
-            Customer customer = await _customerReadRepository.GetByIdAsync(id);
-
-            customer.Name = name;
-            customer.Email = email;
-            await _customerWriteRepository.SaveAsync();
+            var customers = await _customerService.GetAllCustomersAsync();
+            return Ok(customers);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
-            var customer = await _customerReadRepository.GetByIdAsync(id);
-       
+            var customer = await _customerService.GetCustomerByIdAsync(id);
             if (customer == null)
                 return NotFound();
             return Ok(customer);
         }
+
         [HttpGet("search")]
         public async Task<IActionResult> GetWhere([FromQuery] string name)
         {
-            var customer = await _customerReadRepository.GetWhere(p => p.Name.Contains(name)).ToListAsync();
-            return Ok(customer);
+            var customers = await _customerService.SearchCustomersByNameAsync(name);
+            return Ok(customers);
         }
+
+        [HttpPost("create")]
+        public async Task<IActionResult> Create([FromBody] CreateCustomerDto createCustomerDto)
+        {
+            var result = await _customerService.CreateCustomerAsync(createCustomerDto);
+            if (result)
+                return Ok();
+            return BadRequest("Could not create the customer.");
+        }
+
+        [HttpPut("update")]
+        public async Task<IActionResult> Update([FromBody] UpdateCustomerDto updateCustomerDto)
+        {
+            var result = await _customerService.UpdateCustomerAsync(updateCustomerDto);
+            if (result)
+                return Ok();
+            return BadRequest("Could not update the customer.");
+        }
+
         [HttpDelete("byId")]
         public async Task<IActionResult> Delete(string id)
         {
-            var customer = await _customerReadRepository.GetByIdAsync(id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            bool result = await _customerWriteRepository.RemoveAsync(id);
-            if (!result)
-            {
-                return BadRequest("Could not delete the customer.");
-            }
-
-            await _customerWriteRepository.SaveAsync();
-            return Ok();
+            var result = await _customerService.DeleteCustomerAsync(id);
+            if (result)
+                return Ok();
+            return BadRequest("Could not delete the customer.");
         }
     }
 }

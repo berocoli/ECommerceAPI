@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Compile Remove="Application\obj\Debug\net7.0\.NETCoreApp,Version=v7.0.AssemblyAttributes.cs" />
-    <Compile Remove="Application\obj\Debug\net7.0\Application.GlobalUsings.g.cs" />
     <Compile Remove="Application\Repositories\IWriteRepository.cs" />
     <Compile Remove="Application\Repositories\IRepository.cs" />
     <Compile Remove="Application\Repositories\CustomerRepo\ICustomerWriteRepository.cs" />
@@ -28,14 +27,40 @@
     <Compile Remove="Application\DTOs\CustomerDto.cs" />
     <Compile Remove="Application\DTOs\OrderDto.cs" />
     <Compile Remove="Application\Exceptions\SeedNotPlantedException.cs" />
-    <Compile Remove="Application\DTOs\Order\OrderDto.cs" />
-    <Compile Remove="Application\DTOs\Product\ProductDto.cs" />
     <Compile Remove="Application\DTOs\Product\ProductsCategoryDto.cs" />
     <Compile Remove="Application\DTOs\Customer\CreateCustomerDTO.cs" />
+    <Compile Remove="Application\obj\Debug\net7.0\Application.AssemblyInfo.cs" />
+    <Compile Remove="Application\obj\Debug\net7.0\Application.GlobalUsings.g.cs" />
+    <Compile Remove="Application\Features\Use Cases\Customers\Queries\GetCustomerByIdQuery.cs" />
+    <Compile Remove="Application\Features\Use Cases\Customers\Queries\GetCustomerByIdQueryHandler.cs" />
+    <Compile Remove="Application\Features\Use Cases\Customers\Commands\UpdateCustomerCommandHandler.cs" />
+    <Compile Remove="Application\Features\Use Cases\Customers\Validators\CreateCustomerCommandValidator.cs" />
+    <Compile Remove="Application\Features\Use Cases\Customers\Commands\CreateCustomerCommandHandler.cs" />
+    <Compile Remove="Application\Features\Use Cases\Customers\Commands\CreateCustomerCommand.cs" />
+    <Compile Remove="Application\Features\Use Cases\Customers\Commands\DeleteCustomerCommand.cs" />
     <Compile Remove="Application\DTOs\Customer\CreateCustomerDto.cs" />
+    <Compile Remove="Application\Features\Use Cases\Customers\Commands\UpdateCustomerCommand.cs" />
+    <Compile Remove="Application\DTOs\Customer\DeleteCustomerDto.cs" />
+    <Compile Remove="Application\Features\Use Cases\Customers\Commands\DeleteCustomerCommandHandler.cs" />
+    <Compile Remove="Application\DTOs\Customer\UpdateCustomerDto.cs" />
+    <Compile Remove="Application\Services\ICustomerService.cs" />
     <Compile Remove="Application\DTOs\Customer\CustomerDto.cs" />
     <Compile Remove="Application\MappingProfile.cs" />
-    <Compile Remove="Application\obj\Debug\net7.0\Application.AssemblyInfo.cs" />
+    <Compile Remove="Application\DTOs\Order\CreateOrderDto.cs" />
+    <Compile Remove="Application\DTOs\Order\DeleteOrderDto.cs" />
+    <Compile Remove="Application\DTOs\Order\UpdateOrderDto.cs" />
+    <Compile Remove="Application\DTOs\Product\CreateProductDto.cs" />
+    <Compile Remove="Application\DTOs\Product\DeleteProductDto.cs" />
+    <Compile Remove="Application\DTOs\Product\UpdateOrderDto.cs" />
+    <Compile Remove="Application\DTOs\ProductsCategory\ProductsCategoryDto.cs" />
+    <Compile Remove="Application\DTOs\ProductsCategory\CreateProductsCategoryDto.cs" />
+    <Compile Remove="Application\DTOs\Order\OrderDto.cs" />
+    <Compile Remove="Application\DTOs\Product\ProductDto.cs" />
+    <Compile Remove="Application\Services\IOrderService.cs" />
+    <Compile Remove="Application\DTOs\ProductsCategory\DeleteProductsCategory.cs" />
+    <Compile Remove="Application\DTOs\ProductsCategory\UpdateProductsCategory.cs" />
+    <Compile Remove="Application\Services\IProductService.cs" />
+    <Compile Remove="Application\DTOs\Product\UpdateProductDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Application\obj\Debug\net7.0\Application.assets.cache" />
@@ -43,29 +68,27 @@
     <None Remove="Entities\Base Entity\" />
     <None Remove="Application\obj\Application.csproj.nuget.g.targets" />
     <None Remove="Application\obj\Debug\net7.0\Application.csproj.FileListAbsolute.txt" />
-    <None Remove="Application\obj\Debug\net7.0\Application.csproj.CopyComplete" />
     <None Remove="Application\.DS_Store" />
     <None Remove="Entities\.DS_Store" />
     <None Remove=".DS_Store" />
-    <None Remove="Application\obj\Application.csproj.nuget.g.props" />
-    <None Remove="Application\obj\project.assets.json" />
-    <None Remove="Application\obj\project.nuget.cache" />
-    <None Remove="Application\obj\Application.csproj.nuget.dgspec.json" />
-    <None Remove="Application\obj\Debug\net7.0\Application.csproj.AssemblyReference.cache" />
     <None Remove="Application\obj\Debug\net7.0\Application.GeneratedMSBuildEditorConfig.editorconfig" />
     <None Remove="Application\obj\Debug\net7.0\Application.AssemblyInfoInputs.cache" />
     <None Remove="Application\obj\Debug\net7.0\Application.csproj.CoreCompileInputs.cache" />
-    <None Remove="Application\obj\Debug\net7.0\Application.sourcelink.json" />
     <None Remove="Application\obj\Debug\net7.0\Application.dll" />
     <None Remove="Application\obj\Debug\net7.0\refint\Application.dll" />
     <None Remove="Application\obj\Debug\net7.0\Application.pdb" />
-    <None Remove="Application\bin\Debug\net7.0\Domain.pdb" />
-    <None Remove="Application\bin\Debug\net7.0\Domain.dll" />
-    <None Remove="Application\obj\Debug\net7.0\Applicat.44B5EDA2.Up2Date" />
     <None Remove="Application\bin\Debug\net7.0\Application.deps.json" />
-    <None Remove="Application\bin\Debug\net7.0\Application.dll" />
+    <None Remove="Application\obj\Debug\net7.0\Application.csproj.CopyComplete" />
     <None Remove="Application\obj\Debug\net7.0\ref\Application.dll" />
+    <None Remove="Application\bin\Debug\net7.0\Domain.pdb" />
     <None Remove="Application\bin\Debug\net7.0\Application.pdb" />
+    <None Remove="Application\bin\Debug\net7.0\Domain.dll" />
+    <None Remove="Application\bin\Debug\net7.0\Application.dll" />
+    <None Remove="Application\obj\Application.csproj.nuget.dgspec.json" />
+    <None Remove="Application\obj\Application.csproj.nuget.g.props" />
+    <None Remove="Application\obj\project.nuget.cache" />
+    <None Remove="Application\obj\project.assets.json" />
+    <None Remove="Application\obj\Debug\net7.0\Application.csproj.AssemblyReference.cache" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />

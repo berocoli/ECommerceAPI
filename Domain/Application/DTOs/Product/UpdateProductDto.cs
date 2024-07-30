@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Application.DTOs
 {
-    public class ProductDto
+    public class UpdateProductDto
     {
         public string Id { get; set; }
         public string Name { get; set; }

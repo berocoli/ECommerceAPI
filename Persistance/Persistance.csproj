@@ -27,6 +27,7 @@
     <None Remove="Infrastructure\obj\Debug\net7.0\ref\Infrastructure.dll" />
     <None Remove="Infrastructure\bin\Debug\net7.0\Infrastructure.pdb" />
     <None Remove="Repositories\CategoryRepo\" />
+    <None Remove="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contexts\" />
@@ -35,6 +36,7 @@
     <Folder Include="Repositories\OrderRepo\" />
     <Folder Include="Repositories\ProductRepo\" />
     <Folder Include="Repositories\CategoryRepo\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.7" />

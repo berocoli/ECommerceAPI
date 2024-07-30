@@ -3,7 +3,8 @@ namespace Application.DTOs
 {
     public class ProductsCategoryDto
     {
-        public string CategoryName { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 }
 

@@ -6,6 +6,7 @@ using Persistance;
 using Persistance.Contexts;
 using Microsoft.Extensions.Configuration;
 using Application;
+using Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddSwaggerGen();
 // Service
 builder.Services.AddPersistanceServices();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 // CORS Configuration
 builder.Services.AddCors(options =>

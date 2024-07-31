@@ -3,6 +3,7 @@ using Application.DTOs;
 using Application.Repositories;
 using Application.Services;
 using AutoMapper;
+using Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistance.Services
@@ -19,31 +20,53 @@ namespace Persistance.Services
             _orderWriteRepository = orderWriteRepository;
             _mapper = mapper;
         }
-
-        public Task<bool> CreateOrderAsync(CreateOrderDto createOrderDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> DeleteOrderAsync(string id)
-        {
-            throw new NotImplementedException();
-        }
-
+                
         public async Task<List<OrderDto>> GetAllOrdersAsync()
         {
             var orders = await _orderReadRepository.GetAll().ToListAsync();
-            return _mapper.Map<List<OrderDto>>(order)
+            return _mapper.Map<List<OrderDto>>(orders);
         }
 
-        public Task<OrderDto> GetOrderByIdAsync(string id)
+        public async Task<OrderDto> GetOrderByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            var order = await _orderReadRepository.GetByIdAsync(id);
+            if (order == null)
+                return null;
+            return _mapper.Map<OrderDto>(order);
         }
 
-        public Task<bool> UpdateOrderAsync(UpdateOrderDto updateOrderDto)
+        public async Task<List<OrderDto>> SearchOrdersByStatus(string status)
         {
-            throw new NotImplementedException();
+            var orders = await _orderReadRepository.GetWhere(o => o.Status.Contains(status)).ToListAsync();
+            if (orders == null)
+                return null;
+            return _mapper.Map<List<OrderDto>>(orders);
+        }
+
+        public async Task<bool> CreateOrderAsync(CreateOrderDto createOrderDto)
+        {
+            var order = _mapper.Map<Order>(createOrderDto);
+            var result = await _orderWriteRepository.AddAsync(order);
+            await _orderWriteRepository.SaveAsync();
+            return result;
+        }
+
+        public async Task<bool> UpdateOrderAsync(UpdateOrderDto updateOrderDto)
+        {
+            var order = await _orderReadRepository.GetByIdAsync(updateOrderDto.Id);
+            if (order == null)
+                return false;
+            _mapper.Map(updateOrderDto, order);
+            var result = _orderWriteRepository.Update(order);
+            await _orderWriteRepository.SaveAsync();
+            return result;
+        }
+
+        public async Task<bool> DeleteOrderAsync(string id)
+        {
+            var result = await _orderWriteRepository.RemoveAsync(id);
+            await _orderWriteRepository.SaveAsync();
+            return result;
         }
     }
 }

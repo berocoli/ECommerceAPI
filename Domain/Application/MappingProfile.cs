@@ -11,7 +11,7 @@ namespace Application
             CreateMap<Customer, CreateCustomerDto>().ReverseMap();
             CreateMap<Customer, UpdateCustomerDto>().ReverseMap();
             CreateMap<Customer, CustomerDto>().ReverseMap();
-            CreateMap<Order, OrderDTO>().ReverseMap();
+            CreateMap<Order, OrderDto>().ReverseMap();
             CreateMap<Product, ProductDto>().ReverseMap();
             CreateMap<ProductsCategory, ProductsCategoryDto>().ReverseMap();
 

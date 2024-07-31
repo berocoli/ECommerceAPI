@@ -45,10 +45,8 @@
     <Compile Remove="Application\DTOs\Customer\UpdateCustomerDto.cs" />
     <Compile Remove="Application\Services\ICustomerService.cs" />
     <Compile Remove="Application\DTOs\Customer\CustomerDto.cs" />
-    <Compile Remove="Application\MappingProfile.cs" />
     <Compile Remove="Application\DTOs\Order\CreateOrderDto.cs" />
     <Compile Remove="Application\DTOs\Order\DeleteOrderDto.cs" />
-    <Compile Remove="Application\DTOs\Order\UpdateOrderDto.cs" />
     <Compile Remove="Application\DTOs\Product\CreateProductDto.cs" />
     <Compile Remove="Application\DTOs\Product\DeleteProductDto.cs" />
     <Compile Remove="Application\DTOs\Product\UpdateOrderDto.cs" />
@@ -56,11 +54,14 @@
     <Compile Remove="Application\DTOs\ProductsCategory\CreateProductsCategoryDto.cs" />
     <Compile Remove="Application\DTOs\Order\OrderDto.cs" />
     <Compile Remove="Application\DTOs\Product\ProductDto.cs" />
-    <Compile Remove="Application\Services\IOrderService.cs" />
     <Compile Remove="Application\DTOs\ProductsCategory\DeleteProductsCategory.cs" />
     <Compile Remove="Application\DTOs\ProductsCategory\UpdateProductsCategory.cs" />
-    <Compile Remove="Application\Services\IProductService.cs" />
     <Compile Remove="Application\DTOs\Product\UpdateProductDto.cs" />
+    <Compile Remove="Application\DTOs\Order\UpdateOrderDto.cs" />
+    <Compile Remove="Application\Services\IOrderService.cs" />
+    <Compile Remove="Application\Exceptions\SearchedNotFoundException.cs" />
+    <Compile Remove="Application\MappingProfile.cs" />
+    <Compile Remove="Application\Services\IProductService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Application\obj\Debug\net7.0\Application.assets.cache" />

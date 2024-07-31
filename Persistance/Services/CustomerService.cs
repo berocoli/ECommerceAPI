@@ -39,6 +39,8 @@ namespace Application.Services
         public async Task<List<CustomerDto>> SearchCustomersByNameAsync(string name)
         {
             var customers = await _customerReadRepository.GetWhere(c => c.Name.Contains(name)).ToListAsync();
+            if (customers == null)
+                return null;
             return _mapper.Map<List<CustomerDto>>(customers);
         }
 

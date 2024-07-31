@@ -1,43 +1,72 @@
-﻿using System;
-using Application.DTOs;
+﻿using Application.DTOs;
+using Application.Repositories;
 using Application.Services;
+using AutoMapper;
+using Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Persistance.Services
 {
     public class ProductService : IProductService
     {
-        public ProductService()
+        private readonly IProductReadRepository _productReadRepository;
+        private readonly IProductWriteRepository _productWriteRepository;
+
+        private readonly IMapper _mapper;
+
+        public ProductService(IProductReadRepository productReadRepository, IProductWriteRepository productWriteRepository, IMapper mapper)
         {
+            _productReadRepository = productReadRepository;
+            _productWriteRepository = productWriteRepository;
+            _mapper = mapper;
+        }
+                
+        public async Task<List<ProductDto>> GetAllProductsAsync()
+        {
+            var product = await _productReadRepository.GetAll().ToListAsync();
+            return _mapper.Map<List<ProductDto>>(product);
         }
 
-        public Task<bool> CreateProductsAsync(CreateProductDto createProductDto)
+        public async Task<ProductDto> GetProductByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            var product = await _productReadRepository.GetByIdAsync(id);
+            if (product == null)
+                return null;
+            return _mapper.Map<ProductDto>(product);
         }
 
-        public Task<bool> DeleteProductAsync(DeleteProductDto deleteProductDto)
+        public async Task<List<ProductDto>> SearchProductsByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            var product = await _productReadRepository.GetWhere(p => p.Name.Contains(name)).ToListAsync();
+            if (product == null)
+                return null;
+            return _mapper.Map<List<ProductDto>>(product);
         }
 
-        public Task<List<ProductDto>> GetAllProductsAsync()
+        public async Task<bool> CreateProductsAsync(CreateProductDto createProductDto)
         {
-            throw new NotImplementedException();
+            var product = _mapper.Map<Product>(createProductDto);
+            var result = await _productWriteRepository.AddAsync(product);
+            await _productWriteRepository.SaveAsync();
+            return result;
         }
 
-        public Task<ProductDto> GetProductByIdAsync(string id)
+        public async Task<bool> UpdateProductsAsync(UpdateProductDto updateProductDto)
         {
-            throw new NotImplementedException();
+            var product = await _productReadRepository.GetByIdAsync(updateProductDto.Id);
+            if (product == null)
+                return false;
+            _mapper.Map(updateProductDto, product);
+            var result = _productWriteRepository.Update(product);
+            await _productWriteRepository.SaveAsync();
+            return result;
         }
 
-        public Task<List<ProductDto>> SearchProductsByNameAsync(string name)
+        public async Task<bool> DeleteProductAsync(string id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> UpdateProductsAsync(UpdateProductDto updateProductDto)
-        {
-            throw new NotImplementedException();
+            var result = await _productWriteRepository.RemoveAsync(id);
+            await _productWriteRepository.SaveAsync();
+            return result;
         }
     }
 }

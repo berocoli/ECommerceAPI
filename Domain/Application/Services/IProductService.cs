@@ -9,7 +9,7 @@ namespace Application.Services
         Task<List<ProductDto>> SearchProductsByNameAsync(string name);
         Task<bool> CreateProductsAsync(CreateProductDto createProductDto);
         Task<bool> UpdateProductsAsync(UpdateProductDto updateProductDto);
-        Task<bool> DeleteProductAsync(DeleteProductDto deleteProductDto);
+        Task<bool> DeleteProductAsync(string id);
     }
 }
 

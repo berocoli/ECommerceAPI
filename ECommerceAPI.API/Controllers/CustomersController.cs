@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Application.DTOs;
+﻿using Application.DTOs;
 using Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,28 +18,28 @@ namespace ECommerceAPI.API.Controllers
         [HttpGet("list")]
         public async Task<IActionResult> ListCustomers()
         {
-            var customers = await _customerService.GetAllCustomersAsync();
-            return Ok(customers);
+            var result = await _customerService.GetAllCustomersAsync();
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
-            var customer = await _customerService.GetCustomerByIdAsync(id);
-            if (customer == null)
+            var result = await _customerService.GetCustomerByIdAsync(id);
+            if (result == null)
                 return NotFound();
-            return Ok(customer);
+            return Ok(result);
         }
 
         [HttpGet("search")]
         public async Task<IActionResult> GetWhere([FromQuery] string name)
         {
-            var customers = await _customerService.SearchCustomersByNameAsync(name);
-            return Ok(customers);
+            var result = await _customerService.SearchCustomersByNameAsync(name);
+            return Ok(result);
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] CreateCustomerDto createCustomerDto)
+        public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomerDto createCustomerDto)
         {
             var result = await _customerService.CreateCustomerAsync(createCustomerDto);
             if (result)

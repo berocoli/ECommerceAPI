@@ -8,10 +8,10 @@ namespace Infrastructure.Operations
     {
         public static string HashPassword(string password)
         {
-            byte[] salt = new byte[128 / 8]; // 128-bit salt
+            byte[] salt = new byte[128 / 8]; // 128-bit!
             using (var rng = RandomNumberGenerator.Create())
             {
-                rng.GetBytes(salt); // Correctly use the GetBytes method
+                rng.GetBytes(salt); 
             }
 
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(

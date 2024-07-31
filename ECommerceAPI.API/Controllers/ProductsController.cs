@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Domain;
+using Application.Services;
+using Application.DTOs;
+using Persistance.Repositories;
 
 // safe delete yap
 
@@ -12,56 +15,63 @@ namespace ECommerceAPI.API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        readonly private IProductReadRepository _productReadRepository;
-        readonly private IProductWriteRepository _productWriteRepository;
+        readonly private IProductService _productService;
 
-        public ProductsController(IProductReadRepository productReadRepository, IProductWriteRepository productWriteRepository)
+        public ProductsController(IProductService productService)
         {
-            _productReadRepository  = productReadRepository;
-            _productWriteRepository = productWriteRepository;
+            _productService = productService;
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Set([FromBody] List<Product> products)
+        
+        [HttpGet]
+        public async Task<IActionResult> ListProducts()
         {
-            var product = products.Select(p => new Product
-            {
-                Name = p.Name,
-                Stock = p.Stock,
-                Price = p.Price
-            }).ToList();
-
-            await _productWriteRepository.AddRangeAsync(product);
-            await _productWriteRepository.SaveAsync();
-
-            return Ok(product);
-        }
-
-        [HttpPut]
-        public async Task Update(string id, string name, double stock, double price)
-        {
-            Product product = await _productReadRepository.GetByIdAsync(id);
-            product.Name = name;
-            product.Stock = stock;
-            product.Price = price;
-            await _productWriteRepository.SaveAsync();
+            var result = await _productService.GetAllProductsAsync();
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
-            var product = await _productReadRepository.GetByIdAsync(id);
-            if (product == null)
-                return NotFound();
-
-            return Ok(product);
+            var result = await _productService.GetProductByIdAsync(id);
+            if (result == null)
+                return null;
+            return Ok(result);
         }
 
         [HttpGet("search")]
         public async Task<IActionResult> GetWhere([FromQuery] string name)
         {
-            var product = await _productReadRepository.GetWhere(p => p.Name.Contains(name)).ToListAsync();
-            return Ok(product);
+            var result = await _productService.SearchProductsByNameAsync(name);
+            if (result == null)
+                return null;
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateProductDto createProductDto)
+        {
+            var result = await _productService.CreateProductsAsync(createProductDto);
+            if (result)
+                return Ok();
+            return BadRequest("Could not create the customer");
+        }
+
+        [HttpPut("byId")]
+        public async Task<IActionResult> Update(UpdateProductDto updateProductDto)
+        {
+            var result = await _productService.UpdateProductsAsync(updateProductDto);
+            if(result)
+                return Ok();
+            return BadRequest("Could not update the product");
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var result = await _productService.DeleteProductAsync(id);
+            if(result)
+               return Ok();
+            return BadRequest("Could not delete the product");
         }
     }
 }

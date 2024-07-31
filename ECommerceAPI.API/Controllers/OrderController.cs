@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Application.Repositories;
+﻿using Application.DTOs;
+using Application.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Domain;
 
 namespace ECommerceAPI.API.Controllers
 {
@@ -9,116 +9,63 @@ namespace ECommerceAPI.API.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        readonly private IOrderReadRepository _orderReadRepository;
-        readonly private IOrderWriteRepository _orderWriteRepository;
+        readonly private IOrderService _orderService;
 
-        public OrderController(IOrderReadRepository orderReadRepository, IOrderWriteRepository orderWriteRepository)
+        public OrderController(IOrderService orderService)
         {
-            _orderReadRepository = orderReadRepository;
-            _orderWriteRepository = orderWriteRepository;
+            _orderService = orderService;
+        }
+
+        [HttpGet("list")]
+        public async Task<IActionResult> ListOrders()
+        {
+            var result = await _orderService.GetAllOrdersAsync();
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(string id)
+        {
+            var result = await _orderService.GetOrderByIdAsync(id);
+            if (result == null)
+                return NotFound();
+            return Ok(result);
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> GetWhere(string status)
+        {
+            var result = await _orderService.SearchOrdersByStatus(status);
+            if (result == null)
+                return null;
+            return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Set([FromBody] List<Order> orders)
+        public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto createOrderDto)
         {
-            var order = orders.Select(o => new Order
-            {
-                Address = o.Address,
-                Description = o.Description,
-                Status = o.Status,
-            }).ToList();
-
-            await _orderWriteRepository.AddRangeAsync(order);
-            await _orderWriteRepository.SaveAsync();
-
-            return Ok(order);
+            var result = await _orderService.CreateOrderAsync(createOrderDto);
+            if (result)
+                return Ok();
+            return BadRequest("Could not create the order");
         }
 
-        [HttpPut]
-        public async Task Update(string id, string address)
+        [HttpPut("byId")]
+        public async Task<IActionResult> Update([FromBody] UpdateOrderDto updateOrderDto)
         {
-            Order order = await _orderReadRepository.GetByIdAsync(id);
-            order.Address = address;
-            await _orderWriteRepository.SaveAsync();
-
+            var result = await _orderService.UpdateOrderAsync(updateOrderDto);
+            if (result)
+                return Ok();
+            return BadRequest("Could not update the order");
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(string id)
+        [HttpDelete]
+        public async Task<IActionResult> Delete(string id)
         {
-            var order = await _orderReadRepository.GetByIdAsync(id);
-            if (order == null)
-                return NotFound();
-            return Ok(order);
-        }
-
-        [HttpGet("search")]
-        public async Task<IActionResult> GetWhere([FromBody] string address)
-        {
-            var order = await _orderReadRepository.GetWhere(p => p.Address.Contains(address)).ToListAsync();
-            if (order == null)
-                return NotFound();
-            return Ok(order);
+            var result = await _orderService.DeleteOrderAsync(id);
+            if (result)
+                return Ok();
+            return BadRequest("Could not delete the order");
         }
     }
 }
-/*
- * 
- *      [HttpPost]
-        public async Task<IActionResult> Set([FromForm] List<Customer> customers)
-        {
-            var customer = customers.Select(c => new Customer
-            {
-                Name = c.Name,
-            }).ToList();
-
-            await _customerWriteRepository.AddRangeAsync(customer);
-            await _customerWriteRepository.SaveAsync();
-
-            return Ok(customer);
-        }
-
-        [HttpPut]
-        public async Task Update(string id, string name, string email)
-        {
-            Customer customer = await _customerReadRepository.GetByIdAsync(id);
-
-            customer.Name = name;
-            customer.Email = email;
-            await _customerWriteRepository.SaveAsync();
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(string id)
-        {
-            var customer = await _customerReadRepository.GetByIdAsync(id);
-       
-            if (customer == null)
-                return NotFound();
-            return Ok(customer);
-        }
-        [HttpGet("search")]
-        public async Task<IActionResult> GetWhere([FromQuery] string name)
-        {
-            var customer = await _customerReadRepository.GetWhere(p => p.Name.Contains(name)).ToListAsync();
-            return Ok(customer);
-        }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
-        {
-            var customer = await _customerReadRepository.GetByIdAsync(id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            bool result = await _customerWriteRepository.RemoveAsync(id);
-            if (!result)
-            {
-                return BadRequest("Could not delete the customer.");
-            }
-
-            await _customerWriteRepository.SaveAsync();
-            return Ok();
-        }
- */

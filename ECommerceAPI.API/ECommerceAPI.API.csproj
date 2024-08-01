@@ -19,7 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Controllers\" />
-    <None Remove="Controllers\Initialize Controllers\" />
   </ItemGroup>
   <ItemGroup>
   <None Update="appsettings.json">
@@ -30,16 +29,12 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Controllers\Initialize Controllers\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Persistance\Persistance.csproj">
+    <ProjectReference Include="..\Application\Application.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-      <Targets></Targets>
-      <OutputItemType></OutputItemType>
-      <ReferenceSourceTarget>ProjectReference</ReferenceSourceTarget>
     </ProjectReference>
-    <ProjectReference Include="..\Domain\Application\Application.csproj">
+    <ProjectReference Include="..\Persistance\Persistance.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>

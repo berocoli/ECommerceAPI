@@ -1,11 +1,6 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using Application.Repositories;
-using Microsoft.EntityFrameworkCore;
-using Domain;
+﻿using Application.DTOs;
 using Application.Services;
-using Application.DTOs;
-using Persistance.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 // safe delete yap
 
@@ -72,6 +67,12 @@ namespace ECommerceAPI.API.Controllers
             if(result)
                return Ok();
             return BadRequest("Could not delete the product");
+        }
+        [HttpGet("stored procedure")]
+        public async Task<IActionResult> StoredProc()
+        {
+            var result = await _productService.GetAllProductsStorage();
+            return Ok(result);
         }
     }
 }

@@ -68,6 +68,17 @@ namespace Persistance.Services
             await _productWriteRepository.SaveAsync();
             return result;
         }
+
+        public async Task<List<ProductDto>> GetAllProductsStorage()
+        {
+            var products = await _productReadRepository.GetFromStoredProcedureAsync();
+
+            // Map entities to DTOs
+            var productDtos = _mapper.Map<List<ProductDto>>(products);
+
+            // Return DTOs for the client
+            return productDtos;
+        }
     }
 }
 

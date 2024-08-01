@@ -16,4 +16,7 @@
   <ItemGroup>
     <Folder Include="Operations\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove=".DS_Store" />
+  </ItemGroup>
 </Project>

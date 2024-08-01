@@ -10,6 +10,7 @@ namespace Application.Services
         Task<bool> CreateProductsAsync(CreateProductDto createProductDto);
         Task<bool> UpdateProductsAsync(UpdateProductDto updateProductDto);
         Task<bool> DeleteProductAsync(string id);
+        Task<List<ProductDto>> GetAllProductsStorage();
     }
 }
 

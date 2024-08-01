@@ -1,12 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using Application;
+using Application.Services;
 using Microsoft.EntityFrameworkCore;
 using Persistance;
 using Persistance.Contexts;
-using Microsoft.Extensions.Configuration;
-using Application;
-using Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

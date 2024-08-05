@@ -12,6 +12,7 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="MediatR" Version="12.4.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Repositories\" />
@@ -26,6 +27,7 @@
     <None Remove="DTOs\Product\" />
     <None Remove="Services\" />
     <None Remove="DTOs\ProductsCategory\" />
+    <None Remove="Services\Currency Services\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />
@@ -40,6 +42,7 @@
     <Folder Include="DTOs\Product\" />
     <Folder Include="Services\" />
     <Folder Include="DTOs\ProductsCategory\" />
+    <Folder Include="Services\Currency Services\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />

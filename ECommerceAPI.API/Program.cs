@@ -1,5 +1,5 @@
 ﻿using Application;
-using Application.Services;
+using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Persistance;
 using Persistance.Contexts;
@@ -11,17 +11,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Service
+// Register services
 builder.Services.AddPersistanceServices();
+builder.Services.AddInfrastructureServices(); // Ensure this is not ambiguous
 builder.Services.AddAutoMapper(typeof(MappingProfile));
-builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 // CORS Configuration
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
         builder => builder
-            .WithOrigins("http://localhost:5173") 
+            .WithOrigins("http://localhost:5173")
             .AllowAnyHeader()
             .AllowAnyMethod());
 });

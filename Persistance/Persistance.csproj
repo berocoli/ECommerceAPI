@@ -18,6 +18,32 @@
     <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.sourcelink.json" />
     <None Remove="Repositories\CategoryRepo\" />
     <None Remove="Services\" />
+    <None Remove="Infrastructure\.DS_Store" />
+    <None Remove="Infrastructure\obj\.DS_Store" />
+    <None Remove="Infrastructure\obj\Infrastructure.csproj.nuget.g.props" />
+    <None Remove="Infrastructure\obj\Debug\.DS_Store" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.dll" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\.DS_Store" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.pdb" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.csproj.CoreCompileInputs.cache" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.AssemblyInfoInputs.cache" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\ref\Infrastructure.dll" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\refint\Infrastructure.dll" />
+    <None Remove="Infrastructure\bin\.DS_Store" />
+    <None Remove="Infrastructure\bin\Debug\.DS_Store" />
+    <None Remove="Infrastructure\bin\Debug\net7.0\Infrastructure.dll" />
+    <None Remove="Infrastructure\bin\Debug\net7.0\Infrastructure.pdb" />
+    <None Remove="Infrastructure\bin\Debug\net7.0\Infrastructure.deps.json" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.csproj.AssemblyReference.cache" />
+    <None Remove="Infrastructure\bin\Debug\net7.0\Application.pdb" />
+    <None Remove="Infrastructure\bin\Debug\net7.0\Domain.pdb" />
+    <None Remove="Infrastructure\bin\Debug\net7.0\Application.dll" />
+    <None Remove="Infrastructure\bin\Debug\net7.0\Domain.dll" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.csproj.CopyComplete" />
+    <None Remove="Infrastructure\obj\project.assets.json" />
+    <None Remove="Infrastructure\obj\project.nuget.cache" />
+    <None Remove="Infrastructure\obj\Infrastructure.csproj.nuget.dgspec.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contexts\" />
@@ -46,9 +72,15 @@
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Application\Application.csproj" />
+    <ProjectReference Include="Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Infrastructure\obj\Debug\net7.0\.NETCoreApp,Version=v7.0.AssemblyAttributes.cs" />
     <Compile Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.GlobalUsings.g.cs" />
+    <Compile Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.AssemblyInfo.cs" />
+    <Compile Remove="Infrastructure\Operations\PasswordHasher.cs" />
+    <Compile Remove="Infrastructure\Services\CurrencyConverterServices.cs" />
+    <Compile Remove="Infrastructure\ServiceRegistration.cs" />
+    <Compile Remove="Infrastructure\Services\CurrencyService.cs" />
   </ItemGroup>
 </Project>

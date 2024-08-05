@@ -17,7 +17,7 @@ namespace ECommerceAPI.API.Controllers
             _productService = productService;
         }
         
-        [HttpGet]
+        [HttpGet("listById")]
         public async Task<IActionResult> ListProducts()
         {
             var result = await _productService.GetAllProductsAsync();
@@ -68,7 +68,7 @@ namespace ECommerceAPI.API.Controllers
                return Ok();
             return BadRequest("Could not delete the product");
         }
-        [HttpGet("stored procedure")]
+        [HttpGet("listByName(stored)")]
         public async Task<IActionResult> StoredProc()
         {
             var result = await _productService.GetAllProductsStorage();

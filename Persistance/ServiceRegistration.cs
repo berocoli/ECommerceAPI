@@ -31,6 +31,7 @@ namespace Persistance
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IProductService, ProductService>();
+
         }
     }
 }

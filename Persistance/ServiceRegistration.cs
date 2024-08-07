@@ -6,6 +6,10 @@ using Persistance.Repositories;
 using Application;
 using Application.Services;
 using Persistance.Services;
+using Application.Services.PdfServices;
+using Persistance.Services.Pdf_Services;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 
 namespace Persistance
 {
@@ -32,6 +36,11 @@ namespace Persistance
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IProductService, ProductService>();
 
+            services.AddSingleton<IPdfServices, PdfSharpService>();
+
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+            services.AddSingleton<IDinkPdfService, PdfDinkService>();
+            services.AddSingleton<HtmlContent>();
         }
     }
 }

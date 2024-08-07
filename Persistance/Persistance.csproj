@@ -35,7 +35,6 @@
     <None Remove="Infrastructure\bin\Debug\net7.0\Infrastructure.dll" />
     <None Remove="Infrastructure\bin\Debug\net7.0\Infrastructure.pdb" />
     <None Remove="Infrastructure\bin\Debug\net7.0\Infrastructure.deps.json" />
-    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.csproj.AssemblyReference.cache" />
     <None Remove="Infrastructure\bin\Debug\net7.0\Application.pdb" />
     <None Remove="Infrastructure\bin\Debug\net7.0\Domain.pdb" />
     <None Remove="Infrastructure\bin\Debug\net7.0\Application.dll" />
@@ -44,6 +43,11 @@
     <None Remove="Infrastructure\obj\project.assets.json" />
     <None Remove="Infrastructure\obj\project.nuget.cache" />
     <None Remove="Infrastructure\obj\Infrastructure.csproj.nuget.dgspec.json" />
+    <None Remove="Services\Pdf Services\" />
+    <None Remove="Assets\" />
+    <None Remove="Assets\Fonts\" />
+    <None Remove="Assets\Fonts\Arial.ttf" />
+    <None Remove="Assets\Fonts\Arial_Bold.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contexts\" />
@@ -53,6 +57,9 @@
     <Folder Include="Repositories\ProductRepo\" />
     <Folder Include="Repositories\CategoryRepo\" />
     <Folder Include="Services\" />
+    <Folder Include="Services\Pdf Services\" />
+    <Folder Include="Assets\" />
+    <Folder Include="Assets\Fonts\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.7" />
@@ -68,6 +75,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.20" />
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="PDFsharp" Version="6.1.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
@@ -78,9 +86,12 @@
     <Compile Remove="Infrastructure\obj\Debug\net7.0\.NETCoreApp,Version=v7.0.AssemblyAttributes.cs" />
     <Compile Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.GlobalUsings.g.cs" />
     <Compile Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.AssemblyInfo.cs" />
-    <Compile Remove="Infrastructure\Operations\PasswordHasher.cs" />
     <Compile Remove="Infrastructure\Services\CurrencyConverterServices.cs" />
     <Compile Remove="Infrastructure\ServiceRegistration.cs" />
     <Compile Remove="Infrastructure\Services\CurrencyService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Fonts\Arial.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\Arial_Bold.ttf" />
   </ItemGroup>
 </Project>

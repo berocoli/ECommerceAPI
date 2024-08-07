@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Application.Repositories;
+using Application.Services;
 using AutoMapper;
 using Domain;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Application.Services
+namespace Persistance.Services
 {
     public class CustomerService : ICustomerService
     {

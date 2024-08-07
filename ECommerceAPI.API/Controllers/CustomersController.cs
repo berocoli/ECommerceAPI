@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Application.Services;
+using Application.Services.PdfServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceAPI.API.Controllers
@@ -9,10 +10,16 @@ namespace ECommerceAPI.API.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly ICustomerService _customerService;
+        private readonly IPdfServices _pdfService;
+        private readonly HtmlContent _htmlContent;
+        private readonly IDinkPdfService _dinkPdfService;
 
-        public CustomersController(ICustomerService customerService)
+        public CustomersController(ICustomerService customerService, IPdfServices pdfServices, HtmlContent htmlContent, IDinkPdfService dinkPdfService)
         {
             _customerService = customerService;
+            _pdfService = pdfServices;
+            _htmlContent = htmlContent;
+            _dinkPdfService = dinkPdfService;
         }
 
         [HttpGet("list")]
@@ -63,6 +70,15 @@ namespace ECommerceAPI.API.Controllers
             if (result)
                 return Ok();
             return BadRequest("Could not delete the customer.");
+        }
+
+        [HttpGet("PDF")]
+        public async Task<IActionResult> ListCustomersPDF()
+        {
+            List<CustomerDto> customers = await _customerService.GetAllCustomersAsync();
+
+            byte[] pdfBytes = _pdfService.GeneratePdf(customers);
+            return File(pdfBytes, "application/pdf", "CustomersList.pdf");
         }
     }
 }

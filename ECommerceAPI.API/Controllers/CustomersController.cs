@@ -11,15 +11,12 @@ namespace ECommerceAPI.API.Controllers
     {
         private readonly ICustomerService _customerService;
         private readonly IPdfServices _pdfService;
-        private readonly HtmlContent _htmlContent;
-        private readonly IDinkPdfService _dinkPdfService;
+        
 
-        public CustomersController(ICustomerService customerService, IPdfServices pdfServices, HtmlContent htmlContent, IDinkPdfService dinkPdfService)
+        public CustomersController(ICustomerService customerService, IPdfServices pdfServices)
         {
             _customerService = customerService;
-            _pdfService = pdfServices;
-            _htmlContent = htmlContent;
-            _dinkPdfService = dinkPdfService;
+            _pdfService = pdfServices;           
         }
 
         [HttpGet("list")]

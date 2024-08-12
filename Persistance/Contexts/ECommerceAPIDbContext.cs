@@ -59,6 +59,8 @@ namespace Persistance.Contexts
                     .IsRequired();
                 entity.Property(e => e.Description)
                     .HasMaxLength(500);
+                entity.Property(e => e.ImageUrl)
+                    .HasMaxLength(250);
             });
 
             modelBuilder.Entity<ProductsCategory>(entity =>

@@ -37,7 +37,8 @@ namespace Persistance.Repositories
                             Name = result.GetString(1),
                             Price = result.GetDouble(2),
                             Stock = result.GetDouble(3),
-                            Description = result.IsDBNull(4) ? null : result.GetString(4)
+                            Description = result.IsDBNull(4) ? null : result.GetString(4),
+                            ImageUrl = result.GetString(5)
                         };
 
                         Products.Add(product);

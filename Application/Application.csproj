@@ -32,6 +32,8 @@
     <None Remove="Services\Currency Services\" />
     <None Remove="Services\Pdf Services\" />
     <None Remove="DTOs\Customer\Login\" />
+    <None Remove="Features\" />
+    <None Remove="Features\LoginCustomer\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />
@@ -49,6 +51,8 @@
     <Folder Include="Services\Currency Services\" />
     <Folder Include="Services\Pdf Services\" />
     <Folder Include="DTOs\Customer\Login\" />
+    <Folder Include="Features\" />
+    <Folder Include="Features\LoginCustomer\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />

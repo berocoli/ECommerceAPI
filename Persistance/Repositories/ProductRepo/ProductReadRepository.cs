@@ -18,7 +18,7 @@ namespace Persistance.Repositories
         public async Task<List<Product>> GetFromStoredProcedureAsync(bool tracking = true)
         {
             var Products = new List<Product>();
-            var commandText = "SELECT * FROM get_all_products();";
+            var commandText = "SELECT * FROM get_all_products2();";
 
             using (var command = _context.Database.GetDbConnection().CreateCommand())
             {

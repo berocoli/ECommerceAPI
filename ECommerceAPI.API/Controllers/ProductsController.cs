@@ -68,6 +68,7 @@ namespace ECommerceAPI.API.Controllers
                return Ok();
             return BadRequest("Could not delete the product");
         }
+
         [HttpGet("list(stored)")]
         public async Task<IActionResult> StoredProc()
         {

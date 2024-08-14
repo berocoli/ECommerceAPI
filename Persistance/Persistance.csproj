@@ -20,7 +20,6 @@
     <None Remove="Services\" />
     <None Remove="Infrastructure\.DS_Store" />
     <None Remove="Infrastructure\obj\.DS_Store" />
-    <None Remove="Infrastructure\obj\Infrastructure.csproj.nuget.g.props" />
     <None Remove="Infrastructure\obj\Debug\.DS_Store" />
     <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.dll" />
     <None Remove="Infrastructure\obj\Debug\net7.0\.DS_Store" />
@@ -40,9 +39,6 @@
     <None Remove="Infrastructure\bin\Debug\net7.0\Application.dll" />
     <None Remove="Infrastructure\bin\Debug\net7.0\Domain.dll" />
     <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.csproj.CopyComplete" />
-    <None Remove="Infrastructure\obj\project.assets.json" />
-    <None Remove="Infrastructure\obj\project.nuget.cache" />
-    <None Remove="Infrastructure\obj\Infrastructure.csproj.nuget.dgspec.json" />
     <None Remove="Services\Pdf Services\" />
     <None Remove="Assets\" />
     <None Remove="Assets\Fonts\" />

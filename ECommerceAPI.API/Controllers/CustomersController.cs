@@ -77,18 +77,5 @@ namespace ECommerceAPI.API.Controllers
             byte[] pdfBytes = _pdfService.GeneratePdf(customers);
             return File(pdfBytes, "application/pdf", "CustomersList.pdf");
         }
-
-        [HttpGet("LoginWithName")]
-        public async Task<IActionResult> LoginCustomerByName()
-        {
-            return Ok();
-        }
-
-        [HttpGet("LoginWithEmail")]
-        public async Task<IActionResult> LoginCustomerByEmail()
-        {
-            return Ok();
-        }
     }
-
 }

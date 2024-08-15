@@ -44,6 +44,7 @@
     <None Remove="Assets\Fonts\" />
     <None Remove="Assets\Fonts\Arial.ttf" />
     <None Remove="Assets\Fonts\Arial_Bold.ttf" />
+    <None Remove="Services\Login\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contexts\" />
@@ -56,6 +57,7 @@
     <Folder Include="Services\Pdf Services\" />
     <Folder Include="Assets\" />
     <Folder Include="Assets\Fonts\" />
+    <Folder Include="Services\Login\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.7" />

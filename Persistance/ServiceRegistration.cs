@@ -8,7 +8,7 @@ using Application.Services;
 using Persistance.Services;
 using Application.Services.PdfServices;
 using Persistance.Services.Pdf_Services;
-
+using Persistence.Services.Login;
 
 namespace Persistance
 {
@@ -29,11 +29,13 @@ namespace Persistance
             services.AddScoped<IOrderWriteRepository, OrderWriteRepository>();
             services.AddScoped<ICategoryReadRepository, CategoryReadRepository>();
             services.AddScoped<ICategoryWriteRepository, CategoryWriteRepository>();
+         
 
             // Services
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ILoginService, LoginService>();
 
             services.AddSingleton<IPdfServices, PdfSharpService>();
 

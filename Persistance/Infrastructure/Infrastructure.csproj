@@ -13,16 +13,19 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.20" />
   </ItemGroup>
 
   <!-- Optionally include the folder for organizational purposes -->
   <ItemGroup>
     <Folder Include="Operations\" />
     <Folder Include="Services\" />
+    <Folder Include="Services\Token\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove=".DS_Store" />
     <None Remove="Services\" />
+    <None Remove="Services\Token\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Application\Application.csproj" />

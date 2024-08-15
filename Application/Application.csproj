@@ -34,6 +34,10 @@
     <None Remove="DTOs\Customer\Login\" />
     <None Remove="Features\" />
     <None Remove="Features\LoginCustomer\" />
+    <None Remove="Operations\" />
+    <None Remove="DTOs\Login\" />
+    <None Remove="DTOs\Token\" />
+    <None Remove="Services\Token Services\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />
@@ -53,6 +57,10 @@
     <Folder Include="DTOs\Customer\Login\" />
     <Folder Include="Features\" />
     <Folder Include="Features\LoginCustomer\" />
+    <Folder Include="Operations\" />
+    <Folder Include="DTOs\Login\" />
+    <Folder Include="DTOs\Token\" />
+    <Folder Include="Services\Token Services\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />

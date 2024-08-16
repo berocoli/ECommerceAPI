@@ -45,6 +45,11 @@
     <None Remove="Assets\Fonts\Arial.ttf" />
     <None Remove="Assets\Fonts\Arial_Bold.ttf" />
     <None Remove="Services\Login\" />
+    <None Remove="Infrastructure\obj\project.nuget.cache" />
+    <None Remove="Infrastructure\obj\Infrastructure.csproj.nuget.dgspec.json" />
+    <None Remove="Infrastructure\obj\project.assets.json" />
+    <None Remove="Infrastructure\obj\Infrastructure.csproj.nuget.g.props" />
+    <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.csproj.AssemblyReference.cache" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contexts\" />
@@ -85,8 +90,10 @@
     <Compile Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.GlobalUsings.g.cs" />
     <Compile Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.AssemblyInfo.cs" />
     <Compile Remove="Infrastructure\Services\CurrencyConverterServices.cs" />
-    <Compile Remove="Infrastructure\ServiceRegistration.cs" />
     <Compile Remove="Infrastructure\Services\CurrencyService.cs" />
+    <Compile Remove="Infrastructure\Operations\PasswordHasher.cs" />
+    <Compile Remove="Infrastructure\ServiceRegistration.cs" />
+    <Compile Remove="Infrastructure\Services\Token\TokenService.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\Fonts\Arial.ttf" />

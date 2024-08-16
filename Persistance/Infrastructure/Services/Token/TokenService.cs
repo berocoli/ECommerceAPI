@@ -10,12 +10,13 @@ namespace Infrastructure.Services.Token
     public class TokenService : ITokenService
     {
         private readonly string _secret;
+
         public TokenService(string secret)
         {
             _secret = secret;
         }
 
-        public string TokenGenerator(string Email)
+        public async Task<string> TokenGenerator(string Email)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_secret);

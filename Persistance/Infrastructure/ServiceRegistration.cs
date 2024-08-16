@@ -1,8 +1,10 @@
 ﻿using Application.Services.CurrencyServices;
+using Application.Services.TokenServices;
 using Infrastructure.Services;
+using Infrastructure.Services.Token;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure
+namespace Infrastructure.ServiceRegistration
 {
     public static class ServiceRegistration
     {
@@ -13,6 +15,7 @@ namespace Infrastructure
 
             // Register other services
             services.AddScoped<ICurrencyConverterServices, CurrencyConverterServices>();
+            services.AddScoped<ITokenService, TokenService>();
         }
     }
 }

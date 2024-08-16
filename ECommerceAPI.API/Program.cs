@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Xml;
 using Application;
-using Infrastructure;
+using Infrastructure.ServiceRegistration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -45,7 +45,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddPersistanceServices();
 builder.Services.AddInfrastructureServices(); // Ensure this is not ambiguous
 builder.Services.AddAutoMapper(typeof(MappingProfile));
-
+    
 // CORS Configuration
 builder.Services.AddCors(options =>
 {

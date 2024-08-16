@@ -15,6 +15,7 @@
     <PackageReference Include="MediatR" Version="12.4.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.20" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Repositories\" />
@@ -38,6 +39,7 @@
     <None Remove="DTOs\Login\" />
     <None Remove="DTOs\Token\" />
     <None Remove="Services\Token Services\" />
+    <None Remove="Settings\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />
@@ -61,6 +63,7 @@
     <Folder Include="DTOs\Login\" />
     <Folder Include="DTOs\Token\" />
     <Folder Include="Services\Token Services\" />
+    <Folder Include="Settings\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />

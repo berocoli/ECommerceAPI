@@ -7,6 +7,7 @@ using Application.Services;
 using Application.Repositories;
 using Domain;
 using Microsoft.EntityFrameworkCore;
+using Application.Services.TokenServices;
 
 namespace Persistence.Services.Login
 {
@@ -14,11 +15,13 @@ namespace Persistence.Services.Login
     {
         private readonly ICustomerReadRepository _customerReadRepository;
         private readonly IMapper _mapper;
+        private readonly ITokenService _tokenService;
 
-        public LoginService(ICustomerReadRepository customerReadRepository, IMapper mapper)
+        public LoginService(ICustomerReadRepository customerReadRepository, IMapper mapper, ITokenService tokenService)
         {
             _customerReadRepository = customerReadRepository;
             _mapper = mapper;
+            _tokenService = tokenService;
         }
 
         public async Task<CustomerDto> LoginHandler(string email, string password)
@@ -42,6 +45,7 @@ namespace Persistence.Services.Login
             // If the login is successful, map the Customer to CustomerDto
             var customerDto = _mapper.Map<CustomerDto>(customer);
 
+            _tokenService.TokenGenerator(customer.Email);
             return customerDto;
         }
     }

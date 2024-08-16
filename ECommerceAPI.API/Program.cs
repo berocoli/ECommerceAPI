@@ -1,6 +1,6 @@
 ﻿using System.Text;
-using System.Xml;
 using Application;
+using Application.Settings;
 using Infrastructure.ServiceRegistration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -10,15 +10,25 @@ using Persistance.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add user secrets for development environment
+builder.Configuration.AddUserSecrets<Program>();
+
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//JWT Config
+builder.Configuration.AddUserSecrets<Program>();
+
+var jwtSettingsSection = builder.Configuration.GetSection("JwtSettings");
+builder.Services.Configure<JwtSettings>(jwtSettingsSection);
+
+// JWT Config
 var jwtSecret = builder.Configuration["JwtSettings:Secret"];
 var jwtIssuer = builder.Configuration["JwtSettings:Issuer"] ?? "http://localhost:7281";
 var jwtAudience = builder.Configuration["JwtSettings:Audience"] ?? "http://localhost:5173";
+
+var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -32,9 +42,9 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = jwtIssuer,
-        ValidAudience = jwtAudience,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret))
+        ValidIssuer = jwtSettings.Issuer,
+        ValidAudience = jwtSettings.Audience,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
     };
 
 });
@@ -45,7 +55,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddPersistanceServices();
 builder.Services.AddInfrastructureServices(); // Ensure this is not ambiguous
 builder.Services.AddAutoMapper(typeof(MappingProfile));
-    
+
 // CORS Configuration
 builder.Services.AddCors(options =>
 {

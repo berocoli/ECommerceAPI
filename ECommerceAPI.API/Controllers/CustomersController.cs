@@ -1,6 +1,7 @@
 ﻿using Application.DTOs;
 using Application.Services;
 using Application.Services.PdfServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceAPI.API.Controllers
@@ -20,6 +21,7 @@ namespace ECommerceAPI.API.Controllers
         }
 
         [HttpGet("list")]
+        [Authorize]
         public async Task<IActionResult> ListCustomers()
         {
             var result = await _customerService.GetAllCustomersAsync();

@@ -1,18 +1,19 @@
 ﻿using System;
+using Application.DTOs.Token;
 using Application.Services;
 using Application.Services.TokenServices;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace ECommerceAPI.API.Controllers
 {
     public class AuthController : ControllerBase
     {
         private readonly ILoginService _loginService;
-        private readonly ITokenService _tokenService;
-        public AuthController(ILoginService loginService, ITokenService tokenService)
+        
+        public AuthController(ILoginService loginService)
         {
             _loginService = loginService;
-            _tokenService = tokenService;
         }
 
         [HttpPost("Login")]
@@ -20,18 +21,19 @@ namespace ECommerceAPI.API.Controllers
         {
             // Use the login service to handle the login process
             var userLogged = await _loginService.LoginHandler(Email, Password);
-
-            if (userLogged == null)
+            if(userLogged == null)
             {
-                // Login failed, return unauthorized response
-                return Unauthorized("Invalid email or password.");
+                return Unauthorized("Oturum açma işlemi tamamlanamamıştır. E-Posta hesabınızı veya şifrenizi kontrol edin.");
             }
-
-            var token = _tokenService.TokenGenerator(Email);
-            return Ok(new { Token = token });
-            // Login successful, return the user data
-            // return Ok(userLogged);
+            return Ok(userLogged);
         }
     }
 }
+
+        // Login successful, return the user data
+                // return Ok(userLogged);
+          
+
+
+
 

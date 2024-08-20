@@ -1,4 +1,5 @@
 ﻿using Application.Services.CurrencyServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -15,6 +16,7 @@ public class CurrencyController : ControllerBase
     }
 
     [HttpGet("rates")]
+    [Authorize]
     public async Task<IActionResult> GetRates()
     {
         var xmlData = await _currencyService.GetExchangeRatesAsync();

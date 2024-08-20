@@ -24,11 +24,12 @@ var jwtSettingsSection = builder.Configuration.GetSection("JwtSettings");
 builder.Services.Configure<JwtSettings>(jwtSettingsSection);
 
 // JWT Config
-var jwtSecret = builder.Configuration["JwtSettings:Secret"];
-var jwtIssuer = builder.Configuration["JwtSettings:Issuer"] ?? "http://localhost:7281";
-var jwtAudience = builder.Configuration["JwtSettings:Audience"] ?? "http://localhost:5173";
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(builder.Environment.ContentRootPath)
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    .Build();
 
-var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
+var jwtSecret = builder.Configuration["JwtSettings:Secret"];
 
 builder.Services.AddAuthentication(options =>
 {
@@ -42,9 +43,9 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = jwtSettings.Issuer,
-        ValidAudience = jwtSettings.Audience,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
+        ValidIssuer = configuration["JwtSettings:Issuer"],
+        ValidAudience = configuration["JwtSettings:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret))
     };
 
 });
@@ -92,8 +93,9 @@ app.UseRouting();
 // Use CORS
 app.UseCors("AllowSpecificOrigin");
 
+app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

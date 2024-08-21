@@ -7,6 +7,8 @@ using Newtonsoft.Json.Linq;
 
 namespace ECommerceAPI.API.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly ILoginService _loginService;
@@ -30,8 +32,6 @@ namespace ECommerceAPI.API.Controllers
     }
 }
 
-        // Login successful, return the user data
-                // return Ok(userLogged);
           
 
 

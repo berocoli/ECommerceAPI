@@ -21,7 +21,7 @@ namespace Infrastructure.Services.TokenServices
             _customerService = customerService; 
         }
 
-        public TokenModel CreateAccessToken(int minute, string email, string name)
+        public TokenModel CreateAccessToken(int second, string email, string name)
         {
             TokenModel token = new TokenModel();
 
@@ -32,7 +32,7 @@ namespace Infrastructure.Services.TokenServices
             SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             // Set token expiration time
-            token.Expiration = DateTime.UtcNow.AddMinutes(minute);
+            token.Expiration = DateTime.UtcNow.AddSeconds(second);
 
             // Create JWT claims, including jti (unique token ID) and iat (issued at)
             var claims = new[]

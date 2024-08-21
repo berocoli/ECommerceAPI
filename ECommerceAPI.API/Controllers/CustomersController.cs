@@ -21,7 +21,6 @@ namespace ECommerceAPI.API.Controllers
         }
 
         [HttpGet("list")]
-        [Authorize]
         public async Task<IActionResult> ListCustomers()
         {
             var result = await _customerService.GetAllCustomersAsync();

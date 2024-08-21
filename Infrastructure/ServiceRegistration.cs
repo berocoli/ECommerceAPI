@@ -15,7 +15,6 @@ namespace Infrastructure.ServiceRegistration
             // Register HttpClient for CurrencyService
             services.AddHttpClient<ICurrencyService, CurrencyService>();
 
-            // Register other services
             services.AddScoped<ICurrencyConverterServices, CurrencyConverterServices>();
 
             services.AddScoped<ITokenHandler, TokenHandler>();

@@ -54,7 +54,7 @@ builder.Services.AddAuthorization();
 
 // Register services
 builder.Services.AddPersistanceServices();
-builder.Services.AddInfrastructureServices(); // Ensure this is not ambiguous
+builder.Services.AddInfrastructureServices();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // CORS Configuration
@@ -87,11 +87,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowSpecificOrigin");
+
 app.UseHttpsRedirection();
 app.UseRouting();
 
 // Use CORS
-app.UseCors("AllowSpecificOrigin");
+
 
 app.UseHttpsRedirection();
 app.UseAuthentication();

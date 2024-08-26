@@ -1,9 +1,8 @@
 ﻿using System;
 using Domain;
-
 namespace Application.Repositories
 {
-    public interface ICustomerReadRepository : IReadRepository<Customer>
+    public interface IUserWriteRepository : IWriteRepository<User>
     {
     }
 }

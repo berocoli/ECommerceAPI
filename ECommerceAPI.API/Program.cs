@@ -10,9 +10,6 @@ using Persistance.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add user secrets for development environment
-builder.Configuration.AddUserSecrets<Program>();
-
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -91,9 +88,6 @@ app.UseCors("AllowSpecificOrigin");
 
 app.UseHttpsRedirection();
 app.UseRouting();
-
-// Use CORS
-
 
 app.UseHttpsRedirection();
 app.UseAuthentication();

@@ -18,8 +18,8 @@ namespace Persistance
         // Method to seed model data during OnModelCreating
         public static void SeedModel(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Customer>().HasData(
-                    new Customer()
+            modelBuilder.Entity<User>().HasData(
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Berke Öztürk",
@@ -28,7 +28,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Doğa Su Türkileri",
@@ -37,7 +37,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Ervin Parlak",
@@ -46,7 +46,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Gamze Naz Yıldırım",
@@ -55,7 +55,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Atakan Yıldırım",
@@ -64,7 +64,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Ahmet Mümtaz Taylan",
@@ -73,7 +73,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Cem Yılmaz",
@@ -82,7 +82,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Şahan Gökbakar",
@@ -91,7 +91,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Mahsun Kırmızıgül",
@@ -100,7 +100,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Erkin Karaçay",
@@ -109,7 +109,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Ozan İmamhatipoğlu",
@@ -118,7 +118,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Barkın Özkaplan",
@@ -127,7 +127,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Barış Onur Aydın",
@@ -136,7 +136,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Deniz Zarshat",
@@ -150,7 +150,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "2222 Oak Drive, Hillcrest, NY 10001",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",
@@ -160,7 +160,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "456 Elm Avenue, Oakville, CA 94022",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",
@@ -170,7 +170,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "10101 Juniper Avenue, Blue Ridge, NC 27501",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",
@@ -180,7 +180,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "9999 Spruce Place, Highland, UT 84003",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",
@@ -190,7 +190,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "4444 Aspen Court, Meadowbrook, OR 97001",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",
@@ -200,7 +200,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "789 Pine Lane, Rivertown, TX 75001",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",
@@ -210,7 +210,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "5555 Redwood Street, Greenfield, AZ 85001",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",
@@ -220,7 +220,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "7777 Poplar Path, Brookhaven, GA 30301",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",
@@ -230,7 +230,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "1010 Birch Road, Forestville, WA 98001",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",
@@ -240,7 +240,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "8888 Cypress Circle, Riverview, MI 48201",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",
@@ -469,10 +469,10 @@ namespace Persistance
         }
         public void SeedDatabase()
         {
-            if (!dbContext.Customers.Any())
+            if (!dbContext.Users.Any())
             {
                 dbContext.AddRange(
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Berke Öztürk",
@@ -481,7 +481,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer
+                    new User
                     {
                         Id = Guid.NewGuid(),
                         Name = "Doğa Su Türkileri",
@@ -490,7 +490,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Ervin Parlak",
@@ -499,7 +499,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Gamze Naz Yıldırım",
@@ -508,7 +508,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Atakan Yıldırım",
@@ -517,7 +517,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Ahmet Mümtaz Taylan",
@@ -526,7 +526,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Cem Yılmaz",
@@ -535,7 +535,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Şahan Gökbakar",
@@ -544,7 +544,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Mahsun Kırmızıgül",
@@ -553,7 +553,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Erkin Karaçay",
@@ -562,7 +562,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Ozan İmamhatipoğlu",
@@ -571,7 +571,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Barkın Özkaplan",
@@ -580,7 +580,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Barış Onur Aydın",
@@ -589,7 +589,7 @@ namespace Persistance
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Customer()
+                    new User()
                     {
                         Id = Guid.NewGuid(),
                         Name = "Deniz Zarshat",
@@ -606,7 +606,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "2222 Oak Drive, Hillcrest, NY 10001",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",
@@ -616,7 +616,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "456 Elm Avenue, Oakville, CA 94022",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",
@@ -626,7 +626,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "10101 Juniper Avenue, Blue Ridge, NC 27501",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",
@@ -636,7 +636,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "9999 Spruce Place, Highland, UT 84003",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",
@@ -646,7 +646,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "4444 Aspen Court, Meadowbrook, OR 97001",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",
@@ -656,7 +656,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "789 Pine Lane, Rivertown, TX 75001",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",
@@ -666,7 +666,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "5555 Redwood Street, Greenfield, AZ 85001",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",
@@ -676,7 +676,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "7777 Poplar Path, Brookhaven, GA 30301",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",
@@ -686,7 +686,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "1010 Birch Road, Forestville, WA 98001",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",
@@ -696,7 +696,7 @@ namespace Persistance
                     new Order()
                     {
                         Id = Guid.NewGuid(),
-                        CustomerId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid(),
                         Address = "8888 Cypress Circle, Riverview, MI 48201",
                         Status = "Pending",
                         Description = " Please leave the package at the front porch if no one is home.",

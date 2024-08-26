@@ -6,4 +6,3 @@ namespace Application.Operations
         string HashPassword(string password);
     }
 }
-

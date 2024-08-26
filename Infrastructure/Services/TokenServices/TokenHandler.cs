@@ -13,15 +13,15 @@ namespace Infrastructure.Services.TokenServices
     public class TokenHandler : ITokenHandler
     {
         private readonly IConfiguration _configuration;
-        private readonly ICustomerService _customerService;
+        private readonly IUserService _userService;
 
-        public TokenHandler(IConfiguration configuration, ICustomerService customerService)
+        public TokenHandler(IConfiguration configuration, IUserService userService)
         {
             _configuration = configuration;
-            _customerService = customerService; 
+            _userService = userService;
         }
 
-        public TokenModel CreateAccessToken(int second, string email, string name)
+        public TokenModel CreateAccessToken(int minutes, string email, string name, bool role)
         {
             TokenModel token = new TokenModel();
 
@@ -32,19 +32,18 @@ namespace Infrastructure.Services.TokenServices
             SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             // Set token expiration time
-            token.Expiration = DateTime.UtcNow.AddSeconds(second);
+            token.Expiration = DateTime.UtcNow.AddMinutes(minutes);
 
-            // Create JWT claims, including jti (unique token ID) and iat (issued at)
+            // Create JWT claims
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), // Unique ID for this token
-                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64), //
+                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64), // Issued at time
                 new Claim(JwtRegisteredClaimNames.Email, email),
-                new Claim(JwtRegisteredClaimNames.Name, name)
-                // Issued at time
-                // Add other claims as necessary, e.g., user-specific claims like roles, email, etc.
+                new Claim(JwtRegisteredClaimNames.Name, name),
+                new Claim("role", role.ToString())
             };
-
+                       
             // Create the JWT security token
             JwtSecurityToken securityToken = new JwtSecurityToken(
                 audience: _configuration["JwtSettings:Audience"],

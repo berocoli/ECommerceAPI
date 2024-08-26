@@ -6,7 +6,6 @@ namespace Domain
     {
         public string CategoryName { get; set; }
     }
-
 }
 
 

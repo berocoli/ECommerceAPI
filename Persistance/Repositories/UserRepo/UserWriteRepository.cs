@@ -1,10 +1,9 @@
 ﻿using System;
 using Application.Repositories;
-using Application.Repositories.User;
-using Domain;
 using Persistance.Contexts;
+using Domain;
 
-namespace Persistance.Repositories
+namespace Persistance.Repositories.UserRepo
 {
     public class UserWriteRepository : WriteRepository<User>, IUserWriteRepository
     {

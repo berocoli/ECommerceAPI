@@ -9,6 +9,7 @@ using Persistance.Services;
 using Application.Services.PdfServices;
 using Persistance.Services.Pdf_Services;
 using Persistence.Services.Login;
+using Persistance.Repositories.UserRepo;
 
 namespace Persistance
 {
@@ -21,8 +22,8 @@ namespace Persistance
                 options.UseNpgsql(Configuration.ConnectionString));
             // Dependency Injection Container:
             // Repositories
-            services.AddScoped<ICustomerReadRepository, CustomerReadRepository>();
-            services.AddScoped<ICustomerWriteRepository, CustomerWriteRepository>();
+            services.AddScoped<IUserReadRepository, UserReadRepository>();
+            services.AddScoped<IUserWriteRepository, UserWriteRepository>();
             services.AddScoped<IProductReadRepository, ProductReadRepository>();
             services.AddScoped<IProductWriteRepository, ProductWriteRepository>();
             services.AddScoped<IOrderReadRepository, OrderReadRepository>();
@@ -33,7 +34,7 @@ namespace Persistance
 
             // Services
             services.AddScoped<IOrderService, OrderService>();
-            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ILoginService, LoginService>();
 

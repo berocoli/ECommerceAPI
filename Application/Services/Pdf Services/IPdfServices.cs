@@ -5,7 +5,7 @@ namespace Application.Services.PdfServices
 {
     public interface IPdfServices
     {
-        byte[] GeneratePdf(List<CustomerDto> customers);
+        byte[] GeneratePdf(List<UserDto> customers);
 
     }
 }

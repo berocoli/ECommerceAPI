@@ -15,7 +15,7 @@ namespace Persistance.Contexts
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductsCategory> Categories { get; set; } 
         public DbSet<Order> Orders { get; set; }
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace Persistance.Contexts
             DbInitializer.SeedModel(modelBuilder);
 
             // Additional configurations for each entity
-            modelBuilder.Entity<Customer>(entity =>
+            modelBuilder.Entity<User>(entity =>
             {
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -84,16 +84,16 @@ namespace Persistance.Contexts
                 {
                     case EntityState.Added:
                         data.Entity.CreatedDate = DateTime.UtcNow;
-                        if(data.Entity is Customer customer && !string.IsNullOrWhiteSpace(customer.Password))
+                        if(data.Entity is User User && !string.IsNullOrWhiteSpace(User.Password))
                         {
-                            customer.Password = PasswordHasher.HashPassword(customer.Password);
+                            User.Password = PasswordHasher.HashPassword(User.Password);
                         }
                         break;
                     case EntityState.Modified:
                         data.Entity.UpdatedDate = DateTime.UtcNow;
-                        if(data.Entity is Customer modifiedCustomer && !string.IsNullOrWhiteSpace(modifiedCustomer.Password))
+                        if(data.Entity is User modifiedUser && !string.IsNullOrWhiteSpace(modifiedUser.Password))
                         {
-                            modifiedCustomer.Password = PasswordHasher.HashPassword(modifiedCustomer.Password);
+                            modifiedUser.Password = PasswordHasher.HashPassword(modifiedUser.Password);
                         }
                         break;
                     case EntityState.Unchanged:

@@ -8,9 +8,9 @@ namespace Application
     {
         public MappingProfile()
         {
-            CreateMap<Customer, CreateCustomerDto>().ReverseMap();
-            CreateMap<Customer, UpdateCustomerDto>().ReverseMap();
-            CreateMap<Customer, CustomerDto>().ReverseMap();
+            CreateMap<User, CreateUserDto>().ReverseMap();
+            CreateMap<User, UpdateUserDto>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
             CreateMap<Order, CreateOrderDto>().ReverseMap();
             CreateMap<Order, UpdateOrderDto>().ReverseMap();
             CreateMap<Order, OrderDto>().ReverseMap();

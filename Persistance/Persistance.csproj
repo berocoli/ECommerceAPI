@@ -11,7 +11,6 @@
     <None Remove="Infrastructure\obj\Infrastructure.csproj.nuget.g.targets" />
     <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.assets.cache" />
     <None Remove="Repositories\" />
-    <None Remove="Repositories\CustomerRepo\" />
     <None Remove="Repositories\OrderRepo\" />
     <None Remove="Repositories\ProductRepo\" />
     <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.csproj.FileListAbsolute.txt" />
@@ -50,11 +49,11 @@
     <None Remove="Infrastructure\obj\project.assets.json" />
     <None Remove="Infrastructure\obj\Infrastructure.csproj.nuget.g.props" />
     <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.csproj.AssemblyReference.cache" />
+    <None Remove="Repositories\UserRepo\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contexts\" />
     <Folder Include="Repositories\" />
-    <Folder Include="Repositories\CustomerRepo\" />
     <Folder Include="Repositories\OrderRepo\" />
     <Folder Include="Repositories\ProductRepo\" />
     <Folder Include="Repositories\CategoryRepo\" />
@@ -63,6 +62,7 @@
     <Folder Include="Assets\" />
     <Folder Include="Assets\Fonts\" />
     <Folder Include="Services\Login\" />
+    <Folder Include="Repositories\UserRepo\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.7" />
@@ -94,6 +94,8 @@
     <Compile Remove="Infrastructure\Operations\PasswordHasher.cs" />
     <Compile Remove="Infrastructure\ServiceRegistration.cs" />
     <Compile Remove="Infrastructure\Services\Token\TokenService.cs" />
+    <Compile Remove="Repositories\CustomerRepo\CustomerWriteRepository.cs" />
+    <Compile Remove="Repositories\CustomerRepo\CustomerReadRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\Fonts\Arial.ttf" />

@@ -1,6 +1,6 @@
 ﻿namespace Application.DTOs
 {
-    public class CreateCustomerDto
+    public class CreateUserDto
     {
         public string Name { get; set; }
         public string EMail { get; set; }

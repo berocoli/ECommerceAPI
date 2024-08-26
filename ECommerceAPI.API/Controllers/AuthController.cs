@@ -19,7 +19,7 @@ namespace ECommerceAPI.API.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> LoginCustomer(string Email, string Password)
+        public async Task<IActionResult> LoginUser(string Email, string Password)
         {
             // Use the login service to handle the login process
             var userLogged = await _loginService.LoginHandler(Email, Password);

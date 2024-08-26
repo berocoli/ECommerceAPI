@@ -1,6 +1,6 @@
 ﻿namespace Application.DTOs
 {
-    public class DeleteCustomerDto 
+    public class DeleteUserDto 
     {
         public string Id { get; set; }
     }

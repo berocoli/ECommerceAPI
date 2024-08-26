@@ -11,14 +11,14 @@ namespace Persistance.Services.Pdf_Services
 {
     public class PdfSharpService : IPdfServices
     {
-        public byte[] GeneratePdf(List<CustomerDto> customers)
+        public byte[] GeneratePdf(List<UserDto> users)
         {
             // Set a custom font resolver to embed fonts
             GlobalFontSettings.FontResolver = new CustomFontResolver();
 
             // Create a new PDF document
             var document = new PdfDocument();
-            document.Info.Title = "Customer List";
+            document.Info.Title = "User List";
 
             // Create an empty page
             var page = document.AddPage();
@@ -31,7 +31,7 @@ namespace Persistance.Services.Pdf_Services
             double yPoint = 40;
 
             // Draw the header
-            gfx.DrawString("Customer List", fontBold, XBrushes.Black, new XRect(0, yPoint, page.Width, page.Height), XStringFormats.TopCenter);
+            gfx.DrawString("User List", fontBold, XBrushes.Black, new XRect(0, yPoint, page.Width, page.Height), XStringFormats.TopCenter);
             yPoint += 40;
 
             // Set column positions
@@ -48,11 +48,11 @@ namespace Persistance.Services.Pdf_Services
             gfx.DrawLine(XPens.Black, idColumnX, yPoint, page.Width - 40, yPoint);
             yPoint += 10;
 
-            // Loop through customers and draw each customer's data
-            foreach (var customer in customers)
+            // Loop through users and draw each user's data
+            foreach (var user in users)
             {
-                gfx.DrawString(customer.Name, fontRegular, XBrushes.Black, new XRect(nameColumnX, yPoint, page.Width, page.Height), XStringFormats.TopLeft);
-                gfx.DrawString(customer.Email, fontRegular, XBrushes.Black, new XRect(emailColumnX, yPoint, page.Width, page.Height), XStringFormats.TopLeft);
+                gfx.DrawString(user.Name, fontRegular, XBrushes.Black, new XRect(nameColumnX, yPoint, page.Width, page.Height), XStringFormats.TopLeft);
+                gfx.DrawString(user.Email, fontRegular, XBrushes.Black, new XRect(emailColumnX, yPoint, page.Width, page.Height), XStringFormats.TopLeft);
                 yPoint += 20;
 
                 // Add a new page if needed

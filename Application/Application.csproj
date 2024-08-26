@@ -19,51 +19,57 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Repositories\" />
-    <None Remove="Repositories\CustomerRepo\" />
     <None Remove="Repositories\ProductRepo\" />
     <None Remove="Repositories\OrderRepo\" />
     <None Remove="DTOs\" />
     <None Remove="Repositories\CategoryRepo\" />
     <None Remove="Exceptions\" />
-    <None Remove="DTOs\Customer\" />
     <None Remove="DTOs\Order\" />
     <None Remove="DTOs\Product\" />
     <None Remove="Services\" />
     <None Remove="DTOs\ProductsCategory\" />
     <None Remove="Services\Currency Services\" />
     <None Remove="Services\Pdf Services\" />
-    <None Remove="DTOs\Customer\Login\" />
     <None Remove="Features\" />
-    <None Remove="Features\LoginCustomer\" />
     <None Remove="Operations\" />
     <None Remove="DTOs\Login\" />
     <None Remove="DTOs\Token\" />
     <None Remove="Services\Token Services\" />
     <None Remove="Settings\" />
+    <None Remove="Features\Products\" />
+    <None Remove="Features\Orders\" />
+    <None Remove="Features\ProductsCategory\" />
+    <None Remove="DTOs\User\" />
+    <None Remove="Features\Users\" />
+    <None Remove="Repositories\UserRepo\" />
+    <None Remove="Features\LoginUser\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />
-    <Folder Include="Repositories\CustomerRepo\" />
     <Folder Include="Repositories\ProductRepo\" />
     <Folder Include="Repositories\OrderRepo\" />
     <Folder Include="DTOs\" />
     <Folder Include="Repositories\CategoryRepo\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="DTOs\Customer\" />
     <Folder Include="DTOs\Order\" />
     <Folder Include="DTOs\Product\" />
     <Folder Include="Services\" />
     <Folder Include="DTOs\ProductsCategory\" />
     <Folder Include="Services\Currency Services\" />
     <Folder Include="Services\Pdf Services\" />
-    <Folder Include="DTOs\Customer\Login\" />
     <Folder Include="Features\" />
-    <Folder Include="Features\LoginCustomer\" />
     <Folder Include="Operations\" />
     <Folder Include="DTOs\Login\" />
     <Folder Include="DTOs\Token\" />
     <Folder Include="Services\Token Services\" />
     <Folder Include="Settings\" />
+    <Folder Include="Features\Products\" />
+    <Folder Include="Features\Orders\" />
+    <Folder Include="Features\ProductsCategory\" />
+    <Folder Include="DTOs\User\" />
+    <Folder Include="Features\Users\" />
+    <Folder Include="Repositories\UserRepo\" />
+    <Folder Include="Features\LoginUser\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />

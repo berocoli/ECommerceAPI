@@ -36,13 +36,18 @@
     <None Remove="DTOs\Token\" />
     <None Remove="Services\Token Services\" />
     <None Remove="Settings\" />
-    <None Remove="Features\Products\" />
-    <None Remove="Features\Orders\" />
-    <None Remove="Features\ProductsCategory\" />
     <None Remove="DTOs\User\" />
-    <None Remove="Features\Users\" />
     <None Remove="Repositories\UserRepo\" />
-    <None Remove="Features\LoginUser\" />
+    <None Remove="Features\Queries\" />
+    <None Remove="Features\Commands\" />
+    <None Remove="Features\Commands\LoginUser\" />
+    <None Remove="Features\Commands\Orders\" />
+    <None Remove="Features\Commands\Products\" />
+    <None Remove="Features\Commands\ProductsCategory\" />
+    <None Remove="Features\Commands\Users\" />
+    <None Remove="Features\Queries\Orders\" />
+    <None Remove="Features\Queries\Products\" />
+    <None Remove="Features\Queries\Users\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />
@@ -63,13 +68,18 @@
     <Folder Include="DTOs\Token\" />
     <Folder Include="Services\Token Services\" />
     <Folder Include="Settings\" />
-    <Folder Include="Features\Products\" />
-    <Folder Include="Features\Orders\" />
-    <Folder Include="Features\ProductsCategory\" />
     <Folder Include="DTOs\User\" />
-    <Folder Include="Features\Users\" />
     <Folder Include="Repositories\UserRepo\" />
-    <Folder Include="Features\LoginUser\" />
+    <Folder Include="Features\Queries\" />
+    <Folder Include="Features\Commands\" />
+    <Folder Include="Features\Commands\LoginUser\" />
+    <Folder Include="Features\Commands\Orders\" />
+    <Folder Include="Features\Commands\Products\" />
+    <Folder Include="Features\Commands\ProductsCategory\" />
+    <Folder Include="Features\Commands\Users\" />
+    <Folder Include="Features\Queries\Orders\" />
+    <Folder Include="Features\Queries\Products\" />
+    <Folder Include="Features\Queries\Users\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />

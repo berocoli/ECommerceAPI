@@ -5,8 +5,8 @@ using Infrastructure.ServiceRegistration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Persistance;
-using Persistance.Contexts;
+using Persistence;
+using Persistence.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,8 +50,9 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 
 // Register services
-builder.Services.AddPersistanceServices();
+builder.Services.AddPersistenceServices();
 builder.Services.AddInfrastructureServices();
+builder.Services.AddApplicationServices();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // CORS Configuration

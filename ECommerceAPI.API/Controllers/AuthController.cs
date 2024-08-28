@@ -1,9 +1,5 @@
-﻿using System;
-using Application.DTOs.Token;
-using Application.Services;
-using Application.Services.TokenServices;
+﻿using Application.Services;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 
 namespace ECommerceAPI.API.Controllers
 {

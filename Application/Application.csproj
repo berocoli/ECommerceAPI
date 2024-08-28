@@ -48,6 +48,12 @@
     <None Remove="Features\Queries\Orders\" />
     <None Remove="Features\Queries\Products\" />
     <None Remove="Features\Queries\Users\" />
+    <None Remove="Features\Queries\Products\GetAllProducts\" />
+    <None Remove="Features\Queries\Orders\GetAllOrders\" />
+    <None Remove="Features\Queries\Users\GetAllUsers\" />
+    <None Remove="Features\Queries\Orders\GetOrdersById\" />
+    <None Remove="Features\Queries\Products\GetProductsById\" />
+    <None Remove="Features\Queries\Users\GetUsersById\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />
@@ -80,6 +86,12 @@
     <Folder Include="Features\Queries\Orders\" />
     <Folder Include="Features\Queries\Products\" />
     <Folder Include="Features\Queries\Users\" />
+    <Folder Include="Features\Queries\Products\GetAllProducts\" />
+    <Folder Include="Features\Queries\Orders\GetAllOrders\" />
+    <Folder Include="Features\Queries\Users\GetAllUsers\" />
+    <Folder Include="Features\Queries\Orders\GetOrdersById\" />
+    <Folder Include="Features\Queries\Products\GetProductsById\" />
+    <Folder Include="Features\Queries\Users\GetUsersById\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />

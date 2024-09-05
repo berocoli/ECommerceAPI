@@ -1,10 +1,27 @@
 ﻿using System;
+using Application.DTOs;
+using Application.Services;
+using MediatR;
+
 namespace Application.Features.Queries.Products.GetProductsById
 {
-    public class GetProductsByIdQueryHandler
+    public class GetProductsByIdQueryHandler : IRequestHandler<GetProductsByIdQueryRequest,GetProductsByIdQueryResponse>
     {
-        public GetProductsByIdQueryHandler()
+        private readonly IProductService _productService;
+        public GetProductsByIdQueryHandler(IProductService productService)
         {
+            _productService = productService;
+        }
+
+        public async Task<GetProductsByIdQueryResponse> Handle(GetProductsByIdQueryRequest request, CancellationToken cancellationToken)
+        {
+            var product = await _productService.GetProductByIdAsync(request.ProductId);
+            return new GetProductsByIdQueryResponse
+            {
+                Stock = product.Stock,
+                Price = product.Price,
+                Description = product.Description
+            };                     
         }
     }
 }

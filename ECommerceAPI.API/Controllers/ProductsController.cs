@@ -1,5 +1,9 @@
 ﻿using Application.DTOs;
+using Application.Features.Queries.Products.GetAllProducts;
+using Application.Features.Queries.Products.GetProductsById;
+using Application.Features.Queries.Products.GetProductsWhere;
 using Application.Services;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 // safe delete yap
@@ -11,35 +15,35 @@ namespace ECommerceAPI.API.Controllers
     public class ProductsController : ControllerBase
     {
         readonly private IProductService _productService;
+        readonly private IMediator mediator;
 
-        public ProductsController(IProductService productService)
+        public ProductsController(IProductService productService, IMediator _mediator)
         {
             _productService = productService;
+            mediator = _mediator;
         }
         
         [HttpGet("list")]
         public async Task<IActionResult> ListProducts()
         {
-            var result = await _productService.GetAllProductsAsync();
+            var result = await mediator.Send(new GetAllProductsQueryRequest());
             return Ok(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
-            var result = await _productService.GetProductByIdAsync(id);
-            if (result == null)
-                return null;
+            var request = new GetProductsByIdQueryRequest { ProductId = id };
+            GetProductsByIdQueryResponse result = await mediator.Send(request);
             return Ok(result);
         }
 
         [HttpGet("search")]
         public async Task<IActionResult> GetWhere([FromQuery] string name)
         {
-            var result = await _productService.SearchProductsByNameAsync(name);
-            if (result == null)
-                return null;
-            return Ok(result);
+            var request = new GetProductsWhereQueryRequest { Name = name };
+            List<GetProductsWhereQueryResponse> response = await mediator.Send(request);
+            return Ok(response);
         }
 
         [HttpPost]

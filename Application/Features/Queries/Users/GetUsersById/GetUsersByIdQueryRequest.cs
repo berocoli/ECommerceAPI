@@ -4,13 +4,9 @@ using MediatR;
 
 namespace Application.Features.Queries.Users.GetUsersById
 {
-    public class GetUsersByIdQueryRequest : IRequest<UserDto>
+    public class GetUsersByIdQueryRequest : IRequest<GetUsersByIdQueryResponse>
     {
-        public Guid UserId { get; set; }
-        public GetUsersByIdQueryRequest()
-        {
-            
-        }
+        public string UserId { get; set; }
     }
 }
 

@@ -1,5 +1,9 @@
 ﻿using Application.DTOs;
+using Application.Features.Queries.Orders.GetAllOrders;
+using Application.Features.Queries.Orders.GetOrdersById;
+using Application.Features.Queries.Orders.GetOrdersWhere;
 using Application.Services;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,35 +14,35 @@ namespace ECommerceAPI.API.Controllers
     public class OrderController : ControllerBase
     {
         readonly private IOrderService _orderService;
+        private readonly IMediator mediator;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderService, IMediator _mediator)
         {
             _orderService = orderService;
+            mediator = _mediator;
         }
 
         [HttpGet("list")]
         public async Task<IActionResult> ListOrders()
         {
-            var result = await _orderService.GetAllOrdersAsync();
-            return Ok(result);
+            var response = await mediator.Send(new GetAllOrderssQueryRequest());
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
-            var result = await _orderService.GetOrderByIdAsync(id);
-            if (result == null)
-                return NotFound();
-            return Ok(result);
+            var request = new GetOrdersByIdQueryRequest { OrderId = id};
+            GetOrdersByIdQueryResponse response = await mediator.Send(request);
+            return Ok(response);
         }
 
         [HttpGet("search")]
         public async Task<IActionResult> GetWhere(string status)
         {
-            var result = await _orderService.SearchOrdersByStatus(status);
-            if (result == null)
-                return null;
-            return Ok(result);
+            var request = new GetOrdersWhereQueryRequest { Status = status };
+            List<GetOrdersWhereQueryResponse> response = await mediator.Send(request);
+            return Ok(response);
         }
 
         [HttpPost]

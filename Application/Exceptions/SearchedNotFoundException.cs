@@ -8,11 +8,9 @@ namespace Application.Exceptions
         }
         public SearchedNotFoundException(string? message) : base(message)
         {
-
         }
         public SearchedNotFoundException(string? message, Exception inner) : base(message, inner)
         {
-
         }
     }
 }

@@ -9,6 +9,7 @@ using Domain;
 using Microsoft.EntityFrameworkCore;
 using Application.Services.TokenServices;
 using Application.DTOs.Token;
+using Application.DTOs.Login;
 
 namespace Persistence.Services.Login
 {
@@ -25,38 +26,31 @@ namespace Persistence.Services.Login
             _tokenHandler = tokenHandler;
         }
 
-        public async Task<LoginUserCommandResponse> LoginHandler(string email, string password)
+        public async Task<TokenModel> LoginHandler(string email, string password)
         {
             // Retrieve the user by email
             var user = await _userReadRepository.GetWhere(p => p.Email == email).FirstOrDefaultAsync();
             if (user == null)
             {
-                return new LoginUserCommandErrorResponse()
-                {
-                    Message = "Kullanıcı bulunamadı."
-                };
+                var error = "Kullanıcı bulunamadi";
+                return null;
             }
 
             // Verify the password
             bool isPasswordValid = PasswordHasher.VerifyPassword(password, user.Password);
             if (!isPasswordValid)
             {
-                return new LoginUserCommandErrorResponse()
-                {
-                    Message = "Şifreniz doğru değil."
-                };
+                var error = "Şifreniz doğru değil.";
+                return null;
             }
 
             // Map the user to UserDto
             var userDto = _mapper.Map<UserDto>(user);
 
             // Create the token
-            TokenModel token = _tokenHandler.CreateAccessToken(5, userDto.Email, userDto.Name, userDto.Surname, userDto.Role); 
+            TokenModel token = _tokenHandler.CreateAccessToken(5, userDto.Email, userDto.Name, userDto.Surname, userDto.Role);
 
-            return new LoginUserCommandSucceededResponse()
-            {
-                Token = token
-            };
+            return token;
         }
     }
 }

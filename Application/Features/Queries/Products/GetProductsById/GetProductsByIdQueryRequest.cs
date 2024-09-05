@@ -1,11 +1,12 @@
 ﻿using System;
+using Application.DTOs;
+using MediatR;
+
 namespace Application.Features.Queries.Products.GetProductsById
 {
-    public class GetProductsByIdQueryRequest
+    public class GetProductsByIdQueryRequest : IRequest<GetProductsByIdQueryResponse>
     {
-        public GetProductsByIdQueryRequest()
-        {
-        }
+        public string ProductId { get; set; }
     }
 }
 

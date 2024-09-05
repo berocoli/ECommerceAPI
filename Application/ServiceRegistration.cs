@@ -1,14 +1,14 @@
 ﻿using System;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using MediatR;
 
 namespace Application
 {
     public static class ServiceRegistration
     {
-        public static void AddApplicationServices(this IServiceCollection collection)
+        public static void AddApplicationServices(this IServiceCollection services)
         {
-            collection.AddMediatR(typeof(ServiceRegistration));
+            services.AddMediatR(typeof(ServiceRegistration));
         }
     }
 }

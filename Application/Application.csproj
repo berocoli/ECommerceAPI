@@ -12,10 +12,11 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="MediatR" Version="12.4.0" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.20" />
+    <PackageReference Include="MediatR" Version="11.1.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Repositories\" />
@@ -40,7 +41,6 @@
     <None Remove="Repositories\UserRepo\" />
     <None Remove="Features\Queries\" />
     <None Remove="Features\Commands\" />
-    <None Remove="Features\Commands\LoginUser\" />
     <None Remove="Features\Commands\Orders\" />
     <None Remove="Features\Commands\Products\" />
     <None Remove="Features\Commands\ProductsCategory\" />
@@ -54,6 +54,20 @@
     <None Remove="Features\Queries\Orders\GetOrdersById\" />
     <None Remove="Features\Queries\Products\GetProductsById\" />
     <None Remove="Features\Queries\Users\GetUsersById\" />
+    <None Remove="Features\Commands\Currency\" />
+    <None Remove="Features\Queries\Users\GetUsersWhere\" />
+    <None Remove="Features\Queries\Products\GetProductsWhere\" />
+    <None Remove="Features\Queries\Orders\GetOrdersWhere\" />
+    <None Remove="Features\Commands\Users\CreateUser\" />
+    <None Remove="Features\Commands\Users\UpdateUser\" />
+    <None Remove="Features\Commands\Users\DeleteUser\" />
+    <None Remove="Features\Commands\Users\LoginUser\" />
+    <None Remove="Features\Commands\Products\CreateProduct\" />
+    <None Remove="Features\Commands\Products\UpdateProduct\" />
+    <None Remove="Features\Commands\Products\DeleteProduct\" />
+    <None Remove="Features\Commands\Orders\CreateOrder\" />
+    <None Remove="Features\Commands\Orders\DeleteOrder\" />
+    <None Remove="Features\Commands\Orders\UpdateOrder\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />
@@ -78,7 +92,6 @@
     <Folder Include="Repositories\UserRepo\" />
     <Folder Include="Features\Queries\" />
     <Folder Include="Features\Commands\" />
-    <Folder Include="Features\Commands\LoginUser\" />
     <Folder Include="Features\Commands\Orders\" />
     <Folder Include="Features\Commands\Products\" />
     <Folder Include="Features\Commands\ProductsCategory\" />
@@ -92,6 +105,20 @@
     <Folder Include="Features\Queries\Orders\GetOrdersById\" />
     <Folder Include="Features\Queries\Products\GetProductsById\" />
     <Folder Include="Features\Queries\Users\GetUsersById\" />
+    <Folder Include="Features\Commands\Currency\" />
+    <Folder Include="Features\Queries\Users\GetUsersWhere\" />
+    <Folder Include="Features\Queries\Products\GetProductsWhere\" />
+    <Folder Include="Features\Queries\Orders\GetOrdersWhere\" />
+    <Folder Include="Features\Commands\Users\CreateUser\" />
+    <Folder Include="Features\Commands\Users\UpdateUser\" />
+    <Folder Include="Features\Commands\Users\DeleteUser\" />
+    <Folder Include="Features\Commands\Users\LoginUser\" />
+    <Folder Include="Features\Commands\Products\CreateProduct\" />
+    <Folder Include="Features\Commands\Products\UpdateProduct\" />
+    <Folder Include="Features\Commands\Products\DeleteProduct\" />
+    <Folder Include="Features\Commands\Orders\CreateOrder\" />
+    <Folder Include="Features\Commands\Orders\DeleteOrder\" />
+    <Folder Include="Features\Commands\Orders\UpdateOrder\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />

@@ -1,4 +1,6 @@
-﻿using Application.Services;
+﻿using Application.Features.LoginCustomer;
+using Application.Services;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceAPI.API.Controllers
@@ -7,29 +9,18 @@ namespace ECommerceAPI.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly ILoginService _loginService;
+        private readonly IMediator _mediator;
         
-        public AuthController(ILoginService loginService)
+        public AuthController(IMediator mediator)
         {
-            _loginService = loginService;
+            _mediator = mediator;
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> LoginUser(string Email, string Password)
+        public async Task<IActionResult> LoginUser(LoginUserCommandRequest loginCommandReq)
         {
-            // Use the login service to handle the login process
-            var userLogged = await _loginService.LoginHandler(Email, Password);
-            if(userLogged == null)
-            {
-                return Unauthorized("Oturum açma işlemi tamamlanamamıştır. E-Posta hesabınızı veya şifrenizi kontrol edin.");
-            }
-            return Ok(userLogged);
+            LoginUserCommandResponse response= await _mediator.Send(loginCommandReq);
+            return Ok(response);
         }
     }
 }
-
-          
-
-
-
-

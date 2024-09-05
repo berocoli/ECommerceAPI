@@ -1,11 +1,12 @@
 ﻿using System;
+using Application.DTOs;
+using MediatR;
+
 namespace Application.Features.Queries.Orders.GetOrdersById
 {
-    public class GetOrdersByIdQueryRequest
+    public class GetOrdersByIdQueryRequest : IRequest<GetOrdersByIdQueryResponse>
     {
-        public GetOrdersByIdQueryRequest()
-        {
-        }
+        public string OrderId { get; set; }
     }
 }
 

@@ -1,11 +1,11 @@
 ﻿using System;
+using MediatR;
+
 namespace Application.Features.Commands.Products.DeleteProduct
 {
-    public class DeleteProductCommandRequest
+    public class DeleteProductCommandRequest : IRequest<DeleteProductCommandrResponse>
     {
-        public DeleteProductCommandRequest()
-        {
-        }
+        public string Id { get; set; }
     }
 }
 

@@ -3,9 +3,7 @@ namespace Application.Features.Commands.Orders.CreateOrder
 {
     public class CreateOrderCommandResponse
     {
-        public CreateOrderCommandResponse()
-        {
-        }
+        public string Message { get; set; }
     }
 }
 

@@ -3,9 +3,7 @@ namespace Application.Features.Commands.Products.UpdateProduct
 {
     public class UpdateProductCommandResponse
     {
-        public UpdateProductCommandResponse()
-        {
-        }
+        public string Message { get; set; }
     }
 }
 

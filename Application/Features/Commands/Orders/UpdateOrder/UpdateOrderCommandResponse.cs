@@ -3,9 +3,7 @@ namespace Application.Features.Commands.Orders.UpdateOrder
 {
     public class UpdateOrderCommandResponse
     {
-        public UpdateOrderCommandResponse()
-        {
-        }
+        public string Message { get; set; }
     }
 }
 

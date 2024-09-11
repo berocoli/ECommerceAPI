@@ -3,9 +3,7 @@ namespace Application.Features.Commands.Products.DeleteProduct
 {
     public class DeleteProductCommandrResponse
     {
-        public DeleteProductCommandrResponse()
-        {
-        }
+        public string Message { get; set; }
     }
 }
 

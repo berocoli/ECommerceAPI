@@ -1,10 +1,31 @@
-﻿using System;
+﻿using Application.Services;
+using MediatR;
+
 namespace Application.Features.Commands.Orders.CreateOrder
 {
-    public class CreateOrderCommandHandler
+    public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommandRequest, CreateOrderCommandResponse>
     {
-        public CreateOrderCommandHandler()
+        private readonly IOrderService _orderService;
+        public CreateOrderCommandHandler(IOrderService orderService)
         {
+            _orderService = orderService;
+        }
+
+        public async Task<CreateOrderCommandResponse> Handle(CreateOrderCommandRequest request, CancellationToken cancellationToken)
+        {
+            var result = await _orderService.CreateOrderAsync(request.CreateOrder);
+            if(result == false)
+            {
+                return new CreateOrderCommandResponse
+                {
+                    Message = "Order creation unsuccessful."
+                };
+            }
+
+            return new CreateOrderCommandResponse
+            {
+                Message = "Order created successfully!"
+            };
         }
     }
 }

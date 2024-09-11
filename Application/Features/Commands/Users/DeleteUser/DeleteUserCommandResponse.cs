@@ -3,9 +3,7 @@ namespace Application.Features.Commands.Users.DeleteUser
 {
     public class DeleteUserCommandResponse
     {
-        public DeleteUserCommandResponse()
-        {
-        }
+        public string Message { get; set; }
     }
 }
 

@@ -1,11 +1,12 @@
 ﻿using System;
+using Application.DTOs;
+using MediatR;
+
 namespace Application.Features.Commands.Products.UpdateProduct
 {
-    public class UpdateProductCommandRequest
+    public class UpdateProductCommandRequest : IRequest<UpdateProductCommandResponse>
     {
-        public UpdateProductCommandRequest()
-        {
-        }
+        public UpdateProductDto UpdateProduct { get; set; }
     }
 }
 

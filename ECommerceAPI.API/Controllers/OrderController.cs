@@ -1,4 +1,6 @@
 ﻿using Application.DTOs;
+using Application.Features.Commands.Products.CreateProduct;
+using Application.Features.Commands.Products.UpdateProduct;
 using Application.Features.Queries.Orders.GetAllOrders;
 using Application.Features.Queries.Orders.GetOrdersById;
 using Application.Features.Queries.Orders.GetOrdersWhere;
@@ -46,30 +48,24 @@ namespace ECommerceAPI.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto createOrderDto)
+        public async Task<IActionResult> CreateOrder(CreateProductCommandRequest createRequest)
         {
-            var result = await _orderService.CreateOrderAsync(createOrderDto);
-            if (result)
-                return Ok();
-            return BadRequest("Could not create the order");
+            var result = await mediator.Send(createRequest);
+            return Ok(result);
         }
 
-        [HttpPut("byId")]
-        public async Task<IActionResult> Update([FromBody] UpdateOrderDto updateOrderDto)
+        [HttpPut("Update")]
+        public async Task<IActionResult> Update(UpdateProductCommandRequest updateRequest)
         {
-            var result = await _orderService.UpdateOrderAsync(updateOrderDto);
-            if (result)
-                return Ok();
-            return BadRequest("Could not update the order");
+            var result = await mediator.Send(updateRequest);
+            return Ok(result);
         }
 
         [HttpDelete]
         public async Task<IActionResult> Delete(string id)
         {
-            var result = await _orderService.DeleteOrderAsync(id);
-            if (result)
-                return Ok();
-            return BadRequest("Could not delete the order");
+            var result = await mediator.Send(id);
+            return Ok(result);
         }
     }
 }

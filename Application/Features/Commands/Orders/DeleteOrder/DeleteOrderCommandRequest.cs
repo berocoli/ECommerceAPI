@@ -1,10 +1,10 @@
 ﻿using System;
+using MediatR;
+
 namespace Application.Features.Commands.Orders.DeleteOrder
 {
-    public class DeleteOrderCommandRequest
+    public class DeleteOrderCommandRequest : IRequest<DeleteOrderCommandResponse>
     {
-        public DeleteOrderCommandRequest()
-        {
-        }
+        public string Id { get; set; }
     }
 }

@@ -3,9 +3,7 @@ namespace Application.Features.Commands.Users.UpdateUser
 {
     public class UpdateUserCommandResponse
     {
-        public UpdateUserCommandResponse()
-        {
-        }
+        public string Message { get; set; }
     }
 }
 

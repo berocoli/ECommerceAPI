@@ -1,11 +1,12 @@
 ﻿using System;
+using Application.DTOs;
+using MediatR;
+
 namespace Application.Features.Commands.Users.CreateUser
 {
-    public class CreateUserCommandRequest
+    public class CreateUserCommandRequest : IRequest<CreateUserCommandResponse>
     {
-        public CreateUserCommandRequest()
-        {
-        }
+        public CreateUserDto CreateUser { get; set; }
     }
 }
 

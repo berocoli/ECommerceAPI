@@ -1,11 +1,12 @@
 ﻿using System;
+using Application.DTOs;
+using MediatR;
+
 namespace Application.Features.Commands.Products.CreateProduct
 {
-    public class CreateProductCommandRequest
+    public class CreateProductCommandRequest : IRequest<CreateProductCommandResponse>
     {
-        public CreateProductCommandRequest()
-        {
-        }
+        public CreateProductDto CreateProduct { get; set; }
     }
 }
 

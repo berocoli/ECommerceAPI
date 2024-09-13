@@ -1,8 +1,10 @@
 ﻿using Application.DTOs;
+using Application.Features.Commands.Users.CreateUser;
+using Application.Features.Commands.Users.DeleteUser;
+using Application.Features.Commands.Users.UpdateUser;
 using Application.Features.Queries.Orders.GetAllOrders;
 using Application.Features.Queries.Users.GetUsersById;
 using Application.Features.Queries.Users.GetUsersWhere;
-using Application.Services;
 using Application.Services.PdfServices;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -13,14 +15,12 @@ namespace ECommerceAPI.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _userService;
         private readonly IPdfServices _pdfService;
         private readonly IMediator mediator;
 
 
-        public UserController(IUserService userService, IPdfServices pdfServices, IMediator _mediator)
+        public UserController(IPdfServices pdfServices, IMediator _mediator)
         {
-            _userService = userService;
             _pdfService = pdfServices;
             mediator = _mediator;
         }
@@ -49,36 +49,33 @@ namespace ECommerceAPI.API.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
+        public async Task<IActionResult> CreateUser(CreateUserCommandRequest request)
         {
-            var result = await _userService.CreateUserAsync(createUserDto);
-            if (result)
-                return Ok();
-            return BadRequest("Could not create the User.");
+            var result = await mediator.Send(request);
+            return Ok(result);
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> Update([FromBody] UpdateUserDto updateUserDto)
+        public async Task<IActionResult> Update(UpdateUserCommandRequest request)
         {
-            var result = await _userService.UpdateUserAsync(updateUserDto);
-            if (result)
-                return Ok();
-            return BadRequest("Could not update the User.");
+            var result = await mediator.Send(request);
+            return Ok(result);
         }
 
         [HttpDelete("byId")]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(DeleteUserCommandRequest request)
         {
-            var result = await _userService.DeleteUserAsync(id);
-            if (result)
-                return Ok();
-            return BadRequest("Could not delete the User.");
+            var result = await mediator.Send(request);
+            return Ok(result);
         }
 
         [HttpGet("PDF")]
         public async Task<IActionResult> ListUsersPDF()
         {
-            List<UserDto> users = await _userService.GetAllUsersAsync();
+            var result = await mediator.Send(new GetAllUsersQueryRequest());
+
+            List<UserDto> users = result.ToList();
+            // List<UserDto> users = await _userService.GetAllUsersAsync();
 
             byte[] pdfBytes = _pdfService.GeneratePdf(users);
             return File(pdfBytes, "application/pdf", "UsersList.pdf");

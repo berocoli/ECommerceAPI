@@ -1,4 +1,6 @@
-﻿using Application.DTOs;
+﻿using Application.Features.Commands.Products.CreateProduct;
+using Application.Features.Commands.Products.DeleteProduct;
+using Application.Features.Commands.Products.UpdateProduct;
 using Application.Features.Queries.Products.GetAllProducts;
 using Application.Features.Queries.Products.GetProductsById;
 using Application.Features.Queries.Products.GetProductsWhere;
@@ -47,34 +49,28 @@ namespace ECommerceAPI.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateProductDto createProductDto)
+        public async Task<IActionResult> Create(CreateProductCommandRequest request)
         {
-            var result = await _productService.CreateProductsAsync(createProductDto);
-            if (result)
-                return Ok();
-            return BadRequest("Could not create the customer");
+            var result = await mediator.Send(request);
+            return Ok(result);
         }
 
         [HttpPut("byId")]
-        public async Task<IActionResult> Update(UpdateProductDto updateProductDto)
+        public async Task<IActionResult> Update(UpdateProductCommandRequest request)
         {
-            var result = await _productService.UpdateProductsAsync(updateProductDto);
-            if(result)
-                return Ok();
-            return BadRequest("Could not update the product");
+            var result = await mediator.Send(request);
+            return Ok(result);
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(DeleteProductCommandRequest request)
         {
-            var result = await _productService.DeleteProductAsync(id);
-            if(result)
-               return Ok();
-            return BadRequest("Could not delete the product");
+            var result = await mediator.Send(request);
+            return Ok(result);
         }
 
         [HttpGet("list(stored)")]
-        public async Task<IActionResult> StoredProc()
+        public async Task<IActionResult> StoredGetProcedure()
         {
             var result = await _productService.GetAllProductsStorage();
             return Ok(result);

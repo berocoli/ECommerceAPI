@@ -1,26 +1,23 @@
-﻿using Application.DTOs;
-using Application.Features.Commands.Products.CreateProduct;
-using Application.Features.Commands.Products.UpdateProduct;
+﻿using Application.Features.Commands.Orders.CreateOrder;
+using Application.Features.Commands.Orders.DeleteOrder;
+using Application.Features.Commands.Orders.UpdateOrder;
 using Application.Features.Queries.Orders.GetAllOrders;
 using Application.Features.Queries.Orders.GetOrdersById;
 using Application.Features.Queries.Orders.GetOrdersWhere;
 using Application.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceAPI.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class OrderController : ControllerBase
-    {
-        readonly private IOrderService _orderService;
+    { 
         private readonly IMediator mediator;
 
-        public OrderController(IOrderService orderService, IMediator _mediator)
-        {
-            _orderService = orderService;
+        public OrderController(IMediator _mediator)
+        {          
             mediator = _mediator;
         }
 
@@ -48,23 +45,23 @@ namespace ECommerceAPI.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrder(CreateProductCommandRequest createRequest)
+        public async Task<IActionResult> CreateOrder(CreateOrderCommandRequest createRequest)
         {
             var result = await mediator.Send(createRequest);
             return Ok(result);
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(UpdateProductCommandRequest updateRequest)
+        public async Task<IActionResult> Update(UpdateOrderCommandRequest updateRequest)
         {
             var result = await mediator.Send(updateRequest);
             return Ok(result);
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(DeleteOrderCommandRequest request)
         {
-            var result = await mediator.Send(id);
+            var result = await mediator.Send(request);
             return Ok(result);
         }
     }

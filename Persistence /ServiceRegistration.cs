@@ -34,9 +34,7 @@ namespace Persistence
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<ILoginService, LoginService>();
-
-            services.AddSingleton<IPdfServices, PdfSharpService>();           
+            services.AddScoped<ILoginService, LoginService>();           
         }
     }
 }

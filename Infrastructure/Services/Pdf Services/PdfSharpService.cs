@@ -1,11 +1,9 @@
-﻿using PdfSharp.Drawing;
-using PdfSharp.Pdf;
-using PdfSharp.Fonts;
-using System.IO;
-using System.Reflection;
-using System.Collections.Generic;
-using Application.Services.PdfServices;
+﻿using System.Reflection;
 using Application.DTOs;
+using Application.Services.PdfServices;
+using PdfSharp.Drawing;
+using PdfSharp.Fonts;
+using PdfSharp.Pdf;
 
 namespace Persistence.Services.Pdf_Services
 {

@@ -1,7 +1,6 @@
 ﻿using Application.Features.Commands.Currency;
 using Application.Services.CurrencyServices;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -9,14 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 public class CurrencyController : ControllerBase
 {
     private readonly IMediator _mediator;
-    private readonly ICurrencyService _currencyService;
-    private readonly ICurrencyConverterServices _currencyConverter;
+    //private readonly ICurrencyService _currencyService;
+    //private readonly ICurrencyConverterServices _currencyConverter;
 
-    public CurrencyController(IMediator mediator, ICurrencyService currencyService, ICurrencyConverterServices currencyConverter)
+    public CurrencyController(IMediator mediator)
     {
         _mediator = mediator;
-        _currencyService = currencyService;
-        _currencyConverter = currencyConverter;
     }
 
     [HttpGet("rates")]

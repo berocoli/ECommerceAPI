@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence \Persistence.csproj", "{3AE7B79C-968E-4685-9818-979A184F8B11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerceAPI.Tests.Unit", "ECommerceAPI.Tests.Unit\ECommerceAPI.Tests.Unit.csproj", "{7AD19D9F-BAAD-445F-A5FB-20EDB7FCDF39}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{80708BBF-15E7-4D90-8C5E-EED320D5D202}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,10 @@ Global
 		{3AE7B79C-968E-4685-9818-979A184F8B11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AE7B79C-968E-4685-9818-979A184F8B11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AE7B79C-968E-4685-9818-979A184F8B11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AD19D9F-BAAD-445F-A5FB-20EDB7FCDF39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AD19D9F-BAAD-445F-A5FB-20EDB7FCDF39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AD19D9F-BAAD-445F-A5FB-20EDB7FCDF39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AD19D9F-BAAD-445F-A5FB-20EDB7FCDF39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,5 +66,6 @@ Global
 		{E604AD30-EE30-4F94-AD94-B994F9051A53} = {1FE40285-BCDF-49FC-A331-2E6C8D7477B3}
 		{20822A19-A296-430F-8894-DFDBB2FBE420} = {79488540-0B58-48B1-B2D9-DCE9F89B010F}
 		{3AE7B79C-968E-4685-9818-979A184F8B11} = {79488540-0B58-48B1-B2D9-DCE9F89B010F}
+		{7AD19D9F-BAAD-445F-A5FB-20EDB7FCDF39} = {80708BBF-15E7-4D90-8C5E-EED320D5D202}
 	EndGlobalSection
 EndGlobal

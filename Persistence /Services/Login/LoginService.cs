@@ -48,7 +48,7 @@ namespace Persistence.Services.Login
             var userDto = _mapper.Map<UserDto>(user);
 
             // Create the token
-            TokenModel token = _tokenHandler.CreateAccessToken(5, userDto.Email, userDto.Name, userDto.Surname, userDto.Role);
+            TokenModel token = _tokenHandler.CreateAccessToken(5, userDto.Id, userDto.Email, userDto.Name, userDto.Surname, userDto.Role);
 
             return token;
         }

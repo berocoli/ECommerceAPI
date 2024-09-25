@@ -49,7 +49,7 @@ namespace ECommerceAPI.API.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateUser(CreateUserCommandRequest request)
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserCommandRequest request)
         {
             var result = await mediator.Send(request);
             return Ok(result);

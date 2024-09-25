@@ -32,7 +32,8 @@ namespace Application.Features.Commands.Currency
                 {
                     CurrencyCode = currency.Attribute("Kod").Value,
                     ForexBuying = currency.Element("ForexBuying")?.Value ?? "N/A",
-                    ForexSelling = currency.Element("ForexSelling")?.Value ?? "N/A"
+                    ForexSelling = currency.Element("ForexSelling")?.Value ?? "N/A",
+                    Unit = currency.Element("Unit")?.Value ?? "N/A"
                 })
                 .ToList();
 

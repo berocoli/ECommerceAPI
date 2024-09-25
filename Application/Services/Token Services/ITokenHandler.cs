@@ -6,7 +6,7 @@ namespace Application.Services.TokenServices
 {
     public interface ITokenHandler
     {
-        TokenModel CreateAccessToken(int minutes, string email, string name, string surname, bool role); 
+        TokenModel CreateAccessToken(int minutes, string id, string email, string name, string surname, bool role); 
     }
 }
 

@@ -42,13 +42,22 @@ namespace Persistence.Services
             return _mapper.Map<List<UserDto>>(users);
         }
 
-        public async Task<bool> CreateUserAsync(CreateUserDto UserDto)
+        public async Task<bool> CreateUserAsync(string name, string surname, string email, string password)
         {
-            var user = _mapper.Map<User>(UserDto);
+            var createUserDto = new CreateUserDto
+            {
+                Name = name,
+                Surname = surname,
+                EMail = email,
+                Password = password // Again, ensure proper security practices
+            };
+
+            var user = _mapper.Map<User>(createUserDto);
             var result = await _userWriteRepository.AddAsync(user);
             await _userWriteRepository.SaveAsync();
             return result;
         }
+
 
         public async Task<bool> UpdateUserAsync(UpdateUserDto UserDto)
         {

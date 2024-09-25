@@ -21,7 +21,7 @@ namespace Infrastructure.Services.TokenServices
             _userService = userService;
         }
 
-        public TokenModel CreateAccessToken(int minutes, string email, string name, string surname, bool role)
+        public TokenModel CreateAccessToken(int minutes, string id, string email, string name, string surname, bool role)
         {
             TokenModel token = new TokenModel();
 
@@ -39,9 +39,11 @@ namespace Infrastructure.Services.TokenServices
             {
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), // Unique ID for this token
                 new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64), // Issued at time
-                new Claim(JwtRegisteredClaimNames.Email, email),
-                new Claim(JwtRegisteredClaimNames.Name, name),
-                new Claim(JwtRegisteredClaimNames.FamilyName, surname),
+                new Claim(JwtRegisteredClaimNames.Sub, id, ClaimValueTypes.String),
+                new Claim(JwtRegisteredClaimNames.Email, email, ClaimValueTypes.Email), 
+                new Claim(JwtRegisteredClaimNames.Name, name, ClaimValueTypes.String),
+                new Claim(JwtRegisteredClaimNames.FamilyName, surname, ClaimValueTypes.String),
+                
                 new Claim("role", role.ToString())
             };
                        

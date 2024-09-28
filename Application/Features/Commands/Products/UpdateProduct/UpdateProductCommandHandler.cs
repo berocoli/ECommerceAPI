@@ -14,7 +14,7 @@ namespace Application.Features.Commands.Products.UpdateProduct
 
         public async Task<UpdateProductCommandResponse> Handle(UpdateProductCommandRequest request, CancellationToken cancellationToken)
         {
-            var result = await _productService.UpdateProductsAsync(request.UpdateProduct);
+            var result = await _productService.UpdateProductsAsync(request.Id, request.Name, request.Price, request.Stock, request.Description);
             if(result == false)
             {
                 return new UpdateProductCommandResponse

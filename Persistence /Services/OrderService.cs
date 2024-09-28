@@ -43,19 +43,35 @@ namespace Persistence.Services
             return _mapper.Map<List<OrderDto>>(orders);
         }
 
-        public async Task<bool> CreateOrderAsync(CreateOrderDto createOrderDto)
+        public async Task<bool> CreateOrderAsync(string status, string address, string description)
         {
+            var createOrderDto = new CreateOrderDto
+            {
+                Status = status,
+                Address = address,
+                Description = description
+            };
+
             var order = _mapper.Map<Order>(createOrderDto);
             var result = await _orderWriteRepository.AddAsync(order);
             await _orderWriteRepository.SaveAsync();
             return result;
         }
 
-        public async Task<bool> UpdateOrderAsync(UpdateOrderDto updateOrderDto)
+        public async Task<bool> UpdateOrderAsync(string id, string status, string address, string description)
         {
-            var order = await _orderReadRepository.GetByIdAsync(updateOrderDto.Id);
+            var order = await _orderReadRepository.GetByIdAsync(id);
             if (order == null)
                 return false;
+
+            var updateOrderDto = new UpdateOrderDto
+            {
+                Id = id,
+                Status = status,
+                Address = address,
+                Description = description
+            };
+
             _mapper.Map(updateOrderDto, order);
             var result = _orderWriteRepository.Update(order);
             await _orderWriteRepository.SaveAsync();

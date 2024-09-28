@@ -43,19 +43,34 @@ namespace Persistence.Services
             return _mapper.Map<List<ProductDto>>(product);
         }
 
-        public async Task<bool> CreateProductsAsync(CreateProductDto createProductDto)
+        public async Task<bool> CreateProductsAsync(string name, double price, double stock, string description)
         {
+            var createProductDto = new CreateProductDto
+            {
+                Name = name,
+                Price = price,
+                Stock = stock,
+                Description = description,
+            };
             var product = _mapper.Map<Product>(createProductDto);
             var result = await _productWriteRepository.AddAsync(product);
             await _productWriteRepository.SaveAsync();
             return result;
         }
 
-        public async Task<bool> UpdateProductsAsync(UpdateProductDto updateProductDto)
+        public async Task<bool> UpdateProductsAsync(string id, string name, double price, double stock, string description)
         {
-            var product = await _productReadRepository.GetByIdAsync(updateProductDto.Id);
+            var product = await _productReadRepository.GetByIdAsync(id);
             if (product == null)
                 return false;
+            var updateProductDto = new UpdateProductDto
+            {
+                Id = id,
+                Name = name,
+                Price = price,
+                Stock = stock,
+                Description = description
+            };
             _mapper.Map(updateProductDto, product);
             var result = _productWriteRepository.Update(product);
             await _productWriteRepository.SaveAsync();

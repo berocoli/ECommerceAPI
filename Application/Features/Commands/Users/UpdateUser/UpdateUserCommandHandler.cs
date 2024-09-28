@@ -14,7 +14,7 @@ namespace Application.Features.Commands.Users.UpdateUser
 
         public async Task<UpdateUserCommandResponse> Handle(UpdateUserCommandRequest request, CancellationToken cancellationToken)
         {
-            var result = await _userService.UpdateUserAsync(request.UpdateUser);
+            var result = await _userService.UpdateUserAsync(request.Id, request.Name, request.Surname, request.EMail, request.Password, request.Role);
             if(result == false)
             {
                 return new UpdateUserCommandResponse

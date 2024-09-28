@@ -13,7 +13,7 @@ namespace Application.Features.Commands.Orders.CreateOrder
 
         public async Task<CreateOrderCommandResponse> Handle(CreateOrderCommandRequest request, CancellationToken cancellationToken)
         {
-            var result = await _orderService.CreateOrderAsync(request.CreateOrder);
+            var result = await _orderService.CreateOrderAsync(request.Status, request.Address, request.Description);
             if(result == false)
             {
                 return new CreateOrderCommandResponse

@@ -14,7 +14,7 @@ namespace Application.Features.Commands.Orders.UpdateOrder
 
         public async Task<UpdateOrderCommandResponse> Handle(UpdateOrderCommandRequest request, CancellationToken cancellationToken)
         {
-            var result = await _orderService.UpdateOrderAsync(request.UpdateOrder);
+            var result = await _orderService.UpdateOrderAsync(request.Id, request.Status, request.Address, request.Description);
             if(result == false)
             {
                 return new UpdateOrderCommandResponse

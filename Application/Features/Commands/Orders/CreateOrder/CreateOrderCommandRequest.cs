@@ -6,7 +6,9 @@ namespace Application.Features.Commands.Orders.CreateOrder
 {
     public class CreateOrderCommandRequest : IRequest<CreateOrderCommandResponse>
     {
-        public CreateOrderDto CreateOrder { get; set; }
+        public string Status { get; set; }
+        public string Address { get; set; }
+        public string Description { get; set; }
     }
 }
 

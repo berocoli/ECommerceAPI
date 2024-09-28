@@ -59,13 +59,23 @@ namespace Persistence.Services
         }
 
 
-        public async Task<bool> UpdateUserAsync(UpdateUserDto UserDto)
+        public async Task<bool> UpdateUserAsync(string id, string name, string surname, string email, string password, bool role)
         {
-            var user = await _userReadRepository.GetByIdAsync(UserDto.Id);
+            var user = await _userReadRepository.GetByIdAsync(id);
             if (user == null)
                 return false;
 
-            _mapper.Map(UserDto, user);
+            var updateUserDto = new UpdateUserDto
+            {
+                Id = id,
+                Name = name,
+                Surname = surname,
+                EMail = email,
+                Password = password,
+                Role = role
+            };
+
+            _mapper.Map(updateUserDto, user);
             var result = _userWriteRepository.Update(user);
             await _userWriteRepository.SaveAsync();
             return result;

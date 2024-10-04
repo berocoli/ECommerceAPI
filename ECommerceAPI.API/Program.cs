@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Persistence;
 using Persistence.Contexts;
+using Persistence.Seed;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,12 +72,14 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ECommerceAPIDbContext>();
-    dbContext.Database.Migrate(); // Apply migrations
+
+    // Apply migrations
+    dbContext.Database.Migrate(); // Ensure that the database is updated with migrations
 
     // Seed the database
-    var dbInitializer = new DbInitializer(dbContext);
-    dbInitializer.SeedDatabase();
+    await DbInitializer.SeedAsync(dbContext);
 }
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

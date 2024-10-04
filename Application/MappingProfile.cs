@@ -24,7 +24,7 @@ namespace Application
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl));
             CreateMap<ProductsCategory, ProductsCategoryDto>().ReverseMap();
-
+            CreateMap<Cart, GetCartsDto>().ReverseMap();
         }
     }
 }

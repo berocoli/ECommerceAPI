@@ -49,7 +49,7 @@ namespace Persistence.Services
                 Name = name,
                 Surname = surname,
                 EMail = email,
-                Password = password // Again, ensure proper security practices
+                Password = password 
             };
 
             var user = _mapper.Map<User>(createUserDto);

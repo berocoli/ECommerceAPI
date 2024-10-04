@@ -1,986 +1,203 @@
-﻿using Domain;
+﻿using System;
+using System.Threading.Tasks;
+using Domain;
 using Infrastructure.Operations;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
 
-namespace Persistence
+namespace Persistence.Seed
 {
-    // Database Seeder Class
-    public class DbInitializer
+    public static class DbInitializer
     {
-        private readonly ECommerceAPIDbContext dbContext;
-        private readonly ModelBuilder modelBuilder;
+        public static async Task SeedAsync(ECommerceAPIDbContext dbContext)
+        {
+            // Ensure the database is created
+            await dbContext.Database.EnsureCreatedAsync();
 
-        public DbInitializer(ECommerceAPIDbContext _dbContext)
-        {
-            dbContext = _dbContext;
-        }
-        // Method to seed model data during OnModelCreating
-        public static void SeedModel(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<User>().HasData(
-                    new User()
+            // Seed Users
+            if (!await dbContext.Users.AnyAsync())
+            {
+                var berkeId = Guid.NewGuid();
+                var dogaId = Guid.NewGuid();
+                var soupyId = Guid.NewGuid();
+
+                await dbContext.Users.AddRangeAsync(
+                    new User
                     {
-                        Id = Guid.NewGuid(),
+                        Id = berkeId,
                         Name = "Berke",
                         Surname = "Öztürk",
-                        Email = "example1@mail.com",
+                        Email = "berkeozturk@mail.com",
+                        Password = PasswordHasher.HashPassword("hashedpassword1"),
                         Role = true,
-                        Password = PasswordHasher.HashPassword("password1"),
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new User()
+                    new User
                     {
-                        Id = Guid.NewGuid(),
+                        Id = dogaId,
                         Name = "Doğa Su",
                         Surname = "Türkileri",
-                        Email = "example2@mail.com",
+                        Email = "dogasuturkileri@mail.com",
+                        Password = PasswordHasher.HashPassword("hashedpassword2"),
                         Role = false,
-                        Password = PasswordHasher.HashPassword("password2"),
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new User()
+                    new User
                     {
-                        Id = Guid.NewGuid(),
-                        Name = "Ervin",
-                        Surname = "Parlak",
-                        Email = "example3@mail.com",
+                        Id = soupyId,
+                        Name = "Soupy Serpin",
+                        Surname = "Karasay",
+                        Email = "serpinkaratay@mail.com",
+                        Password = PasswordHasher.HashPassword("hashedpw3"),
                         Role = false,
-                        Password = PasswordHasher.HashPassword("password3"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Gamze Naz",
-                        Surname = "Yıldırım",
-                        Email = "example4@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password4"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Atakan",
-                        Surname = "Yıldırım",
-                        Email = "example5@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password5"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Ahmet Mümtaz",
-                        Surname = "Taylan",
-                        Email = "example6@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password6"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Cem",
-                        Surname = "Yılmaz",
-                        Email = "example7@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password7"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Şahan",
-                        Surname = "Gökbakar",
-                        Email = "example8@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password8"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Mahsun",
-                        Surname = "Kırmızıgül",
-                        Email = "example9@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password9"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Erkin",
-                        Surname = "Karaçay",
-                        Email = "example10@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password10"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Ozan",
-                        Surname = "İmamhatipoğlu",
-                        Email = "example11@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password11"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Barkın",
-                        Surname = "Özkaplan",
-                        Email = "example12@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password12"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Barış Onur",
-                        Surname = "Aydın",
-                        Email = "example13@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password13"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Deniz",
-                        Surname = "Zarshat",
-                        Email = "example14@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password14"),
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     }
                 );
-            modelBuilder.Entity<Order>().HasData(
-                    new Order()
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "2222 Oak Drive, Hillcrest, NY 10001",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Order()
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "456 Elm Avenue, Oakville, CA 94022",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Order()
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "10101 Juniper Avenue, Blue Ridge, NC 27501",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Order()
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "9999 Spruce Place, Highland, UT 84003",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Order()
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "4444 Aspen Court, Meadowbrook, OR 97001",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Order()
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "789 Pine Lane, Rivertown, TX 75001",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Order()
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "5555 Redwood Street, Greenfield, AZ 85001",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Order()
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "7777 Poplar Path, Brookhaven, GA 30301",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Order()
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "1010 Birch Road, Forestville, WA 98001",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Order()
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "8888 Cypress Circle, Riverview, MI 48201",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    }
-                );
-            modelBuilder.Entity<Product>().HasData(
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "BirchCraft Office Chair",
-                        Description = "An ergonomic office chair with adjustable height and lumbar support. Ideal for long hours of work.",
-                        ImageUrl = " ",
-                        Price = 149.99,
-                        Stock = 150,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "OakHill Running Shoes",
-                        Description = "Lightweight and comfortable running shoes with breathable mesh and cushioned sole.",
-                        ImageUrl = " ",
-                        Price = 89.99,
-                        Stock = 300,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "WillowWave Bluetooth Speaker",
-                        Description = "A portable Bluetooth speaker with high-quality sound and long battery life. Perfectforoutdooractivities.",
-                        ImageUrl = " ",
-                        Price = 59.99,
-                        Stock = 250,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "AspenGlow LED Lamp",
-                        Description = "A stylish LED lamp with adjustable brightness and color temperature. Ideal for reading and working.",
-                        ImageUrl = " ",
-                        Price = 39.99,
-                        Stock = 180,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "RedwoodX Gaming Laptop",
-                        Description = "A powerful gaming laptop with high-end graphics and fast processing speed. Ideal for gamers.",
-                        ImageUrl = " ",
-                        Price = 1299.99,
-                        Stock = 30,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "FirNest Home Security Camera",
-                        Description = "A smart home security camera with night vision and motion detection. Connects to your smartphone.",
-                        ImageUrl = " ",
-                        Price = 99.99,
-                        Stock = 100,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "PoplarPulse Fitness Tracker",
-                        Description = "A fitness tracker with heart rate monitoring, step counting, and sleep tracking. Waterproof design.",
-                        ImageUrl = " ",
-                        Price = 49.99,
-                        Stock = 220,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "CypressFlow Yoga Mat",
-                        Description = "A non-slip yoga mat with extra cushioning for comfort. Perfect for yoga and pilates.",
-                        ImageUrl = " ",
-                        Price = 29.99,
-                        Stock = 500,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "SpruceSky Drone",
-                        Description = "A high-performance drone with HD camera and long battery life. Ideal for aerial photography.",
-                        ImageUrl = " ",
-                        Price = 349.99,
-                        Stock = 60,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "JuniperPure Water Bottle",
-                        Description = "An insulated water bottle that keeps drinks hot or cold for hours. Made from stainless steel.",
-                        ImageUrl = " ",
-                        Price = 24.99,
-                        Stock = 400,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "MapleFlex Smartphone Case",
-                        Description = "A durable and flexible smartphone case that provides excellent protection. Compatible with most models.",
-                        ImageUrl = " ",
-                        Price = 19.99,
-                        Stock = 350,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "ElmGlow Table Lamp",
-                        Description = "A contemporary table lamp with touch control and adjustable brightness. Perfect for any room.",
-                        ImageUrl = " ",
-                        Price = 34.99,
-                        Stock = 140,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "PineEdge Kitchen Knife Set",
-                        Description = "A professional kitchen knife set with high-carbon stainless steel blades. Includes 6 knives and ablock.",
-                        ImageUrl = " ",
-                        Price = 89.99,
-                        Stock = 85,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "BirchSound Wireless Earbuds",
-                        Description = "High-quality wireless earbuds with noise cancellation and long battery life. Comes with a chargingcase.",
-                        ImageUrl = " ",
-                        Price = 79.99,
-                        Stock = 300,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "OakPure Coffee Maker",
-                        Description = "A programmable coffee maker with a built-in grinder and timer. Makes up to 12 cups of coffee.",
-                        ImageUrl = " ",
-                        Price = 129.99,
-                        Stock = 90,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "WillowLite Camping Tent",
-                        Description = "A lightweight and durable camping tent that accommodates up to 4 people. Easy to set up.",
-                        ImageUrl = " ",
-                        Price = 199.99,
-                        Stock = 70,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "AspenCool Mini Fridge",
-                        Description = "A compact mini fridge with adjustable temperature settings. Perfect for dorm rooms and offices.",
-                        ImageUrl = " ",
-                        Price = 149.99,
-                        Stock = 120,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "RedwoodMax Power Bank",
-                        Description = "A high-capacity power bank with fast charging technology. Compatible with all USB devices.",
-                        ImageUrl = " ",
-                        Price = 39.99,
-                        Stock = 250,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    }
-                );
-        }
-        public void SeedDatabase()
-        {
-            if (!dbContext.Users.Any())
-            {
-                dbContext.AddRange(
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Berke",
-                        Surname = "Öztürk",
-                        Email = "example1@mail.com",
-                        Role = true,
-                        Password = PasswordHasher.HashPassword("password1"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Doğa Su",
-                        Surname = "Türkileri",
-                        Email = "example2@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password2"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Ervin",
-                        Surname = "Parlak",
-                        Email = "example3@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password3"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Gamze Naz",
-                        Surname = "Yıldırım",
-                        Email = "example4@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password4"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Atakan",
-                        Surname = "Yıldırım",
-                        Email = "example5@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password5"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Ahmet Mümtaz",
-                        Surname = "Taylan",
-                        Email = "example6@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password6"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Cem",
-                        Surname = "Yılmaz",
-                        Email = "example7@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password7"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Şahan",
-                        Surname = "Gökbakar",
-                        Email = "example8@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password8"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Mahsun",
-                        Surname = "Kırmızıgül",
-                        Email = "example9@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password9"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Erkin",
-                        Surname = "Karaçay",
-                        Email = "example10@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password10"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Ozan",
-                        Surname = "İmamhatipoğlu",
-                        Email = "example11@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password11"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Barkın",
-                        Surname = "Özkaplan",
-                        Email = "example12@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password12"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Barış Onur",
-                        Surname = "Aydın",
-                        Email = "example13@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password13"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new User()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Deniz",
-                        Surname = "Zarshat",
-                        Email = "example14@mail.com",
-                        Role = false,
-                        Password = PasswordHasher.HashPassword("password14"),
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    }
-                );
+                await dbContext.SaveChangesAsync();
             }
-            if (!dbContext.Orders.Any())
+
+            // Seed Categories
+            var electronicsCategoryId = Guid.NewGuid();
+            var booksCategoryId = Guid.NewGuid();
+
+            if (!await dbContext.Categories.AnyAsync())
             {
-                dbContext.AddRange(
-                    new Order()
+                await dbContext.Categories.AddRangeAsync(
+                    new ProductsCategory
                     {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "2222 Oak Drive, Hillcrest, NY 10001",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
+                        Id = electronicsCategoryId,
+                        CategoryName = "Electronics",
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
-                    new Order()
+                    new ProductsCategory
                     {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "456 Elm Avenue, Oakville, CA 94022",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Order()
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "10101 Juniper Avenue, Blue Ridge, NC 27501",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Order()
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "9999 Spruce Place, Highland, UT 84003",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Order()
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "4444 Aspen Court, Meadowbrook, OR 97001",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Order()
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "789 Pine Lane, Rivertown, TX 75001",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Order()
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "5555 Redwood Street, Greenfield, AZ 85001",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Order()
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "7777 Poplar Path, Brookhaven, GA 30301",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Order()
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "1010 Birch Road, Forestville, WA 98001",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Order()
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = Guid.NewGuid(),
-                        Address = "8888 Cypress Circle, Riverview, MI 48201",
-                        Status = "Pending",
-                        Description = " Please leave the package at the front porch if no one is home.",
+                        Id = booksCategoryId,
+                        CategoryName = "Books",
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     }
                 );
+                await dbContext.SaveChangesAsync();
             }
-            if (!dbContext.Products.Any())
+
+            // Seed Products
+            if (!await dbContext.Products.AnyAsync())
             {
-                dbContext.AddRange(
+                var smartphoneId = Guid.NewGuid();
+                var laptopId = Guid.NewGuid();
+                var bookAId = Guid.NewGuid();
+
+                await dbContext.Products.AddRangeAsync(
                     new Product
                     {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "BirchCraft Office Chair",
-                        Description = "An ergonomic office chair with adjustable height and lumbar support. Ideal for long hours of work.",
-                        ImageUrl = " ",
-                        Price = 149.99,
-                        Stock = 150,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "OakHill Running Shoes",
-                        Description = "Lightweight and comfortable running shoes with breathable mesh and cushioned sole.",
-                        ImageUrl = " ",
-                        Price = 89.99,
-                        Stock = 300,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "WillowWave Bluetooth Speaker",
-                        Description = "A portable Bluetooth speaker with high-quality sound and long battery life. Perfectforoutdooractivities.",
-                        ImageUrl = " ",
-                        Price = 59.99,
-                        Stock = 250,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "AspenGlow LED Lamp",
-                        Description = "A stylish LED lamp with adjustable brightness and color temperature. Ideal for reading and working.",
-                        ImageUrl = " ",
-                        Price = 39.99,
-                        Stock = 180,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "RedwoodX Gaming Laptop",
-                        Description = "A powerful gaming laptop with high-end graphics and fast processing speed. Ideal for gamers.",
-                        ImageUrl = " ",
-                        Price = 1299.99,
-                        Stock = 30,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "FirNest Home Security Camera",
-                        Description = "A smart home security camera with night vision and motion detection. Connects to your smartphone.",
-                        ImageUrl = " ",
-                        Price = 99.99,
+                        Id = smartphoneId,
+                        Name = "Smartphone",
                         Stock = 100,
+                        Price = 599.99,
+                        Description = "Latest smartphone model",
+                        ImageUrl = "/images/smartphone.jpg",
+                        CategoryId = electronicsCategoryId,
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
                     new Product
                     {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "PoplarPulse Fitness Tracker",
-                        Description = "A fitness tracker with heart rate monitoring, step counting, and sleep tracking. Waterproof design.",
-                        ImageUrl = " ",
-                        Price = 49.99,
-                        Stock = 220,
+                        Id = laptopId,
+                        Name = "Laptop",
+                        Stock = 50,
+                        Price = 1099.99,
+                        Description = "High-performance laptop",
+                        ImageUrl = "/images/laptop.jpg",
+                        CategoryId = electronicsCategoryId,
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
                     new Product
                     {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "CypressFlow Yoga Mat",
-                        Description = "A non-slip yoga mat with extra cushioning for comfort. Perfect for yoga and pilates.",
-                        ImageUrl = " ",
-                        Price = 29.99,
-                        Stock = 500,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "SpruceSky Drone",
-                        Description = "A high-performance drone with HD camera and long battery life. Ideal for aerial photography.",
-                        ImageUrl = " ",
-                        Price = 349.99,
-                        Stock = 60,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "JuniperPure Water Bottle",
-                        Description = "An insulated water bottle that keeps drinks hot or cold for hours. Made from stainless steel.",
-                        ImageUrl = " ",
-                        Price = 24.99,
-                        Stock = 400,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "MapleFlex Smartphone Case",
-                        Description = "A durable and flexible smartphone case that provides excellent protection. Compatible with most models.",
-                        ImageUrl = " ",
+                        Id = bookAId,
+                        Name = "Book A",
+                        Stock = 200,
                         Price = 19.99,
-                        Stock = 350,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "ElmGlow Table Lamp",
-                        Description = "A contemporary table lamp with touch control and adjustable brightness. Perfect for any room.",
-                        ImageUrl = " ",
-                        Price = 34.99,
-                        Stock = 140,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "PineEdge Kitchen Knife Set",
-                        Description = "A professional kitchen knife set with high-carbon stainless steel blades. Includes 6 knives and ablock.",
-                        ImageUrl = " ",
-                        Price = 89.99,
-                        Stock = 85,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "BirchSound Wireless Earbuds",
-                        Description = "High-quality wireless earbuds with noise cancellation and long battery life. Comes with a chargingcase.",
-                        ImageUrl = " ",
-                        Price = 79.99,
-                        Stock = 300,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "OakPure Coffee Maker",
-                        Description = "A programmable coffee maker with a built-in grinder and timer. Makes up to 12 cups of coffee.",
-                        ImageUrl = " ",
-                        Price = 129.99,
-                        Stock = 90,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "WillowLite Camping Tent",
-                        Description = "A lightweight and durable camping tent that accommodates up to 4 people. Easy to set up.",
-                        ImageUrl = " ",
-                        Price = 199.99,
-                        Stock = 70,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "AspenCool Mini Fridge",
-                        Description = "A compact mini fridge with adjustable temperature settings. Perfect for dorm rooms and offices.",
-                        ImageUrl = " ",
-                        Price = 149.99,
-                        Stock = 120,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Product
-                    {
-                        Id = Guid.NewGuid(),
-                        CategoryId = Guid.NewGuid(),
-                        Name = "RedwoodMax Power Bank",
-                        Description = "A high-capacity power bank with fast charging technology. Compatible with all USB devices.",
-                        ImageUrl = " ",
-                        Price = 39.99,
-                        Stock = 250,
+                        Description = "Interesting novel",
+                        ImageUrl = "/images/booka.jpg",
+                        CategoryId = booksCategoryId,
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     }
                 );
+                await dbContext.SaveChangesAsync();
+            }
+
+            // Seed Carts
+            if (!await dbContext.Carts.AnyAsync())
+            {
+                var smartphone = await dbContext.Products.FirstOrDefaultAsync(p => p.Name == "Smartphone");
+                var bookA = await dbContext.Products.FirstOrDefaultAsync(p => p.Name == "Book A");
+
+                var berkeUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == "berkeozturk@mail.com");
+                var dogaUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == "dogasuturkileri@mail.com");
+
+                await dbContext.Carts.AddRangeAsync(
+                    new Cart
+                    {
+                        Id = Guid.NewGuid(),
+                        UserId = berkeUser.Id,
+                        Product = new List<Product> { smartphone },
+                        Quantity = 2, // Berke ordered 2 smartphones
+                        CreatedDate = DateTime.UtcNow,
+                        UpdatedDate = DateTime.UtcNow
+                    },
+                    new Cart
+                    {
+                        Id = Guid.NewGuid(),
+                        UserId = dogaUser.Id,
+                        Product = new List<Product> { bookA },
+                        Quantity = 1, // Doğa ordered 1 book
+                        CreatedDate = DateTime.UtcNow,
+                        UpdatedDate = DateTime.UtcNow
+                    }
+                );
+                await dbContext.SaveChangesAsync();
+            }
+
+            // Seed Orders
+            if (!await dbContext.Orders.AnyAsync())
+            {
+                var berkeUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == "berkeozturk@mail.com");
+                var dogaUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == "dogasuturkileri@mail.com");
+
+                var berkeCart = await dbContext.Carts.FirstOrDefaultAsync(c => c.UserId == berkeUser.Id);
+                var dogaCart = await dbContext.Carts.FirstOrDefaultAsync(c => c.UserId == dogaUser.Id);
+
+                await dbContext.Orders.AddRangeAsync(
+                    new Order
+                    {
+                        Id = Guid.NewGuid(),
+                        UserId = berkeUser.Id,
+                        CartId = berkeCart.Id,
+                        Address = "123 Main St",
+                        Description = "Deliver ASAP",
+                        Status = "Pending",
+                        CreatedDate = DateTime.UtcNow,
+                        UpdatedDate = DateTime.UtcNow
+                    },
+                    new Order
+                    {
+                        Id = Guid.NewGuid(),
+                        UserId = dogaUser.Id,
+                        CartId = dogaCart.Id,
+                        Address = "456 Elm St",
+                        Description = "Gift order",
+                        Status = "Shipped",
+                        CreatedDate = DateTime.UtcNow,
+                        UpdatedDate = DateTime.UtcNow
+                    }
+                );
+                await dbContext.SaveChangesAsync();
             }
         }
     }

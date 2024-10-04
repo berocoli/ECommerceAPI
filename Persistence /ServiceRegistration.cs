@@ -1,14 +1,14 @@
 ﻿using Application.Repositories;
+using Application.Repositories.CartRepo;
 using Application.Services;
-using Application.Services.PdfServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Contexts;
 using Persistence.Repositories;
+using Persistence.Repositories.CartRepo;
 using Persistence.Repositories.UserRepo;
 using Persistence.Services;
 using Persistence.Services.Login;
-using Persistence.Services.Pdf_Services;
 
 namespace Persistence
 {
@@ -29,12 +29,16 @@ namespace Persistence
             services.AddScoped<IOrderWriteRepository, OrderWriteRepository>();
             services.AddScoped<ICategoryReadRepository, CategoryReadRepository>();
             services.AddScoped<ICategoryWriteRepository, CategoryWriteRepository>();
+            services.AddScoped<ICartReadRepository, CartReadRepository>();
+            services.AddScoped<ICartWriteRepository, CartWriteRepository>();
          
             // Services
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<ILoginService, LoginService>();           
+            services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<ICategoriesService, CategoriesService>();
+            services.AddScoped<ICartService, CartService>();
         }
     }
 }

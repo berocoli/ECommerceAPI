@@ -47,7 +47,7 @@ namespace Persistence.Repositories
             T model = await Table.FirstOrDefaultAsync(data => data.Id == Guid.Parse(id));
             return Remove(model);
         }
-
+        
         public bool Update(T model)
         {
             EntityEntry entityEntry = Table.Update(model);

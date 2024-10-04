@@ -68,6 +68,8 @@
     <None Remove="Features\Commands\Orders\CreateOrder\" />
     <None Remove="Features\Commands\Orders\DeleteOrder\" />
     <None Remove="Features\Commands\Orders\UpdateOrder\" />
+    <None Remove="Repositories\CartRepo\" />
+    <None Remove="DTOs\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />
@@ -119,6 +121,8 @@
     <Folder Include="Features\Commands\Orders\CreateOrder\" />
     <Folder Include="Features\Commands\Orders\DeleteOrder\" />
     <Folder Include="Features\Commands\Orders\UpdateOrder\" />
+    <Folder Include="Repositories\CartRepo\" />
+    <Folder Include="DTOs\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />

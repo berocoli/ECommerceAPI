@@ -28,7 +28,7 @@ namespace ECommerceAPI.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("listById{id}")]
         public async Task<IActionResult> GetById(string id)
         {
             var request = new GetOrdersByIdQueryRequest { OrderId = id};
@@ -44,21 +44,21 @@ namespace ECommerceAPI.API.Controllers
             return Ok(response);
         }
 
-        [HttpPost]
+        [HttpPost("insert")]
         public async Task<IActionResult> CreateOrder(CreateOrderCommandRequest createRequest)
         {
             var result = await mediator.Send(createRequest);
             return Ok(result);
         }
 
-        [HttpPut("Update")]
+        [HttpPut("update")]
         public async Task<IActionResult> Update(UpdateOrderCommandRequest updateRequest)
         {
             var result = await mediator.Send(updateRequest);
             return Ok(result);
         }
 
-        [HttpDelete]
+        [HttpDelete("delete")]
         public async Task<IActionResult> Delete(DeleteOrderCommandRequest request)
         {
             var result = await mediator.Send(request);

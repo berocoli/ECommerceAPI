@@ -40,7 +40,7 @@ namespace Persistence.Repositories
             var query = Table.AsQueryable();
             if (!tracking)
                 query = Table.AsNoTracking();
-            return await query.FirstOrDefaultAsync();
+            return await query.FirstOrDefaultAsync(method);
         }
              
 

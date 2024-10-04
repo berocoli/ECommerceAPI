@@ -10,8 +10,8 @@ namespace Persistence.Services
 {
     public class OrderService : IOrderService
     {
-        public readonly IOrderReadRepository _orderReadRepository;
-        public readonly IOrderWriteRepository _orderWriteRepository;
+        private readonly IOrderReadRepository _orderReadRepository;
+        private readonly IOrderWriteRepository _orderWriteRepository;
         public readonly IMapper _mapper;
 
         public OrderService(IOrderReadRepository orderReadRepository, IOrderWriteRepository orderWriteRepository, IMapper mapper)

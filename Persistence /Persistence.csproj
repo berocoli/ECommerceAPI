@@ -38,6 +38,7 @@
     <None Remove="Infrastructure\obj\Infrastructure.csproj.nuget.g.props" />
     <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.csproj.AssemblyReference.cache" />
     <None Remove="Migrations\" />
+    <None Remove="Repositories\CartRepo\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.7" />
@@ -73,5 +74,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Repositories\CartRepo\" />
   </ItemGroup>
 </Project>

@@ -16,6 +16,9 @@ namespace Application.Features.Queries.Orders.GetOrdersWhere
             var ordersList = await _orderService.SearchOrdersByStatus(request.Status);
             var result = ordersList.Select(ordersList => new GetOrdersWhereQueryResponse
             {
+                Status = ordersList.Status,
+                OrderId = ordersList.Id,
+                UserId = ordersList.UserId,
                 Address = ordersList.Address,
                 Description = ordersList.Description
             }).ToList();

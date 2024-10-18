@@ -14,7 +14,7 @@ namespace Application.Features.Commands.Products.CreateProduct
 
         public async Task<CreateProductCommandResponse> Handle(CreateProductCommandRequest request, CancellationToken cancellationToken)
         {
-            var result = await _productService.CreateProductsAsync(request.Name, request.Price, request.Stock, request.Description);
+            var result = await _productService.CreateProductsAsync(request.CategoryId, request.Name, request.Price, request.Stock, request.Description, request.ImageUrl);
             if(result == false)
             {
                 return new CreateProductCommandResponse

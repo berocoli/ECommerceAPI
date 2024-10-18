@@ -1,9 +1,13 @@
-﻿using System;
-namespace Application.DTOs
+﻿namespace Application.DTOs
 {
     public class CreateCartDto
     {
-        public string Message { get; set; }
-   }
-}
+        public string UserId { get; set; }        
+    }
 
+    public class CreateCartItemDto
+    {
+        public string ProductId { get; set; }
+        public int Quantity { get; set; }
+    }
+}

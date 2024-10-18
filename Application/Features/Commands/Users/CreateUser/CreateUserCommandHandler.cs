@@ -19,13 +19,13 @@ namespace Application.Features.Commands.Users.CreateUser
             {
                 return new CreateUserCommandResponse
                 {
-                    Message = "Sign up failed."
+                    Message = "Successfully signed up!"
                 };
             }
 
             return new CreateUserCommandResponse
             {
-                Message = "Successfully signed up!"
+                Message = "Sign up failed."
             };
         }
     }

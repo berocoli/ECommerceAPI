@@ -5,5 +5,9 @@ namespace Application.Features.Commands.Orders.CreateOrder
     {
         public string Message { get; set; }
     }
-}
 
+    public class CreateOrderCommandFailResponse : CreateOrderCommandResponse
+    {
+        public string ErrorMessage { get; set; }
+    }
+}

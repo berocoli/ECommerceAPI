@@ -37,8 +37,8 @@
     <None Remove="Infrastructure\obj\project.assets.json" />
     <None Remove="Infrastructure\obj\Infrastructure.csproj.nuget.g.props" />
     <None Remove="Infrastructure\obj\Debug\net7.0\Infrastructure.csproj.AssemblyReference.cache" />
-    <None Remove="Migrations\" />
     <None Remove="Repositories\CartRepo\" />
+    <None Remove="Repositories\CartItemRepo\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.7" />
@@ -73,7 +73,7 @@
     <Compile Remove="Repositories\CustomerRepo\CustomerReadRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="Repositories\CartRepo\" />
+    <Folder Include="Repositories\CartItemRepo\" />
   </ItemGroup>
 </Project>

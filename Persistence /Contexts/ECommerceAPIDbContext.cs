@@ -1,4 +1,8 @@
-﻿using Domain;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Domain;
+using Domain.Entities;
 using Domain.Entities.BaseEntity;
 using Infrastructure.Operations;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +20,7 @@ namespace Persistence.Contexts
         public DbSet<Order> Orders { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,6 +45,12 @@ namespace Persistence.Contexts
                 entity.HasOne(u => u.Cart)
                     .WithOne(c => c.User)
                     .HasForeignKey<Cart>(c => c.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                // Configure one-to-many relationship with Orders
+                entity.HasMany(u => u.Orders)
+                    .WithOne(o => o.User)
+                    .HasForeignKey(o => o.UserId)
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
@@ -67,9 +78,6 @@ namespace Persistence.Contexts
                     .WithMany(c => c.Products)
                     .HasForeignKey(p => p.CategoryId)
                     .OnDelete(DeleteBehavior.Restrict);
-
-                entity.HasMany(p => p.CartItems)
-                    .WithMany(c => c.Product);
             });
 
             // ProductsCategory Entity Configuration
@@ -95,67 +103,92 @@ namespace Persistence.Contexts
                     .HasMaxLength(50);
 
                 // Configure many-to-one relationship with User
+                // This is already configured in the User entity, but reinforcing here
                 entity.HasOne(o => o.User)
                     .WithMany(u => u.Orders)
                     .HasForeignKey(o => o.UserId)
                     .OnDelete(DeleteBehavior.Cascade);
 
+                // Configure one-to-one relationship with Cart
                 entity.HasOne(o => o.Cart)
                     .WithOne(c => c.Order)
                     .HasForeignKey<Order>(o => o.CartId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             // Cart Entity Configuration
             modelBuilder.Entity<Cart>(entity =>
             {
-                // One-to-one relationship with User
-                entity.HasOne(c => c.User)
-                    .WithOne(u => u.Cart)
-                    .HasForeignKey<Cart>(c => c.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                // The one-to-one relationship with User is configured in the User entity
 
-                // One-to-one relation with Order, make it optional (OrderId nullable)
+                // One-to-one relationship with Order
                 entity.HasOne(c => c.Order)
                     .WithOne(o => o.Cart)
                     .HasForeignKey<Cart>(c => c.OrderId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                // Configure the relationship with CartItems
+                entity.HasMany(c => c.CartItems)
+                    .WithOne(ci => ci.Cart)
+                    .HasForeignKey(ci => ci.CartId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            // CartItem Entity Configuration
+            modelBuilder.Entity<CartItem>(entity =>
+            {
+                entity.HasKey(ci => new { ci.CartId, ci.ProductId });
+
+                entity.HasOne(ci => ci.Cart)
+                    .WithMany(c => c.CartItems)
+                    .HasForeignKey(ci => ci.CartId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(ci => ci.Product)
+                    .WithMany(p => p.CartProducts)
+                    .HasForeignKey(ci => ci.ProductId)
                     .OnDelete(DeleteBehavior.Restrict);
 
-                entity.HasMany(c => c.Product)
-                    .WithMany(p => p.CartItems);                
-            });         
+                entity.Property(ci => ci.Quantity)
+                    .IsRequired();
+                //Unrequired properties for CartItem are dropped here
+                entity.Ignore(ci => ci.Id);
+                entity.Ignore(ci => ci.CreatedDate);
+                entity.Ignore(ci => ci.UpdatedDate);
+            });
 
-            // Db Seed
             base.OnModelCreating(modelBuilder);
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            // ChangeTracker: Track edilen verileri yakalayarak elde etmemizi sağlar. Interceptor olarak, Entity'ler üzerinde yapılan değişiklikleri ya da yeni eklenen verinin yakalanmasını sağlar.
-            var datas = ChangeTracker
-                .Entries<BaseEntity>();
+            // ChangeTracker: Tracks entities for auditing
+            var entries = ChangeTracker.Entries<BaseEntity>();
 
-            foreach (var data in datas)
+            foreach (var entry in entries)
             {
-                switch (data.State)
+                switch (entry.State)
                 {
                     case EntityState.Added:
-                        data.Entity.CreatedDate = DateTime.UtcNow;
-                        if (data.Entity is User user && !string.IsNullOrWhiteSpace(user.Password))
+                        entry.Entity.CreatedDate = DateTime.UtcNow;
+
+                        if (entry.Entity is User user && !string.IsNullOrWhiteSpace(user.Password))
                         {
                             user.Password = PasswordHasher.HashPassword(user.Password);
                         }
                         break;
-
+                          
                     case EntityState.Modified:
-                        data.Entity.UpdatedDate = DateTime.UtcNow;
-                        if (data.Entity is User modifiedUser && !string.IsNullOrWhiteSpace(modifiedUser.Password))
+                        entry.Entity.UpdatedDate = DateTime.UtcNow;
+
+                        if (entry.Entity is User modifiedUser && !string.IsNullOrWhiteSpace(modifiedUser.Password))
                         {
                             modifiedUser.Password = PasswordHasher.HashPassword(modifiedUser.Password);
                         }
                         break;
                 }
             }
+
             return await base.SaveChangesAsync(cancellationToken);
         }
     }

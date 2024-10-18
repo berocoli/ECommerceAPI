@@ -1,5 +1,4 @@
-﻿using System;
-using Application.Repositories;
+﻿using Application.Repositories;
 using Application.Services;
 using AutoMapper;
 
@@ -20,4 +19,44 @@ namespace Persistence.Services
         }
     }
 }
+
+//var userGuid = Guid.Parse(userId);
+//var existingCart = await _cartReadRepository.GetSingleAsync(c => c.UserId == userGuid);
+
+//if (existingCart != null)
+//{
+//    var createCartDto = new CreateCartDto
+//    {
+//        CartId = existingCart.Id.ToString(),
+//        ProductId = productId,
+//        Quantity = quantity
+//    };
+//    var cartItem = _mapper.Map<Cart>(createCartDto);
+
+//    return new CartResult
+//    {
+//        CartItemResult = cartItem,
+//    };
+//}
+//else
+//{
+//    var cartId = Guid.NewGuid().ToString();
+//    var createCartDto = new CreateCartDto
+//    {
+//        CartId = cartId,
+//        UserId = userId,
+//        ProductId = productId,
+//        Quantity = quantity
+//    };
+//    var cart = _mapper.Map<Cart>(createCartDto);
+//    var cartResult = await _cartWriteRepository.AddAsync(cart);
+
+//    await _cartWriteRepository.SaveAsync();
+//    var cartItem = _mapper.Map<Cart>(createCartDto);
+
+//    return new CartResult
+//    {
+//        CartItemResult = cartItem
+//    };
+//}
 

@@ -22,12 +22,4 @@ public class CurrencyController : ControllerBase
         var currencies = await _mediator.Send(new CurrencyCommandRequest());  // Use await to get the result
         return Ok(currencies);  // Return the list directly
     }
-
-    //[HttpGet("rates/service")]
-    //public async Task<IActionResult> GetRatesService()
-    //{
-    //    var xmlCurrency = await _currencyService.GetExchangeRatesAsync();
-    //    var jsonFormat = await _currencyConverter.ConvertXmlToJson(xmlCurrency);
-    //    return Ok(jsonFormat);
-    //}
 }

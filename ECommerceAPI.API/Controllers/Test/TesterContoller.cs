@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceAPI.API.Controllers.Test
 {
-    public class TesterController : Controller
+    public class TesterController : ControllerBase
     {
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return View();
+            return Index();
         }
     }
 }

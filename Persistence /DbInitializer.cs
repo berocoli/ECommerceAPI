@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Domain;
-using Infrastructure.Operations;
+﻿using Domain;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
 
@@ -18,7 +15,6 @@ namespace Persistence.Seed
             if (!await dbContext.Users.AnyAsync())
             {
                 var berkeId = Guid.NewGuid();
-                var dogaId = Guid.NewGuid();
                 var soupyId = Guid.NewGuid();
 
                 await dbContext.Users.AddRangeAsync(
@@ -28,29 +24,18 @@ namespace Persistence.Seed
                         Name = "Berke",
                         Surname = "Öztürk",
                         Email = "berkeozturk@mail.com",
-                        Password = PasswordHasher.HashPassword("hashedpassword1"),
+                        Password =  "password1",
                         Role = true,
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
-                    },
-                    new User
-                    {
-                        Id = dogaId,
-                        Name = "Doğa Su",
-                        Surname = "Türkileri",
-                        Email = "dogasuturkileri@mail.com",
-                        Password = PasswordHasher.HashPassword("hashedpassword2"),
-                        Role = false,
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
+                    },                  
                     new User
                     {
                         Id = soupyId,
-                        Name = "Soupy Serpin",
-                        Surname = "Karasay",
+                        Name = "Suphi Erkin",
+                        Surname = "Karaçay",
                         Email = "serpinkaratay@mail.com",
-                        Password = PasswordHasher.HashPassword("hashedpw3"),
+                        Password =  "password3",
                         Role = false,
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
@@ -60,11 +45,11 @@ namespace Persistence.Seed
             }
 
             // Seed Categories
-            var electronicsCategoryId = Guid.NewGuid();
-            var booksCategoryId = Guid.NewGuid();
-
             if (!await dbContext.Categories.AnyAsync())
             {
+                var electronicsCategoryId = Guid.NewGuid();
+                var booksCategoryId = Guid.NewGuid();
+
                 await dbContext.Categories.AddRangeAsync(
                     new ProductsCategory
                     {
@@ -100,7 +85,7 @@ namespace Persistence.Seed
                         Price = 599.99,
                         Description = "Latest smartphone model",
                         ImageUrl = "/images/smartphone.jpg",
-                        CategoryId = electronicsCategoryId,
+                        CategoryId = await dbContext.Categories.Where(c => c.CategoryName == "Electronics").Select(c => c.Id).FirstAsync(),
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -112,7 +97,7 @@ namespace Persistence.Seed
                         Price = 1099.99,
                         Description = "High-performance laptop",
                         ImageUrl = "/images/laptop.jpg",
-                        CategoryId = electronicsCategoryId,
+                        CategoryId = await dbContext.Categories.Where(c => c.CategoryName == "Electronics").Select(c => c.Id).FirstAsync(),
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },
@@ -122,9 +107,9 @@ namespace Persistence.Seed
                         Name = "Book A",
                         Stock = 200,
                         Price = 19.99,
-                        Description = "Interesting novel",
+                        Description = "An interesting novel",
                         ImageUrl = "/images/booka.jpg",
-                        CategoryId = booksCategoryId,
+                        CategoryId = await dbContext.Categories.Where(c => c.CategoryName == "Books").Select(c => c.Id).FirstAsync(),
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     }
@@ -132,35 +117,51 @@ namespace Persistence.Seed
                 await dbContext.SaveChangesAsync();
             }
 
-            // Seed Carts
+            // Seed Carts and CartItems
             if (!await dbContext.Carts.AnyAsync())
             {
+                var berkeUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == "berkeozturk@mail.com");
+                var erkinUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == "serpinkaratay@mail.com");
+
                 var smartphone = await dbContext.Products.FirstOrDefaultAsync(p => p.Name == "Smartphone");
                 var bookA = await dbContext.Products.FirstOrDefaultAsync(p => p.Name == "Book A");
 
-                var berkeUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == "berkeozturk@mail.com");
-                var dogaUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == "dogasuturkileri@mail.com");
+                // Create carts for users
+                var berkeCart = new Cart
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = berkeUser.Id,
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedDate = DateTime.UtcNow,
+                    CartItems = new List<CartItem>()
+                };
 
-                await dbContext.Carts.AddRangeAsync(
-                    new Cart
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = berkeUser.Id,
-                        Product = new List<Product> { smartphone },
-                        Quantity = 2, // Berke ordered 2 smartphones
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    },
-                    new Cart
-                    {
-                        Id = Guid.NewGuid(),
-                        UserId = dogaUser.Id,
-                        Product = new List<Product> { bookA },
-                        Quantity = 1, // Doğa ordered 1 book
-                        CreatedDate = DateTime.UtcNow,
-                        UpdatedDate = DateTime.UtcNow
-                    }
-                );
+                var erkinCart = new Cart
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = erkinUser.Id,
+                    CreatedDate = DateTime.UtcNow,
+                    UpdatedDate = DateTime.UtcNow,
+                    CartItems = new List<CartItem>()
+                };
+
+                // Add CartItems to carts
+                berkeCart.CartItems.Add(new CartItem
+                {
+                    CartId = berkeCart.Id,
+                    ProductId = smartphone.Id,
+                    Quantity = 2
+                });
+
+                erkinCart.CartItems.Add(new CartItem
+                {
+                    CartId = erkinCart.Id,
+                    ProductId = bookA.Id,
+                    Quantity = 1
+                });
+
+                // Add carts to the database
+                await dbContext.Carts.AddRangeAsync(berkeCart, erkinCart);
                 await dbContext.SaveChangesAsync();
             }
 
@@ -168,10 +169,10 @@ namespace Persistence.Seed
             if (!await dbContext.Orders.AnyAsync())
             {
                 var berkeUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == "berkeozturk@mail.com");
-                var dogaUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == "dogasuturkileri@mail.com");
+                var erkinUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == "serpinkaratay@mail.com");
 
                 var berkeCart = await dbContext.Carts.FirstOrDefaultAsync(c => c.UserId == berkeUser.Id);
-                var dogaCart = await dbContext.Carts.FirstOrDefaultAsync(c => c.UserId == dogaUser.Id);
+                var erkinCart = await dbContext.Carts.FirstOrDefaultAsync(c => c.UserId == erkinUser.Id);
 
                 await dbContext.Orders.AddRangeAsync(
                     new Order
@@ -188,8 +189,8 @@ namespace Persistence.Seed
                     new Order
                     {
                         Id = Guid.NewGuid(),
-                        UserId = dogaUser.Id,
-                        CartId = dogaCart.Id,
+                        UserId = erkinUser.Id,
+                        CartId = erkinCart.Id,
                         Address = "456 Elm St",
                         Description = "Gift order",
                         Status = "Shipped",

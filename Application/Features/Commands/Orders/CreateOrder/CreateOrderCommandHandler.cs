@@ -13,12 +13,14 @@ namespace Application.Features.Commands.Orders.CreateOrder
 
         public async Task<CreateOrderCommandResponse> Handle(CreateOrderCommandRequest request, CancellationToken cancellationToken)
         {
-            var result = await _orderService.CreateOrderAsync(request.Status, request.Address, request.Description);
+            var result = await _orderService
+                .CreateOrderAsync(request.UserId, request.CartId,
+                request.Status, request.Address, request.Description);
             if(result == false)
             {
-                return new CreateOrderCommandResponse
+                return new CreateOrderCommandFailResponse
                 {
-                    Message = "Order creation unsuccessful."
+                    ErrorMessage = "Order creation unsuccessful."
                 };
             }
 
@@ -29,4 +31,3 @@ namespace Application.Features.Commands.Orders.CreateOrder
         }
     }
 }
-

@@ -20,7 +20,8 @@ namespace Application.Features.LoginUser
             var token = await _loginService.LoginHandler(request.Email, request.Password);
             if (token == null)
             {
-                throw new LoginFailException();
+                //throw new LoginFailException();
+                return null;
             }
             else
             {

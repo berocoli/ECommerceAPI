@@ -9,4 +9,3 @@ namespace Application.Features.LoginCustomer
         public string Password { get; set; }
     }
 }
-

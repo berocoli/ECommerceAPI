@@ -17,6 +17,7 @@ namespace Application.Features.Queries.Products.GetProductsWhere
             var productsList = await _productService.SearchProductsByNameAsync(request.Name);
             var result = productsList.Select(productsList => new GetProductsWhereQueryResponse
             {
+                Name = productsList.Name,
                 Stock = productsList.Stock,
                 Price = productsList.Price,
                 Description = productsList.Description

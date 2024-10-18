@@ -70,6 +70,7 @@
     <None Remove="Features\Commands\Orders\UpdateOrder\" />
     <None Remove="Repositories\CartRepo\" />
     <None Remove="DTOs\Cart\" />
+    <None Remove="Repositories\CartItemRepo\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />
@@ -123,6 +124,7 @@
     <Folder Include="Features\Commands\Orders\UpdateOrder\" />
     <Folder Include="Repositories\CartRepo\" />
     <Folder Include="DTOs\Cart\" />
+    <Folder Include="Repositories\CartItemRepo\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />

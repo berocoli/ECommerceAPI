@@ -1,5 +1,4 @@
-﻿using System;
-using Application.DTOs;
+﻿using Application.DTOs;
 using Application.Repositories;
 using Application.Services;
 using AutoMapper;
@@ -12,12 +11,16 @@ namespace Persistence.Services
     {
         private readonly IOrderReadRepository _orderReadRepository;
         private readonly IOrderWriteRepository _orderWriteRepository;
+        private readonly IUserReadRepository _userReadRepository;
+        private readonly ICartReadRepository _cartReadRepository;
         public readonly IMapper _mapper;
 
-        public OrderService(IOrderReadRepository orderReadRepository, IOrderWriteRepository orderWriteRepository, IMapper mapper)
+        public OrderService(IOrderReadRepository orderReadRepository, IOrderWriteRepository orderWriteRepository, IUserReadRepository userReadRepository, ICartReadRepository cartReadRepository, IMapper mapper)
         {
             _orderReadRepository = orderReadRepository;
             _orderWriteRepository = orderWriteRepository;
+            _userReadRepository = userReadRepository;
+            _cartReadRepository = cartReadRepository;
             _mapper = mapper;
         }
                 
@@ -43,15 +46,32 @@ namespace Persistence.Services
             return _mapper.Map<List<OrderDto>>(orders);
         }
 
-        public async Task<bool> CreateOrderAsync(string status, string address, string description)
+        public async Task<bool> CreateOrderAsync(string userId, string cartId, string status, string address, string description)
         {
             var createOrderDto = new CreateOrderDto
             {
+                UserId = userId,
+                CartId = cartId,
                 Status = status,
                 Address = address,
                 Description = description
             };
 
+            var user = await _userReadRepository.GetByIdAsync(userId);
+            var cart = await _cartReadRepository.GetByIdAsync(cartId);
+            var cartGuid = Guid.Parse(cartId);
+            var existingOrder = await _orderReadRepository.GetSingleAsync(o => o.CartId == cartGuid);
+
+            if (existingOrder != null)
+            {
+                return false;
+            }
+
+            if (user == null || cart == null || cart.UserId != user.Id)
+            {
+                return false;
+            }
+            
             var order = _mapper.Map<Order>(createOrderDto);
             var result = await _orderWriteRepository.AddAsync(order);
             await _orderWriteRepository.SaveAsync();

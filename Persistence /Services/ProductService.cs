@@ -2,7 +2,6 @@
 using Application.Repositories;
 using Application.Services;
 using AutoMapper;
-using Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Services
@@ -43,14 +42,23 @@ namespace Persistence.Services
             return _mapper.Map<List<ProductDto>>(product);
         }
 
-        public async Task<bool> CreateProductsAsync(string name, double price, double stock, string description)
+        public async Task<bool> CreateProductsAsync(string categoryId, string name, double price, double stock, string description, string imageUrl)
         {
+            var doesExist = await _productReadRepository.GetSingleAsync(p => p.ImageUrl == imageUrl && p.Name == name);
+
+            if(doesExist != null)
+            {
+                return false;
+            }
+
             var createProductDto = new CreateProductDto
             {
+                CategoryId = categoryId,
                 Name = name,
                 Price = price,
                 Stock = stock,
                 Description = description,
+                ImageUrl = imageUrl
             };
             var product = _mapper.Map<Product>(createProductDto);
             var result = await _productWriteRepository.AddAsync(product);
@@ -58,18 +66,19 @@ namespace Persistence.Services
             return result;
         }
 
-        public async Task<bool> UpdateProductsAsync(string id, string name, double price, double stock, string description)
+        public async Task<bool> UpdateProductsAsync(string id, string categoryId, string name, double price, double stock, string description, string imageUrl)
         {
             var product = await _productReadRepository.GetByIdAsync(id);
             if (product == null)
                 return false;
             var updateProductDto = new UpdateProductDto
             {
-                Id = id,
+                CategoryId = categoryId,
                 Name = name,
                 Price = price,
                 Stock = stock,
-                Description = description
+                Description = description,
+                ImageUrl = imageUrl                              
             };
             _mapper.Map(updateProductDto, product);
             var result = _productWriteRepository.Update(product);
@@ -93,6 +102,15 @@ namespace Persistence.Services
 
             // Return DTOs for the client
             return productDtos;
+        }
+
+        public async Task<ProductDto> GetProductAsJsonFunc(string id)
+        {
+            var products = await _productReadRepository.GetProductAsJsonAsync(id);
+
+            var result = _mapper.Map<ProductDto>(products);
+
+            return result;  
         }
     }
 }

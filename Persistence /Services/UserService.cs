@@ -34,11 +34,24 @@ namespace Persistence.Services
             return _mapper.Map<UserDto>(user);
         }
 
-        public async Task<List<UserDto>> SearchUsersByNameAsync(string name)
+        public async Task<List<UserDto>> SearchUsersByNameAsync(string name, string? surname)
         {
-            var users = await _userReadRepository.GetWhere(c => c.Name.Contains(name)).ToListAsync();
-            if (users == null)
-                return null;
+            // Start by querying all users
+            var query = _userReadRepository.GetWhere(u => u.Name.Contains(name));
+
+            // Only filter by surname if it's provided (not null or empty)
+            if (!string.IsNullOrEmpty(surname))
+            {
+                query = query.Where(u => u.Surname.Contains(surname));
+            }
+
+            var users = await query.ToListAsync();
+
+            if (users == null || users.Count == 0)
+            {
+                return new List<UserDto>(); // Return empty list if no users found
+            }
+
             return _mapper.Map<List<UserDto>>(users);
         }
 

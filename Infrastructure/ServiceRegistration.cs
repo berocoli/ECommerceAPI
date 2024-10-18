@@ -1,12 +1,10 @@
 ﻿using Application.Services.CurrencyServices;
 using Application.Services.PdfServices;
 using Application.Services.TokenServices;
-using Application.Settings;
 using Infrastructure.Services;
+using Infrastructure.Services.Pdf_Services;
 using Infrastructure.Services.TokenServices;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using Persistence.Services.Pdf_Services;
 
 namespace Infrastructure.ServiceRegistration
 {

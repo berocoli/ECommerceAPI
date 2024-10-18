@@ -18,9 +18,10 @@ namespace Application.Features.Queries.Products.GetProductsById
             var product = await _productService.GetProductByIdAsync(request.ProductId);
             return new GetProductsByIdQueryResponse
             {
+                Name = product.Name,
                 Stock = product.Stock,
                 Price = product.Price,
-                Description = product.Description
+                Description = product.Description 
             };                     
         }
     }

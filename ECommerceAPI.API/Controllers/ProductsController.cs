@@ -48,7 +48,7 @@ namespace ECommerceAPI.API.Controllers
             return Ok(response);
         }
 
-        [HttpPost]
+        [HttpPost("insert")]
         public async Task<IActionResult> Create(CreateProductCommandRequest request)
         {
             var result = await mediator.Send(request);
@@ -73,6 +73,13 @@ namespace ECommerceAPI.API.Controllers
         public async Task<IActionResult> StoredGetProcedure()
         {
             var result = await _productService.GetAllProductsStorage();
+            return Ok(result);
+        }
+
+        [HttpGet("single(func)")]
+        public async Task<IActionResult> GetByIdFunc(string id)
+        {
+            var result = await _productService.GetProductAsJsonFunc(id);
             return Ok(result);
         }
     }

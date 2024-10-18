@@ -41,9 +41,9 @@ namespace ECommerceAPI.API.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<IActionResult> GetWhere(string name)
+        public async Task<IActionResult> GetWhere(string name, string? surname)
         {
-            var request = new GetUsersWhereQueryRequest { Name = name };
+            var request = new GetUsersWhereQueryRequest { Name = name , Surname = surname};
             List<GetUsersWhereQueryResponse> response = await mediator.Send(request);
             return Ok(response);
         }

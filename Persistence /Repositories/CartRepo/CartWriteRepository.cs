@@ -1,9 +1,9 @@
 ﻿using System;
-using Application.Repositories.CartRepo;
+using Application.Repositories;
 using Domain;
 using Persistence.Contexts;
 
-namespace Persistence.Repositories.CartRepo
+namespace Persistence.Repositories
 {
     public class CartWriteRepository : WriteRepository<Cart>, ICartWriteRepository
     {

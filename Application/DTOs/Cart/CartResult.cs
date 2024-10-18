@@ -1,9 +1,9 @@
-﻿using System;
-namespace Application.DTOs.Cart
+﻿namespace Application.DTOs.Cart
 {
     public class CartResult
-    { 
-        public bool CartItemResult { get; set; }
+    {
+        public string? CartExists { get; set; }
+        public string? CartCreated { get; set; }
+        public string? Error { get; set; }
     }
 }
-

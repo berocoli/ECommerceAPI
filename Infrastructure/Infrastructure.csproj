@@ -23,14 +23,22 @@
     <Folder Include="Services\" />
     <Folder Include="Services\TokenServices\" />
     <Folder Include="Services\Pdf Services\" />
+    <Folder Include="Assets\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove=".DS_Store" />
     <None Remove="Services\" />
     <None Remove="Services\TokenServices\" />
     <None Remove="Services\Pdf Services\" />
+    <None Remove="Assets\" />
+    <None Remove="Assets\Fonts\Arial.ttf" />
+    <None Remove="Assets\Fonts\Arial_Bold.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Fonts\Arial.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\Arial_Bold.ttf" />
   </ItemGroup>
 </Project>

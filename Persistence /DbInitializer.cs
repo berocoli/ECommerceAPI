@@ -35,7 +35,7 @@ namespace Persistence.Seed
                         Name = "Suphi Erkin",
                         Surname = "Karaçay",
                         Email = "serpinkaratay@mail.com",
-                        Password =  "password3",
+                        Password =  "password2",
                         Role = false,
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
@@ -133,6 +133,7 @@ namespace Persistence.Seed
                     UserId = berkeUser.Id,
                     CreatedDate = DateTime.UtcNow,
                     UpdatedDate = DateTime.UtcNow,
+                    IsModifyable = false,
                     CartItems = new List<CartItem>()
                 };
 
@@ -142,6 +143,7 @@ namespace Persistence.Seed
                     UserId = erkinUser.Id,
                     CreatedDate = DateTime.UtcNow,
                     UpdatedDate = DateTime.UtcNow,
+                    IsModifyable = false,
                     CartItems = new List<CartItem>()
                 };
 
@@ -182,7 +184,7 @@ namespace Persistence.Seed
                         CartId = berkeCart.Id,
                         Address = "123 Main St",
                         Description = "Deliver ASAP",
-                        Status = "Pending",
+                        Status = "Pending",                        
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     },

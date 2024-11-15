@@ -1,5 +1,6 @@
 ﻿using System;
 using Application.DTOs;
+using Application.Exceptions;
 using Application.Services;
 using MediatR;
 namespace Application.Features.Queries.Orders.GetAllOrders
@@ -15,6 +16,10 @@ namespace Application.Features.Queries.Orders.GetAllOrders
         public async Task<List<OrderDto>> Handle(GetAllOrderssQueryRequest request, CancellationToken cancellationToken)
         {
             var orders = await _orderService.GetAllOrdersAsync();
+            if(orders == null)
+            {
+                throw new GetAllFailException();
+            }
             return orders;
         }
     }

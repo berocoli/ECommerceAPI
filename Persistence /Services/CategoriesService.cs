@@ -1,6 +1,9 @@
-﻿using Application.Repositories;
+﻿using Application.DTOs;
+using Application.Repositories;
 using Application.Services;
 using AutoMapper;
+using Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Services
 {
@@ -15,48 +18,61 @@ namespace Persistence.Services
         {
             _categoryReadRepository = categoryReadRepository;
             _categoryWriteRepository = categoryWriteRepository;
+            _productReadRepository = productReadRepository;
             _mapper = mapper;
+        }
+
+        public async Task<List<CategoryDto>> GetAllCategories()
+        {
+            var categories = await _categoryReadRepository.GetAll().ToListAsync();
+            return _mapper.Map<List<CategoryDto>>(categories);            
+        }
+
+        public async Task<List<CategoryDto>> GetProductsByCategories()
+        {
+            var cps = await _categoryReadRepository.GetAll().Include(ca => ca.Products).ToListAsync();
+            return _mapper.Map<List<CategoryDto>>(cps);
+        }
+
+        public async Task<CategoryDto> GetProductByCategoryId(string productId)
+        {
+            if(!Guid.TryParse(productId, out var productGuid))
+            {
+                throw new FormatException();
+            }
+            var categories = await _categoryReadRepository.GetWhere(c => c.Id == productGuid).Include(c => c.Products).FirstOrDefaultAsync();
+            return _mapper.Map<CategoryDto>(categories);
+        }
+        public async Task<bool> CreateCategory(string categoryName)
+        {
+            var createCategoryDto = new CategoryDto
+            {
+                CategoryName = categoryName,
+            };
+
+            var category = _mapper.Map<ProductsCategory>(createCategoryDto);
+            var result = await _categoryWriteRepository.AddAsync(category);
+            return result;
+        }
+
+        public async Task<bool> UpdateCategory(string categoryName)
+        {
+            var updateCategoryDto = new CategoryDto
+            {
+                CategoryName = categoryName,
+            };
+
+            var category = _mapper.Map<ProductsCategory>(updateCategoryDto);
+            var result = _categoryWriteRepository.Update(category);
+            return result;
+
+        }
+
+        public async Task<bool> DeleteCategory(string id)
+        {
+            var result = await _categoryWriteRepository.RemoveAsync(id);
+            return result;
         }
     }
 }
-
-//var userGuid = Guid.Parse(userId);
-//var existingCart = await _cartReadRepository.GetSingleAsync(c => c.UserId == userGuid);
-
-//if (existingCart != null)
-//{
-//    var createCartDto = new CreateCartDto
-//    {
-//        CartId = existingCart.Id.ToString(),
-//        ProductId = productId,
-//        Quantity = quantity
-//    };
-//    var cartItem = _mapper.Map<Cart>(createCartDto);
-
-//    return new CartResult
-//    {
-//        CartItemResult = cartItem,
-//    };
-//}
-//else
-//{
-//    var cartId = Guid.NewGuid().ToString();
-//    var createCartDto = new CreateCartDto
-//    {
-//        CartId = cartId,
-//        UserId = userId,
-//        ProductId = productId,
-//        Quantity = quantity
-//    };
-//    var cart = _mapper.Map<Cart>(createCartDto);
-//    var cartResult = await _cartWriteRepository.AddAsync(cart);
-
-//    await _cartWriteRepository.SaveAsync();
-//    var cartItem = _mapper.Map<Cart>(createCartDto);
-
-//    return new CartResult
-//    {
-//        CartItemResult = cartItem
-//    };
-//}
 

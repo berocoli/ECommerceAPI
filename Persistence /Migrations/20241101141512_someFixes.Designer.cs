@@ -12,8 +12,8 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(ECommerceAPIDbContext))]
-    [Migration("20241018065124_delFix")]
-    partial class delFix
+    [Migration("20241101141512_someFixes")]
+    partial class someFixes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,9 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("IsModifyable")
+                        .HasColumnType("boolean");
+
                     b.Property<Guid?>("OrderId")
                         .HasColumnType("uuid");
 
@@ -48,8 +51,7 @@ namespace Persistence.Migrations
                     b.HasIndex("OrderId")
                         .IsUnique();
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Carts");
                 });
@@ -225,8 +227,8 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Domain.User", "User")
-                        .WithOne("Cart")
-                        .HasForeignKey("Cart", "UserId")
+                        .WithMany("Cart")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

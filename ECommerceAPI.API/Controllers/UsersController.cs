@@ -1,4 +1,5 @@
 ﻿using Application.DTOs;
+using Application.Features.Commands.Users.CreateAdmin;
 using Application.Features.Commands.Users.CreateUser;
 using Application.Features.Commands.Users.DeleteUser;
 using Application.Features.Commands.Users.UpdateUser;
@@ -7,6 +8,7 @@ using Application.Features.Queries.Users.GetUsersById;
 using Application.Features.Queries.Users.GetUsersWhere;
 using Application.Services.PdfServices;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerceAPI.API.Controllers
@@ -50,6 +52,14 @@ namespace ECommerceAPI.API.Controllers
 
         [HttpPost("create")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserCommandRequest request)
+        {
+            var result = await mediator.Send(request);
+            return Ok(result);
+        }
+
+        [HttpPost("createAdmin")]
+        [Authorize(Policy = "AdminOnly")]
+        public async Task<IActionResult> CreateAdminUser([FromBody] CreateAdminCommandRequest request)
         {
             var result = await mediator.Send(request);
             return Ok(result);

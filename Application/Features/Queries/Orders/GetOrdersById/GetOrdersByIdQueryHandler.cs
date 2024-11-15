@@ -26,6 +26,7 @@ namespace Application.Features.Queries.Orders.GetOrdersById
             return new GetOrdersByIdQueryResponse
             {
                 UserId = order.Id,
+                CartId = order.CartId,                  
                 Address = order.Address,
                 Description = order.Description,
                 Status = order.Status

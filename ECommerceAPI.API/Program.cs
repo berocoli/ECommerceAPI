@@ -48,7 +48,18 @@ builder.Services.AddAuthentication(options =>
 
 });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy =>
+    {
+        policy.RequireAssertion(context =>
+        {
+            var roleClaim = context.User.FindFirst("role");
+            return roleClaim != null && bool.TryParse(roleClaim.Value, out var isAdmin) && isAdmin;
+        });
+    });
+});
+
 
 // Register services
 builder.Services.AddPersistenceServices();

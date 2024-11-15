@@ -31,6 +31,9 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("IsModifyable")
+                        .HasColumnType("boolean");
+
                     b.Property<Guid?>("OrderId")
                         .HasColumnType("uuid");
 
@@ -45,8 +48,7 @@ namespace Persistence.Migrations
                     b.HasIndex("OrderId")
                         .IsUnique();
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Carts");
                 });
@@ -222,8 +224,8 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Domain.User", "User")
-                        .WithOne("Cart")
-                        .HasForeignKey("Cart", "UserId")
+                        .WithMany("Cart")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

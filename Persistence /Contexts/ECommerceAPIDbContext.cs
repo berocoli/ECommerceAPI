@@ -39,13 +39,7 @@ namespace Persistence.Contexts
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasMaxLength(256);
-
-                // Configure one-to-one relationship with Cart
-                entity.HasOne(u => u.Cart)
-                    .WithOne(c => c.User)
-                    .HasForeignKey<Cart>(c => c.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .HasMaxLength(256);              
 
                 // Configure one-to-many relationship with Orders
                 entity.HasMany(u => u.Orders)
@@ -120,6 +114,10 @@ namespace Persistence.Contexts
             modelBuilder.Entity<Cart>(entity =>
             {
                 // The one-to-one relationship with User is configured in the User entity
+                entity.HasOne(c => c.User)
+                    .WithMany(u => u.Cart)
+                    .HasForeignKey(c => c.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 // One-to-one relationship with Order
                 entity.HasOne(c => c.Order)
@@ -171,20 +169,24 @@ namespace Persistence.Contexts
                 {
                     case EntityState.Added:
                         entry.Entity.CreatedDate = DateTime.UtcNow;
+                        entry.Entity.UpdatedDate = DateTime.UnixEpoch;
 
                         if (entry.Entity is User user && !string.IsNullOrWhiteSpace(user.Password))
                         {
                             user.Password = PasswordHasher.HashPassword(user.Password);
                         }
+                      
                         break;
                           
                     case EntityState.Modified:
+                        entry.Entity.CreatedDate = DateTime.UnixEpoch;
                         entry.Entity.UpdatedDate = DateTime.UtcNow;
 
                         if (entry.Entity is User modifiedUser && !string.IsNullOrWhiteSpace(modifiedUser.Password))
                         {
                             modifiedUser.Password = PasswordHasher.HashPassword(modifiedUser.Password);
                         }
+
                         break;
                 }
             }

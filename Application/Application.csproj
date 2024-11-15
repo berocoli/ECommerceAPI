@@ -43,7 +43,6 @@
     <None Remove="Features\Commands\" />
     <None Remove="Features\Commands\Orders\" />
     <None Remove="Features\Commands\Products\" />
-    <None Remove="Features\Commands\ProductsCategory\" />
     <None Remove="Features\Commands\Users\" />
     <None Remove="Features\Queries\Orders\" />
     <None Remove="Features\Queries\Products\" />
@@ -71,6 +70,12 @@
     <None Remove="Repositories\CartRepo\" />
     <None Remove="DTOs\Cart\" />
     <None Remove="Repositories\CartItemRepo\" />
+    <None Remove="DTOs\Category\" />
+    <None Remove="Features\Commands\Users\CreateAdmin\" />
+    <None Remove="Features\Queries\Categories\" />
+    <None Remove="Features\Commands\Categories\" />
+    <None Remove="Features\Queries\Categories\GetAllCategories\" />
+    <None Remove="Features\Queries\Categories\GetCategoryById\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />
@@ -97,7 +102,6 @@
     <Folder Include="Features\Commands\" />
     <Folder Include="Features\Commands\Orders\" />
     <Folder Include="Features\Commands\Products\" />
-    <Folder Include="Features\Commands\ProductsCategory\" />
     <Folder Include="Features\Commands\Users\" />
     <Folder Include="Features\Queries\Orders\" />
     <Folder Include="Features\Queries\Products\" />
@@ -125,6 +129,12 @@
     <Folder Include="Repositories\CartRepo\" />
     <Folder Include="DTOs\Cart\" />
     <Folder Include="Repositories\CartItemRepo\" />
+    <Folder Include="DTOs\Category\" />
+    <Folder Include="Features\Commands\Users\CreateAdmin\" />
+    <Folder Include="Features\Queries\Categories\" />
+    <Folder Include="Features\Commands\Categories\" />
+    <Folder Include="Features\Queries\Categories\GetAllCategories\" />
+    <Folder Include="Features\Queries\Categories\GetCategoryById\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />

@@ -1,5 +1,4 @@
 ﻿using Application.DTOs.Token;
-using Application.Features.LoginCustomer;
 
 namespace Application.Services
 {

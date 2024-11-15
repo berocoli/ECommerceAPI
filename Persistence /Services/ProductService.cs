@@ -10,13 +10,17 @@ namespace Persistence.Services
     {
         private readonly IProductReadRepository _productReadRepository;
         private readonly IProductWriteRepository _productWriteRepository;
+        private readonly ICategoryReadRepository _categoryReadRepository;
+        private readonly ICategoryWriteRepository _categoryWriteRepository;
 
         private readonly IMapper _mapper;
 
-        public ProductService(IProductReadRepository productReadRepository, IProductWriteRepository productWriteRepository, IMapper mapper)
+        public ProductService(IProductReadRepository productReadRepository, IProductWriteRepository productWriteRepository, ICategoryReadRepository categoryReadRepository, ICategoryWriteRepository categoryWriteRepository, IMapper mapper)
         {
             _productReadRepository = productReadRepository;
             _productWriteRepository = productWriteRepository;
+            _categoryReadRepository = categoryReadRepository;
+            _categoryWriteRepository = categoryWriteRepository;
             _mapper = mapper;
         }
                 

@@ -1,7 +1,6 @@
 ﻿using Domain;
 using AutoMapper;
 using Application.DTOs;
-using Application.DTOs.Cart;
 
 namespace Application
 {
@@ -10,6 +9,7 @@ namespace Application
         public MappingProfile()
         {
             CreateMap<User, CreateUserDto>().ReverseMap();
+            CreateMap<User, CreateAdminDto>().ReverseMap();
             CreateMap<User, UpdateUserDto>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<Order, CreateOrderDto>().ReverseMap();
@@ -35,6 +35,9 @@ namespace Application
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
                 .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product))
                 .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
+            CreateMap<Cart, CreateCartDto>().ReverseMap();
+            CreateMap<Cart, OrderCartDto>().ReverseMap();
+            CreateMap<ProductsCategory, CategoryDto>().ReverseMap();
         }
     }
 }

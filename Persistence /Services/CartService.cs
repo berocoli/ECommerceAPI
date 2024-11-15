@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Application.DTOs.Cart;
+using Application.Exceptions;
 using Application.Repositories;
 using Application.Services;
 using AutoMapper;
@@ -15,32 +16,23 @@ namespace Persistence.Services
         private readonly IProductReadRepository _productReadRepository;
         private readonly ICartItemReadRepository _cartItemReadRepository;
         private readonly ICartItemWriteRepository _cartItemWriteRepository;
+        private readonly IOrderReadRepository _orderReadRepository;
         private readonly IMapper _mapper;
 
         public CartService(ICartReadRepository cartReadRepository, ICartWriteRepository cartWriteRepository,
-            IProductReadRepository productReadRepository, ICartItemReadRepository cartItemReadRepository, ICartItemWriteRepository cartItemWriteRepository, IMapper mapper)
+            IProductReadRepository productReadRepository, ICartItemReadRepository cartItemReadRepository, ICartItemWriteRepository cartItemWriteRepository, IOrderReadRepository orderReadRepository, IMapper mapper)
         {
             _cartReadRepository = cartReadRepository;
             _cartWriteRepository = cartWriteRepository;
             _productReadRepository = productReadRepository;
             _cartItemReadRepository = cartItemReadRepository;
             _cartItemWriteRepository = cartItemWriteRepository;
+            _orderReadRepository = orderReadRepository;
             _mapper = mapper;
         }
 
         public async Task<CartResult> CreateCartAsync(string userId)
-        {
-            if (!Guid.TryParse(userId, out var userGuid))
-                return new CartResult { Error = "Invalid user ID." };
-
-            // Check if the user already has a cart
-            var existingCart = await _cartReadRepository.GetSingleAsync(c => c.UserId == userGuid);
-
-            if (existingCart != null)
-            {
-                return new CartResult { Error = "User already has a cart!" };
-            }
-
+        {            
             // Create a new cart
             var cartDto = new CreateCartDto
             { 
@@ -49,60 +41,66 @@ namespace Persistence.Services
 
             var cart = _mapper.Map<Cart>(cartDto);
             await _cartWriteRepository.AddAsync(cart);
+            
             await _cartWriteRepository.SaveAsync();
 
-            return new CartResult { CartExists = "Cart created and product added successfully!" };
+            return new CartExistsResult { CartExists = "Cart created and product added successfully!" };
         }
 
         public async Task<CartResult> AddToCartAsync(string userId, string cartId, string productId, int quantity)
         {
-            if(!Guid.TryParse(userId, out var userGuid))
+            if (!Guid.TryParse(userId, out var userGuid))
             {
-                return new CartResult { Error = "Invalid User ID." };
+                return new CartErrorResult { Error = "Invalid User ID." };
             }
-            if(!Guid.TryParse(productId, out var productGuid))
+            if (!Guid.TryParse(productId, out var productGuid))
             {
-                return new CartResult { Error = "Invalid product ID." };
+                return new CartErrorResult { Error = "Invalid product ID." };
             }
-            if(!Guid.TryParse(cartId, out var cartGuid))
+            if (!Guid.TryParse(cartId, out var cartGuid))
             {
-                return new CartResult { Error = "Invalid Cart ID." };
+                return new CartErrorResult { Error = "Invalid Cart ID." };
             }
 
             // Fetch the user's existing cart with products
-            var existingCart = _cartReadRepository.GetWhere(c => c.UserId == userGuid);
-
+            var existingCart = await _cartReadRepository.GetSingleAsync(c => c.Id == cartGuid && c.UserId == userGuid); 
             if (existingCart == null)
             {
-                return new CartResult { Error = "Cart not found for the user!" };
+                return new CartErrorResult { Error = "Cart not found for the user!" };
             }
 
             // Verify the product exists
             var product = await _productReadRepository.GetByIdAsync(productId);
             if (product == null)
             {
-                return new CartResult { Error = "Product not found!" };
+                return new CartErrorResult { Error = "Product not found!" };
             }
 
             // Check if the product is already in the cart
-            var cartItem = await _cartItemReadRepository.GetSingleAsync(ci => ci.ProductId == productGuid);
-            
+            var cartItem = await _cartItemReadRepository.GetSingleAsync(ci => ci.ProductId == productGuid && ci.CartId == cartGuid); // ensure correct cart id too
+
             if (cartItem != null)
             {
                 // Update quantity if product already is in the cart
                 cartItem.Quantity += quantity;
+                cartItem.Product.Stock -= quantity;
             }
             else
             {
                 // Add new product to cart
-                cartItem.ProductId = productGuid;
-                cartItem.Quantity = quantity;
+                cartItem = new CartItem // Ensure initialization
+                {
+                    ProductId = productGuid,
+                    Quantity = quantity,
+                    CartId = cartGuid,
+                };
+                // cartItem.Product.Stock -= quantity;
             }
-            var cartDto = _mapper.Map<CartItem>(cartItem);
-            await _cartItemWriteRepository.AddAsync(cartDto);
+
+            await _cartItemWriteRepository.AddAsync(cartItem);
             await _cartWriteRepository.SaveAsync();
 
-            return new CartResult { CartExists = "Product added to the cart successfully!" };
+            return new CartExistsResult { CartExists = "Product added to the cart successfully!"};
         }
 
         public async Task<List<GetCartDto>> GetActiveCartsAsync()
@@ -116,10 +114,34 @@ namespace Persistence.Services
             return _mapper.Map<List<GetCartDto>>(carts);
         }
 
+        public async Task<GetCartDto> GetCartByIdAsync(string userId)
+        {
+            if(!Guid.TryParse(userId, out var userGuid))
+            {
+                return null;
+            }
+            var cart = await _cartReadRepository.GetWhere(c => c.UserId == userGuid)
+                .Include(c => c.CartItems)
+                    .ThenInclude(ci => ci.Product)
+                .FirstOrDefaultAsync();
+            return _mapper.Map<GetCartDto>(cart);
+        }
 
+        public async Task<List<GetCartDto>> GetCartsByIdSP(string userId)
+        {
+            var cart = await _cartReadRepository.GetCartsByIdAsyncSP(userId);
+            if (cart == null)
+            {
+                throw new SearchedNotFoundException();
+            }
+            return _mapper.Map<List<GetCartDto>>(cart);
+        }
+        
         public async Task<int> CountActiveCartsAsync()
         {
-            return await _cartReadRepository.GetAll().CountAsync();
+            var activeCarts = _cartReadRepository.GetWhere(c => c.IsModifyable == true).Count();
+            _mapper.Map<GetCartDto>(activeCarts);
+            return activeCarts;
         }
 
         public async Task<bool> RemoveCart(Guid cartId)

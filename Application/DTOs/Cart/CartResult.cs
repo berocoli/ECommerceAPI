@@ -2,8 +2,15 @@
 {
     public class CartResult
     {
-        public string? CartExists { get; set; }
-        public string? CartCreated { get; set; }
-        public string? Error { get; set; }
+        public string CartCreated { get; set; }
     }
+    public class CartExistsResult : CartResult
+    {
+        public string CartExists { get; set; }
+    }
+    public class CartErrorResult : CartResult
+    {
+        public string Error { get; set; }
+    }
+
 }

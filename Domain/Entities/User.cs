@@ -12,6 +12,6 @@ namespace Domain
         public bool Role { get; set; }
 
         public ICollection<Order>? Orders { get; set; } // Navigation property
-        public Cart? Cart { get; set; } // Navigation property (one-to-one relationship)
+        public ICollection<Cart>? Cart { get; set; } // Navigation property (one-to-one relationship)
     }
 }

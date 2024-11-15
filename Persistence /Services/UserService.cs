@@ -71,6 +71,22 @@ namespace Persistence.Services
             return result;
         }
 
+        public async Task<bool> CreateAdminUserAsync(string name, string surname, string email, string password, bool role)
+        {
+            var createAdminDto = new CreateAdminDto
+            {
+                Name = name,
+                Surname = surname,
+                EMail = email,
+                Password = password,
+                Role = role
+            };
+
+            var admin = _mapper.Map<User>(createAdminDto);
+            var result = await _userWriteRepository.AddAsync(admin);
+            await _userWriteRepository.SaveAsync();
+            return result;
+        }
 
         public async Task<bool> UpdateUserAsync(string id, string name, string surname, string email, string password, bool role)
         {

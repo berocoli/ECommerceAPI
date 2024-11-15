@@ -4,6 +4,7 @@ using Application.Services.PdfServices;
 using PdfSharp.Drawing;
 using PdfSharp.Fonts;
 using PdfSharp.Pdf;
+using PdfSharp.UniversalAccessibility.Drawing;
 
 namespace Infrastructure.Services.Pdf_Services
 {
@@ -33,14 +34,20 @@ namespace Infrastructure.Services.Pdf_Services
             yPoint += 40;
 
             // Set column positions
-            double nameColumnX = 150;
-            double emailColumnX = 350;
+            double nameColumnX = 100;
+            double surnameColumnX = 200;            
+            double emailColumnX = 300;
+            double roleColumnX = 450;
 
             // Draw table headers
             gfx.DrawString("Name", fontRegular, XBrushes.Black,
                 new XRect(nameColumnX, yPoint, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString("Surname", fontRegular, XBrushes.Black,
+                new XRect(surnameColumnX, yPoint, page.Width, page.Height), XStringFormats.TopLeft);
             gfx.DrawString("Email", fontRegular, XBrushes.Black,
                 new XRect(emailColumnX, yPoint, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString("Role", fontRegular, XBrushes.Black,
+                new XRect(roleColumnX, yPoint, page.Width, page.Height), XStringFormats.TopLeft);
             yPoint += 20;
 
             // Draw a line under headers
@@ -50,10 +57,20 @@ namespace Infrastructure.Services.Pdf_Services
             // Loop through users and draw each user's data
             foreach (var user in users)
             {
+                var stringifiedRole = "User";
+                if(user.Role == true)
+                {
+                    stringifiedRole = "Admin";
+                }
+
                 gfx.DrawString(user.Name, fontRegular, XBrushes.Black,
                     new XRect(nameColumnX, yPoint, page.Width, page.Height), XStringFormats.TopLeft);
+                gfx.DrawString(user.Surname, fontRegular, XBrushes.Black,
+                new XRect(surnameColumnX, yPoint, page.Width, page.Height), XStringFormats.TopLeft);
                 gfx.DrawString(user.Email, fontRegular, XBrushes.Black,
                     new XRect(emailColumnX, yPoint, page.Width, page.Height), XStringFormats.TopLeft);
+                gfx.DrawString(stringifiedRole, fontRegular, XBrushes.Black,
+                new XRect(roleColumnX, yPoint, page.Width, page.Height), XStringFormats.TopLeft);
                 yPoint += 20;
 
                 // Add a new page if needed

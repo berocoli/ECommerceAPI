@@ -7,9 +7,9 @@ namespace Application.DTOs
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
+        public bool IsModifyable { get; set; }
         public List<CartProductDto> CartProducts { get; set; }
     }
-
 
     public class CartProductDto
     {

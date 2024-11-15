@@ -12,7 +12,7 @@
         {
         }
         public LoginFailException(string userName, string? message, Exception inner) :
-            base("Login with user {userName} failed. {message}", inner)
+            base($"Login with user {userName} failed. {message}", inner)
         {
         }
      }

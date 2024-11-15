@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Domain;
 using Domain.Entities;
 using Domain.Entities.BaseEntity;
 
@@ -9,6 +10,8 @@ public class Cart : BaseEntity
 
     public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
 
+    public bool IsModifyable { get; set; } = true;
+    
     public Guid? OrderId { get; set; }
     public Order? Order { get; set; }
 }

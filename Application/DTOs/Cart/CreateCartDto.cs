@@ -2,7 +2,8 @@
 {
     public class CreateCartDto
     {
-        public string UserId { get; set; }        
+        public string UserId { get; set; }
+        public bool IsModifyable { get; set; } = true;
     }
 
     public class CreateCartItemDto

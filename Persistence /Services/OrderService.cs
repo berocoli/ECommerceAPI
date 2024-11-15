@@ -13,15 +13,25 @@ namespace Persistence.Services
         private readonly IOrderWriteRepository _orderWriteRepository;
         private readonly IUserReadRepository _userReadRepository;
         private readonly ICartReadRepository _cartReadRepository;
+        private readonly ICartWriteRepository _cartWriteRepository;
+        private readonly ICartService cartService;
+        private readonly IProductReadRepository _productReadRepository;
+        private readonly IProductWriteRepository _productWriteRepository;
         public readonly IMapper _mapper;
 
-        public OrderService(IOrderReadRepository orderReadRepository, IOrderWriteRepository orderWriteRepository, IUserReadRepository userReadRepository, ICartReadRepository cartReadRepository, IMapper mapper)
+        public OrderService(
+            IOrderReadRepository orderReadRepository, IOrderWriteRepository orderWriteRepository, IUserReadRepository userReadRepository, ICartReadRepository cartReadRepository, ICartWriteRepository cartWriteRepository, ICartService _cartService, IProductReadRepository productReadRepository, IProductWriteRepository productWriteRepository, IMapper mapper
+            )
         {
-            _orderReadRepository = orderReadRepository;
-            _orderWriteRepository = orderWriteRepository;
-            _userReadRepository = userReadRepository;
-            _cartReadRepository = cartReadRepository;
-            _mapper = mapper;
+            _orderReadRepository    = orderReadRepository;
+            _orderWriteRepository   = orderWriteRepository;
+            _userReadRepository     = userReadRepository;
+            _cartReadRepository     = cartReadRepository;
+            _cartWriteRepository    = cartWriteRepository;
+            cartService             = _cartService;
+            _productReadRepository  = productReadRepository;
+            _productWriteRepository = productWriteRepository;
+            _mapper                 = mapper;
         }
                 
         public async Task<List<OrderDto>> GetAllOrdersAsync()
@@ -73,6 +83,15 @@ namespace Persistence.Services
             }
             
             var order = _mapper.Map<Order>(createOrderDto);
+                       
+            var cartDto = new OrderCartDto
+            {
+                IsModifyable = false
+            };
+
+            _mapper.Map(cartDto, cart);
+            _cartWriteRepository.Update(cart);
+            await cartService.CreateCartAsync(userId);
             var result = await _orderWriteRepository.AddAsync(order);
             await _orderWriteRepository.SaveAsync();
             return result;
@@ -101,7 +120,7 @@ namespace Persistence.Services
         public async Task<bool> DeleteOrderAsync(string id)
         {
             var result = await _orderWriteRepository.RemoveAsync(id);
-            await _orderWriteRepository.SaveAsync();
+            await _orderWriteRepository.SaveAsync(); 
             return result;
         }
     }

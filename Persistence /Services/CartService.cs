@@ -120,7 +120,7 @@ namespace Persistence.Services
             {
                 return null;
             }
-            var cart = await _cartReadRepository.GetWhere(c => c.UserId == userGuid)
+            var cart = await _cartReadRepository.GetWhere(c => c.UserId == userGuid && c.IsModifyable == true)
                 .Include(c => c.CartItems)
                     .ThenInclude(ci => ci.Product)
                 .FirstOrDefaultAsync();

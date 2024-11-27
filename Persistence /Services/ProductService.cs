@@ -46,6 +46,16 @@ namespace Persistence.Services
             return _mapper.Map<List<ProductDto>>(product);
         }
 
+        public async Task<List<ProductDto>> Randomizer()
+        {
+            var products = await _productReadRepository.Randomizer();
+            if(products == null)
+            {
+                return null;
+            }
+            return _mapper.Map<List<ProductDto>>(products);
+        }
+
         public async Task<bool> CreateProductsAsync(string categoryId, string name, double price, double stock, string description, string imageUrl)
         {
             var doesExist = await _productReadRepository.GetSingleAsync(p => p.ImageUrl == imageUrl && p.Name == name);
@@ -69,6 +79,19 @@ namespace Persistence.Services
             await _productWriteRepository.SaveAsync();
             return result;
         }
+
+        public async Task<bool> InsertRange(List<CreateProductDto> products)
+        {
+            if(products == null)
+            {
+                return false;
+            }
+            var createProductEntities = _mapper.Map<List<Product>>(products);
+            var result = await _productWriteRepository.AddRangeAsync(createProductEntities);
+            await _productWriteRepository.SaveAsync();
+            return result;
+        }
+
 
         public async Task<bool> UpdateProductsAsync(string id, string categoryId, string name, double price, double stock, string description, string imageUrl)
         {

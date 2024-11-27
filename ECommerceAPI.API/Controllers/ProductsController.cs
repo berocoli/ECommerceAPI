@@ -1,4 +1,5 @@
-﻿using Application.Features.Commands.Products.CreateProduct;
+﻿using Application.DTOs;
+using Application.Features.Commands.Products.CreateProduct;
 using Application.Features.Commands.Products.DeleteProduct;
 using Application.Features.Commands.Products.UpdateProduct;
 using Application.Features.Queries.Products.GetAllProducts;
@@ -48,10 +49,28 @@ namespace ECommerceAPI.API.Controllers
             return Ok(response);
         }
 
+        [HttpGet("Randomizer")]
+        public async Task<IActionResult> Randomizer()
+        {
+            var response = await _productService.Randomizer();
+            if(response == null || !response.Any())
+            {
+                return NotFound("Products Not Found.");
+            }
+            return Ok(response);
+        }
+
         [HttpPost("insert")]
         public async Task<IActionResult> Create(CreateProductCommandRequest request)
         {
             var result = await mediator.Send(request);
+            return Ok(result);
+        }
+
+        [HttpPost("insertRange")]
+        public async Task<IActionResult> CreateRange(List<CreateProductDto> createProductDto)
+        {
+            var result = await _productService.InsertRange(createProductDto);
             return Ok(result);
         }
 

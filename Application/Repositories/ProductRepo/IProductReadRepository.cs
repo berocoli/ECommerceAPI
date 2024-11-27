@@ -5,6 +5,7 @@ namespace Application.Repositories
     {
         Task<List<Product>> GetFromStoredProcedureAsync(bool tracking = true);
         Task<Product> GetProductAsJsonAsync(string id);
+        Task<List<Product>> Randomizer();
     }
 }
 

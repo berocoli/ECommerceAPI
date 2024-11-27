@@ -79,7 +79,7 @@ namespace Persistence.Seed
                 await dbContext.Products.AddRangeAsync(
                     new Product
                     {
-                        Id = smartphoneId,
+                        Id = Guid.NewGuid(),
                         Name = "Smartphone",
                         Stock = 100,
                         Price = 599.99,
@@ -91,7 +91,7 @@ namespace Persistence.Seed
                     },
                     new Product
                     {
-                        Id = laptopId,
+                        Id = Guid.NewGuid(),
                         Name = "Laptop",
                         Stock = 50,
                         Price = 1099.99,
@@ -103,13 +103,109 @@ namespace Persistence.Seed
                     },
                     new Product
                     {
-                        Id = bookAId,
+                        Id = Guid.NewGuid(),
                         Name = "Book A",
                         Stock = 200,
                         Price = 19.99,
                         Description = "An interesting novel",
                         ImageUrl = "/images/booka.jpg",
                         CategoryId = await dbContext.Categories.Where(c => c.CategoryName == "Books").Select(c => c.Id).FirstAsync(),
+                        CreatedDate = DateTime.UtcNow,
+                        UpdatedDate = DateTime.UtcNow
+                    },
+                    new Product
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Headphones",
+                        Stock = 150,
+                        Price = 89.99,
+                        Description = "Noise-cancelling over-ear headphones",
+                        ImageUrl = "/images/headphones.jpg",
+                        CategoryId = await dbContext.Categories.Where(c => c.CategoryName == "Electronics").Select(c => c.Id).FirstAsync(),
+                        CreatedDate = DateTime.UtcNow,
+                        UpdatedDate = DateTime.UtcNow
+                    },
+                    new Product
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Tablet",
+                        Stock = 70,
+                        Price = 299.99,
+                        Description = "Portable and powerful tablet device",
+                        ImageUrl = "/images/tablet.jpg",
+                        CategoryId = await dbContext.Categories.Where(c => c.CategoryName == "Electronics").Select(c => c.Id).FirstAsync(),
+                        CreatedDate = DateTime.UtcNow,
+                        UpdatedDate = DateTime.UtcNow
+                    },
+                    new Product
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Desk Lamp",
+                        Stock = 120,
+                        Price = 29.99,
+                        Description = "Stylish LED desk lamp",
+                        ImageUrl = "/images/desklamp.jpg",
+                        CategoryId = await dbContext.Categories.Where(c => c.CategoryName == "Home").Select(c => c.Id).FirstAsync(),
+                        CreatedDate = DateTime.UtcNow,
+                        UpdatedDate = DateTime.UtcNow
+                    },
+                    new Product
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Office Chair",
+                        Stock = 80,
+                        Price = 199.99,
+                        Description = "Ergonomic office chair with adjustable height",
+                        ImageUrl = "/images/officechair.jpg",
+                        CategoryId = await dbContext.Categories.Where(c => c.CategoryName == "Furniture").Select(c => c.Id).FirstAsync(),
+                        CreatedDate = DateTime.UtcNow,
+                        UpdatedDate = DateTime.UtcNow
+                    },
+                    new Product
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Coffee Table",
+                        Stock = 40,
+                        Price = 149.99,
+                        Description = "Modern wooden coffee table",
+                        ImageUrl = "/images/coffeetable.jpg",
+                        CategoryId = await dbContext.Categories.Where(c => c.CategoryName == "Furniture").Select(c => c.Id).FirstAsync(),
+                        CreatedDate = DateTime.UtcNow,
+                        UpdatedDate = DateTime.UtcNow
+                    },
+                    new Product
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Running Shoes",
+                        Stock = 90,
+                        Price = 79.99,
+                        Description = "Lightweight running shoes",
+                        ImageUrl = "/images/runningshoes.jpg",
+                        CategoryId = await dbContext.Categories.Where(c => c.CategoryName == "Sports").Select(c => c.Id).FirstAsync(),
+                        CreatedDate = DateTime.UtcNow,
+                        UpdatedDate = DateTime.UtcNow
+                    },
+                    new Product
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Yoga Mat",
+                        Stock = 100,
+                        Price = 24.99,
+                        Description = "Non-slip yoga mat",
+                        ImageUrl = "/images/yogamat.jpg",
+                        CategoryId = await dbContext.Categories.Where(c => c.CategoryName == "Sports").Select(c => c.Id).FirstAsync(),
+                        CreatedDate = DateTime.UtcNow,
+                        UpdatedDate = DateTime.UtcNow
+                    },
+                    new Product
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Backpack",
+                        Stock = 60,
+                        Price = 49.99,
+                        Description = "Durable travel backpack",
+                        ImageUrl = "/images/backpack.jpg",
+                        CategoryId = await dbContext.Categories.Where(c => c.CategoryName == "Accessories").Select(c => c.Id).FirstAsync(),
                         CreatedDate = DateTime.UtcNow,
                         UpdatedDate = DateTime.UtcNow
                     }

@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using Application.Repositories;
-using Domain;
 using Domain.Entities.BaseEntity;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;

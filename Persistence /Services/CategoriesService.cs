@@ -11,14 +11,12 @@ namespace Persistence.Services
     {
         private readonly ICategoryReadRepository _categoryReadRepository;
         private readonly ICategoryWriteRepository _categoryWriteRepository;
-        private readonly IProductReadRepository _productReadRepository;
         private readonly IMapper _mapper;
 
-        public CategoriesService(ICategoryReadRepository categoryReadRepository, ICategoryWriteRepository categoryWriteRepository, IMapper mapper, IProductReadRepository productReadRepository)
+        public CategoriesService(ICategoryReadRepository categoryReadRepository, ICategoryWriteRepository categoryWriteRepository, IMapper mapper)
         {
             _categoryReadRepository = categoryReadRepository;
             _categoryWriteRepository = categoryWriteRepository;
-            _productReadRepository = productReadRepository;
             _mapper = mapper;
         }
 
@@ -30,7 +28,10 @@ namespace Persistence.Services
 
         public async Task<List<CategoryDto>> GetProductsByCategories()
         {
-            var cps = await _categoryReadRepository.GetAll().Include(ca => ca.Products).ToListAsync();
+            var cps = await _categoryReadRepository
+                .GetAll()
+                .Include(ca => ca.Products)
+                .ToListAsync();
             return _mapper.Map<List<CategoryDto>>(cps);
         }
 
@@ -43,6 +44,22 @@ namespace Persistence.Services
             var categories = await _categoryReadRepository.GetWhere(c => c.Id == productGuid).Include(c => c.Products).FirstOrDefaultAsync();
             return _mapper.Map<CategoryDto>(categories);
         }
+
+        // Added Method
+        public async Task<CategoryDto> GetProductsByCategoryName(string categoryName)
+        {
+            var category = await _categoryReadRepository.GetWhere(ca => ca.CategoryName == categoryName)
+                .Include(ca => ca.Products)
+                .SingleOrDefaultAsync();
+
+            if (category == null)
+            {
+                return null;
+            }
+
+            return _mapper.Map<CategoryDto>(category);
+        }
+
         public async Task<bool> CreateCategory(string categoryName)
         {
             var createCategoryDto = new CategoryDto
@@ -52,6 +69,7 @@ namespace Persistence.Services
 
             var category = _mapper.Map<ProductsCategory>(createCategoryDto);
             var result = await _categoryWriteRepository.AddAsync(category);
+            await _categoryWriteRepository.SaveAsync();
             return result;
         }
 

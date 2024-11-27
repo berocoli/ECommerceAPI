@@ -99,6 +99,12 @@ namespace Persistence.Repositories
 
             return null;
         }
+
+        public async Task<List<Product>> Randomizer()
+        {
+            var result = await _context.Products.OrderBy(p => Guid.NewGuid()).Take(3).ToListAsync();
+            return result;
+        }
     }
 }
 

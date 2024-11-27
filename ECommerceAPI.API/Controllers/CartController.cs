@@ -14,14 +14,14 @@ public class CartController : ControllerBase
         _cartService = cartService;
     }
 
-     [HttpPost("create")]
-     public async Task<IActionResult> CreateCart([FromBody] CreateCartDto dto)
-     {
-         var result = await _cartService.CreateCartAsync(dto.UserId);
-         return Ok(result);
-     }
+    [HttpPost("create")]
+    public async Task<IActionResult> CreateCart([FromBody] CreateCartDto dto)
+    {
+        var result = await _cartService.CreateCartAsync(dto.UserId);
+        return Ok(result);
+    }
 
-    [HttpPost("add")]
+    [HttpPut("add")]
     public async Task<IActionResult> AddToCart([FromBody] UpdateCartDto dto)
     {
         var result = await _cartService.AddToCartAsync(dto.UserId, dto.CartId, dto.ProductId, dto.Quantity);

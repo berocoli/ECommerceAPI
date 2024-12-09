@@ -1,4 +1,5 @@
 ﻿using System;
+using Domain;
 using Persistence.Contexts;
 
 namespace Persistence.Repositories

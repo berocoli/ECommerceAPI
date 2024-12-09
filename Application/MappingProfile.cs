@@ -18,23 +18,26 @@ namespace Application
             CreateMap<Order, OrderDto>().ReverseMap();
             CreateMap<Product, CreateProductDto>().ReverseMap();
             CreateMap<Product, UpdateProductDto>().ReverseMap();
+            CreateMap<Product, RandomizedProductDto>()
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.CategoryName))
+                .ReverseMap();
 
-            // Ensure Product to ProductDto mapping exists
+            // Product to ProductDto mapping
             CreateMap<Product, ProductDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
                 .ForMember(dest => dest.Stock, opt => opt.MapFrom(src => src.Stock))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl));
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl))
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.CategoryName));
 
+            CreateMap<ProductDto, CategoryDto>().ReverseMap();
             CreateMap<ProductsCategory, ProductsCategoryDto>().ReverseMap();
 
-            // Update the Cart to GetCartDto mapping
+            // Cart mappings
             CreateMap<Cart, GetCartDto>()
                 .ForMember(dest => dest.CartProducts, opt => opt.MapFrom(src => src.CartItems));
-
-            // Ensure CartItem maps to CartProductDto correctly
             CreateMap<CartItem, CartProductDto>()
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
                 .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product))
@@ -43,21 +46,32 @@ namespace Application
             CreateMap<Cart, CreateCartDto>().ReverseMap();
             CreateMap<Cart, OrderCartDto>().ReverseMap();
 
-            // Remove or adjust this mapping if it's not correct
-            // CreateMap<ProductsCategory, CategoryDto>().ReverseMap();
-
-            // Add the mapping between Category and CategoryDto
+            // Category to CategoryDto mapping
             CreateMap<ProductsCategory, CategoryDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.CategoryName))
-                .ForMember(dest => dest.CategoryProducts, opt => opt.MapFrom(src => src.Products)).ReverseMap();
+                .ForMember(dest => dest.CategoryProducts, opt => opt.MapFrom(src => src.Products))
+                .ReverseMap();
 
-            // Map from Product to CategoryProduct
+            // Product to CategoryProduct mapping
             CreateMap<Product, CategoryProduct>()
                 .ForMember(dest => dest.product, opt => opt.MapFrom(src => src));
 
-            // Optionally, map from CategoryProduct to a DTO if needed
-            // CreateMap<CategoryProduct, CategoryProductDto>().ReverseMap();
+            // *** New Mappings for GetByCategoryDto and ProductDtoForGetCategories ***
+
+            // Map ProductsCategory to GetByCategoryDto
+            CreateMap<ProductsCategory, GetByCategoryDto>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString()))
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.CategoryName))
+                .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products));
+
+            // Map Product to ProductDtoForGetCategories
+            CreateMap<Product, ProductDtoForGetCategories>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString()))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl));
         }
     }
 }

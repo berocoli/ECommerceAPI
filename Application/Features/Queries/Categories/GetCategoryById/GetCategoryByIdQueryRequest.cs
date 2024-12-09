@@ -1,12 +1,12 @@
-﻿using System;
-using Application.DTOs;
-using MediatR;
+﻿    using System;
+    using Application.DTOs;
+    using MediatR;
 
-namespace Application.Features.Queries.Categories.GetCategoryById
-{
-    public class GetCategoryByIdQueryRequest : IRequest<CategoryDto>
+    namespace Application.Features.Queries.Categories.GetCategoryById
     {
-        public string Id { get; set; }
+        public class GetCategoryByIdQueryRequest : IRequest<GetByCategoryDto>
+        {
+            public string Id { get; set; }
+        }
     }
-}
 

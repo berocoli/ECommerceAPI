@@ -10,23 +10,20 @@ namespace Persistence.Services
     {
         private readonly IProductReadRepository _productReadRepository;
         private readonly IProductWriteRepository _productWriteRepository;
-        private readonly ICategoryReadRepository _categoryReadRepository;
-        private readonly ICategoryWriteRepository _categoryWriteRepository;
 
         private readonly IMapper _mapper;
 
-        public ProductService(IProductReadRepository productReadRepository, IProductWriteRepository productWriteRepository, ICategoryReadRepository categoryReadRepository, ICategoryWriteRepository categoryWriteRepository, IMapper mapper)
+        public ProductService(IProductReadRepository productReadRepository, IProductWriteRepository productWriteRepository, IMapper mapper)
         {
             _productReadRepository = productReadRepository;
             _productWriteRepository = productWriteRepository;
-            _categoryReadRepository = categoryReadRepository;
-            _categoryWriteRepository = categoryWriteRepository;
+
             _mapper = mapper;
         }
                 
         public async Task<List<ProductDto>> GetAllProductsAsync()
         {
-            var product = await _productReadRepository.GetAll().ToListAsync();
+            var product = await _productReadRepository.GetAll().Include(p => p.Category).ToListAsync();
             return _mapper.Map<List<ProductDto>>(product);
         }
 
@@ -46,14 +43,18 @@ namespace Persistence.Services
             return _mapper.Map<List<ProductDto>>(product);
         }
 
-        public async Task<List<ProductDto>> Randomizer()
+        public async Task<List<RandomizedProductDto>> Randomizer()
         {
+            // Fetch products from the repository
             var products = await _productReadRepository.Randomizer();
-            if(products == null)
+
+            if (products == null || !products.Any())
             {
-                return null;
+                return null; // Handle null or empty results
             }
-            return _mapper.Map<List<ProductDto>>(products);
+
+            // Map the products to RandomizedProductDto
+            return _mapper.Map<List<RandomizedProductDto>>(products);
         }
 
         public async Task<bool> CreateProductsAsync(string categoryId, string name, double price, double stock, string description, string imageUrl)

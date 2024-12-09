@@ -11,12 +11,14 @@ namespace Persistence.Services
     {
         private readonly IUserReadRepository _userReadRepository;
         private readonly IUserWriteRepository _userWriteRepository;
+        private readonly ICartService _cartService;
         private readonly IMapper _mapper;
 
-        public UserService(IUserReadRepository userReadRepository, IUserWriteRepository userWriteRepository, IMapper mapper)
+        public UserService(IUserReadRepository userReadRepository, IUserWriteRepository userWriteRepository, ICartService cartService, IMapper mapper)
         {
             _userReadRepository = userReadRepository;
             _userWriteRepository = userWriteRepository;
+            _cartService = cartService;
             _mapper = mapper;
         }
 
@@ -65,8 +67,10 @@ namespace Persistence.Services
                 Password = password 
             };
 
+            
             var user = _mapper.Map<User>(createUserDto);
             var result = await _userWriteRepository.AddAsync(user);
+            await _cartService.CreateCartAsync(user.Id.ToString());
             await _userWriteRepository.SaveAsync();
             return result;
         }

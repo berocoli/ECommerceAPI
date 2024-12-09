@@ -1,4 +1,5 @@
 ﻿using Application.DTOs;
+using Application.Exceptions;
 using Application.Repositories;
 using Application.Services;
 using AutoMapper;
@@ -20,29 +21,39 @@ namespace Persistence.Services
             _mapper = mapper;
         }
 
-        public async Task<List<CategoryDto>> GetAllCategories()
+        public async Task<List<GetByCategoryDto>> GetAllCategories()
         {
             var categories = await _categoryReadRepository.GetAll().ToListAsync();
-            return _mapper.Map<List<CategoryDto>>(categories);            
+            return _mapper.Map<List<GetByCategoryDto>>(categories);            
         }
 
-        public async Task<List<CategoryDto>> GetProductsByCategories()
+        public async Task<List<GetByCategoryDto>> GetProductsByCategories()
         {
             var cps = await _categoryReadRepository
                 .GetAll()
-                .Include(ca => ca.Products)
+                    .Include(ca => ca.Products)
                 .ToListAsync();
-            return _mapper.Map<List<CategoryDto>>(cps);
+            return _mapper.Map<List<GetByCategoryDto>>(cps);
         }
 
-        public async Task<CategoryDto> GetProductByCategoryId(string productId)
+        public async Task<GetByCategoryDto> GetProductByCategoryId(string productId)
         {
-            if(!Guid.TryParse(productId, out var productGuid))
+            if (!Guid.TryParse(productId, out var productGuid))
             {
-                throw new FormatException();
+                throw new GetRequestFailedException("The provided ID is not a valid GUID.");
             }
-            var categories = await _categoryReadRepository.GetWhere(c => c.Id == productGuid).Include(c => c.Products).FirstOrDefaultAsync();
-            return _mapper.Map<CategoryDto>(categories);
+
+            var category = await _categoryReadRepository
+                .GetWhere(c => c.Id == productGuid)
+                .Include(c => c.Products)
+                .FirstOrDefaultAsync();
+
+            if (category == null)
+            {
+                throw new GetRequestFailedException($"No category found with ID: {productId}");
+            }
+
+            return _mapper.Map<GetByCategoryDto>(category);
         }
 
         // Added Method

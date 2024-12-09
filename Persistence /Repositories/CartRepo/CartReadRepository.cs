@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Text.Json;
+using Application.Exceptions;
 using Application.Repositories;
 using Domain;
 using Microsoft.EntityFrameworkCore;
@@ -40,7 +41,7 @@ namespace Persistence.Repositories
 
             if (string.IsNullOrEmpty(resultJson))
             {
-                return new List<Cart>();
+                throw new GetRequestFailedException("The user doesn't have a cart.");
             }
             
             return JsonSerializer.Deserialize<List<Cart>>(resultJson);

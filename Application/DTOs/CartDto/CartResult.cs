@@ -1,4 +1,4 @@
-﻿namespace Application.DTOs.Cart
+﻿namespace Application.DTOs.CartDto
 {
     public class CartResult
     {

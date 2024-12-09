@@ -102,7 +102,25 @@ namespace Persistence.Repositories
 
         public async Task<List<Product>> Randomizer()
         {
-            var result = await _context.Products.OrderBy(p => Guid.NewGuid()).Take(3).ToListAsync();
+            var result = await _context.Products
+                .OrderBy(p => Guid.NewGuid())
+                .Take(3)
+                .Select(p => new Product
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Price = p.Price,
+                    Stock = p.Stock,
+                    Description = p.Description,
+                    ImageUrl = p.ImageUrl,
+                    Category = new ProductsCategory
+                    {
+                        Id = p.Category.Id,
+                        CategoryName = p.Category.CategoryName // Include only what is needed
+                    }
+                })
+                .ToListAsync();
+
             return result;
         }
     }

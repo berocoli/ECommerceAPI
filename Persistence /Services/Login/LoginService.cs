@@ -1,15 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using Infrastructure.Operations;
-using AutoMapper;
-using Application.DTOs;
-using Application.Services;
-using Application.Repositories;
-using Domain;
-using Microsoft.EntityFrameworkCore;
-using Application.Services.TokenServices;
+﻿using Application.DTOs;
 using Application.DTOs.Token;
-using Application.DTOs.Login;
+using Application.Repositories;
+using Application.Services;
+using Application.Services.TokenServices;
+using AutoMapper;
+using Infrastructure.Operations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Services.Login
 {

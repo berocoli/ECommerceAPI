@@ -1,5 +1,5 @@
 ﻿using Application.DTOs;
-using Application.DTOs.Cart;
+using Application.DTOs.CartDto;
 using Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +21,13 @@ public class CartController : ControllerBase
         return Ok(result);
     }
 
+    [HttpPost("automatic")]
+    public async Task<IActionResult> AutoCreate([FromBody] string? userId)
+    {
+        var result = await _cartService.CreateCartAuto(userId);
+        return Ok(result);
+    }
+
     [HttpPut("add")]
     public async Task<IActionResult> AddToCart([FromBody] UpdateCartDto dto)
     {
@@ -28,18 +35,18 @@ public class CartController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("active")]
+    [HttpPut("quantity")]
+    public async Task<IActionResult> UpdateQuantity(string cartId,  string productId, int quantity)
+    {
+        var result = await _cartService.UpdateQuantity(cartId, productId, quantity);
+        return Ok(result);
+    }
+                                                                
+    [HttpGet("active")]                                         
     public async Task<IActionResult> GetActiveCarts()
     {
         var carts = await _cartService.GetActiveCartsAsync();
         return Ok(carts);
-    }
-
-    [HttpGet("count")]
-    public async Task<IActionResult> CountActiveCarts()
-    {
-        var count = await _cartService.CountActiveCartsAsync();
-        return Ok(count);
     }
 
     [HttpGet("{userId}")]
@@ -56,10 +63,24 @@ public class CartController : ControllerBase
         return Ok(result);
     }
 
-    [HttpDelete("{cartId}")]
+    [HttpDelete("cart{cartId}")]
     public async Task<IActionResult> RemoveCart(Guid cartId)
     {
         var result = await _cartService.RemoveCart(cartId);
+        return Ok(result);
+    }
+
+    [HttpDelete("cartItem")]
+    public async Task<IActionResult> RemoveCartItem(string cartItemId, string productId)
+    {
+        var result = await _cartService.RemoveCartItem(cartItemId, productId);
+        return Ok(result);
+    }
+
+    [HttpDelete("deleteAllCartItems")]
+    public async Task<IActionResult> RemoveAllCartItems(string cartId)
+    {
+        var result = await _cartService.RemoveAllCartItems(cartId);
         return Ok(result);
     }
 }

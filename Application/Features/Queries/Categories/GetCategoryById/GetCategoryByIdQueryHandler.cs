@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Application.Features.Queries.Categories.GetCategoryById
 {
-    public class GetCategoryByIdQueryHandler : IRequestHandler<GetCategoryByIdQueryRequest, CategoryDto>
+    public class GetCategoryByIdQueryHandler : IRequestHandler<GetCategoryByIdQueryRequest, GetByCategoryDto>
     {
         private readonly ICategoriesService _categoriesService;
         public GetCategoryByIdQueryHandler(ICategoriesService categoriesService)
@@ -14,7 +14,7 @@ namespace Application.Features.Queries.Categories.GetCategoryById
             _categoriesService = categoriesService;
         }
 
-        public async Task<CategoryDto> Handle(GetCategoryByIdQueryRequest request, CancellationToken cancellationToken)
+        public async Task<GetByCategoryDto> Handle(GetCategoryByIdQueryRequest request, CancellationToken cancellationToken)
         {
             var category = await _categoriesService.GetProductByCategoryId(request.Id);
             if(category == null)

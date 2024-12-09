@@ -15,12 +15,10 @@ namespace Persistence.Services
         private readonly ICartReadRepository _cartReadRepository;
         private readonly ICartWriteRepository _cartWriteRepository;
         private readonly ICartService cartService;
-        private readonly IProductReadRepository _productReadRepository;
-        private readonly IProductWriteRepository _productWriteRepository;
         public readonly IMapper _mapper;
 
         public OrderService(
-            IOrderReadRepository orderReadRepository, IOrderWriteRepository orderWriteRepository, IUserReadRepository userReadRepository, ICartReadRepository cartReadRepository, ICartWriteRepository cartWriteRepository, ICartService _cartService, IProductReadRepository productReadRepository, IProductWriteRepository productWriteRepository, IMapper mapper
+            IOrderReadRepository orderReadRepository, IOrderWriteRepository orderWriteRepository, IUserReadRepository userReadRepository, ICartReadRepository cartReadRepository, ICartWriteRepository cartWriteRepository, ICartService _cartService, IMapper mapper
             )
         {
             _orderReadRepository    = orderReadRepository;
@@ -29,31 +27,62 @@ namespace Persistence.Services
             _cartReadRepository     = cartReadRepository;
             _cartWriteRepository    = cartWriteRepository;
             cartService             = _cartService;
-            _productReadRepository  = productReadRepository;
-            _productWriteRepository = productWriteRepository;
             _mapper                 = mapper;
         }
                 
         public async Task<List<OrderDto>> GetAllOrdersAsync()
         {
-            var orders = await _orderReadRepository.GetAll().ToListAsync();
+            var orders = await _orderReadRepository.GetAll()
+                .Include(o => o.Cart)
+                    .ThenInclude(c => c.CartItems)
+                        .ThenInclude(ci => ci.Product)
+                .ToListAsync();
             return _mapper.Map<List<OrderDto>>(orders);
         }
 
-        public async Task<OrderDto> GetOrderByIdAsync(string id)
+        public async Task<List<OrderDto>> GetOrderByIdAsync(string id)
         {
-            var order = await _orderReadRepository.GetByIdAsync(id);
+            if (!Guid.TryParse(id, out var orderGuid))
+                return null;
+            var order = await _orderReadRepository.GetWhere(o => o.Id == orderGuid)
+                .Include(o => o.Cart)
+                    .ThenInclude(c => c.CartItems)
+                        .ThenInclude(ci => ci.Product)
+                .ToListAsync();
             if (order == null)
                 return null;
-            return _mapper.Map<OrderDto>(order);
+            return _mapper.Map<List<OrderDto>>(order);
         }
 
-        public async Task<List<OrderDto>> SearchOrdersByStatus(string status)
+        public async Task<List<OrderDto>> SearchOrdersByUserId(string userId)
         {
-            var orders = await _orderReadRepository.GetWhere(o => o.Status.Contains(status)).ToListAsync();
+            if(!Guid.TryParse(userId, out var userGuid))
+                return null;
+            
+            var orders = await _orderReadRepository.GetWhere(o => o.UserId == userGuid)
+                .Include(o => o.Cart)
+                    .ThenInclude(c => c.CartItems)
+                        .ThenInclude(ci => ci.Product)
+                .ToListAsync();
+
             if (orders == null)
                 return null;
-            return _mapper.Map<List<OrderDto>>(orders);
+            var orderDtos = _mapper.Map<List<OrderDto>>(orders);
+
+            foreach(var dto in orderDtos)
+            {
+                if(dto.CreatedDate == DateTime.UnixEpoch)
+                {
+                    dto.CreatedDate = DateTime.Parse(null);
+                    dto.UpdatedDate = DateTime.Parse(dto.UpdatedDate.ToString("yyyy-MM-dd HH:mm"));
+                } else
+                {
+                    dto.UpdatedDate = DateTime.Parse(null);
+                    dto.CreatedDate = DateTime.Parse(dto.CreatedDate.ToString("yyyy-MM-dd HH:mm"));
+                }
+            }
+
+            return orderDtos;
         }
 
         public async Task<bool> CreateOrderAsync(string userId, string cartId, string status, string address, string description)

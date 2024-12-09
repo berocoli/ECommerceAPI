@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.Features.Queries.Orders.GetOrdersById
 {
-    public class GetOrdersByIdQueryRequest : IRequest<GetOrdersByIdQueryResponse>
+    public class GetOrdersByIdQueryRequest : IRequest<List<GetOrdersByIdQueryResponse>>
     {
         public string OrderId { get; set; }
     }

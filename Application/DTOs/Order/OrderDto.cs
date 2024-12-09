@@ -1,5 +1,4 @@
-﻿using System;
-namespace Application.DTOs
+﻿namespace Application.DTOs
 {
     public class OrderDto
     {
@@ -9,6 +8,8 @@ namespace Application.DTOs
         public string Address { get; set; }
         public string Description { get; set; }
         public string Status { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
+        public GetCartDto Cart { get; set; }
     }
 }
-

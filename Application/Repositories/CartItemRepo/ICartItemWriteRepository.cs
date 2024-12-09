@@ -1,5 +1,6 @@
 ﻿using System;
 using Application.Repositories;
+using Domain;
 
 namespace Persistence.Repositories
 {

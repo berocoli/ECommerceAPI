@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.Features.Queries.Categories.GetAllCategories
 {
-    public class GetAllCategoriesQueryRequest : IRequest<List<CategoryDto>>
+    public class GetAllCategoriesQueryRequest : IRequest<List<GetByCategoryDto>>
     {
         public GetAllCategoriesQueryRequest()
         {

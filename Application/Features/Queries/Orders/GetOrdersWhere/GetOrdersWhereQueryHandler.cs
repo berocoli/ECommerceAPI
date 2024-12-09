@@ -1,5 +1,4 @@
-﻿using System;
-using Application.Services;
+﻿using Application.Services;
 using MediatR;
 
 namespace Application.Features.Queries.Orders.GetOrdersWhere
@@ -13,7 +12,7 @@ namespace Application.Features.Queries.Orders.GetOrdersWhere
         }
         public async Task<List<GetOrdersWhereQueryResponse>> Handle(GetOrdersWhereQueryRequest request, CancellationToken cancellationToken)
         {
-            var ordersList = await _orderService.SearchOrdersByStatus(request.Status);
+            var ordersList = await _orderService.SearchOrdersByUserId(request.UserId);
             var result = ordersList.Select(ordersList => new GetOrdersWhereQueryResponse
             {
                 Id = ordersList.Id,
@@ -22,7 +21,10 @@ namespace Application.Features.Queries.Orders.GetOrdersWhere
                 Status = ordersList.Status,                
                 UserId = ordersList.UserId,
                 Address = ordersList.Address,
-                Description = ordersList.Description
+                Description = ordersList.Description,
+                CreatedDate = ordersList.CreatedDate,
+                UpdatedDate = ordersList.UpdatedDate,
+                Cart = ordersList.Cart,           
             }).ToList();
 
             return result;

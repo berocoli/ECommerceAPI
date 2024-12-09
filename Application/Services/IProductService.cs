@@ -7,7 +7,7 @@ namespace Application.Services
         Task<List<ProductDto>> GetAllProductsAsync();
         Task<ProductDto> GetProductByIdAsync(string id);
         Task<List<ProductDto>> SearchProductsByNameAsync(string name);
-        Task<List<ProductDto>> Randomizer();
+        Task<List<RandomizedProductDto>> Randomizer();
         Task<bool> InsertRange(List<CreateProductDto> products);
         Task<bool> CreateProductsAsync(string categoryId, string name, double price, double stock, string description, string imageUrl);
         Task<bool> UpdateProductsAsync(string id, string categoryId, string name, double price, double stock, string description, string imageUrl);

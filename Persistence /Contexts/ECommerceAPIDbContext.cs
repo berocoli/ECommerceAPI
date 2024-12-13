@@ -37,14 +37,36 @@ namespace Persistence.Contexts
                     .IsRequired()
                     .HasMaxLength(50);
 
+                entity.Property(e => e.PhoneNumber)
+                    .IsRequired()
+                    .HasMaxLength(15);
+
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasMaxLength(256);              
+                    .HasMaxLength(256);
 
-                // Configure one-to-many relationship with Orders
+                entity.Property(e => e.Role)
+                    .IsRequired()
+                    .HasConversion<string>();
+
+                entity.Property(e => e.Country)
+                    .IsRequired()
+                    .HasConversion<string>();
+
+                entity.Property(e => e.PaymentCurrency)
+                    .IsRequired()
+                    .HasConversion<string>();
+
+                // One-to-many relationship with Orders
                 entity.HasMany(u => u.Orders)
                     .WithOne(o => o.User)
                     .HasForeignKey(o => o.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                // One-to-many relationship with Carts
+                entity.HasMany(u => u.Cart)
+                    .WithOne(c => c.User)
+                    .HasForeignKey(c => c.UserId)
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
@@ -67,10 +89,22 @@ namespace Persistence.Contexts
                 entity.Property(e => e.ImageUrl)
                     .HasMaxLength(250);
 
-                // Configure many-to-one relationship with ProductsCategory
+                entity.Property(e => e.TotalSold)
+                    .HasDefaultValue(0);
+
+                entity.Property(e => e.IsActive)
+                    .IsRequired();
+
+                // Many-to-one relationship with ProductsCategory
                 entity.HasOne(p => p.Category)
                     .WithMany(c => c.Products)
                     .HasForeignKey(p => p.CategoryId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                // Tracking creator of the product (CreatedBy)
+                entity.HasOne(p => p.Creator)
+                    .WithMany(u => u.CreatedProducts)
+                    .HasForeignKey(p => p.CreatedBy)
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
@@ -80,11 +114,17 @@ namespace Persistence.Contexts
                 entity.Property(e => e.CategoryName)
                     .IsRequired()
                     .HasMaxLength(100);
+
+                entity.Property(e => e.IsActive)
+                    .IsRequired();
             });
 
             // Order Entity Configuration
             modelBuilder.Entity<Order>(entity =>
             {
+                entity.HasIndex(e => e.OrderNumber)
+                    .IsUnique();
+
                 entity.Property(e => e.Address)
                     .IsRequired()
                     .HasMaxLength(200);
@@ -94,16 +134,18 @@ namespace Persistence.Contexts
 
                 entity.Property(e => e.Status)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasConversion<string>();
 
-                // Configure many-to-one relationship with User
-                // This is already configured in the User entity, but reinforcing here
-                entity.HasOne(o => o.User)
-                    .WithMany(u => u.Orders)
-                    .HasForeignKey(o => o.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                entity.Property(e => e.PaymentStatus)
+                    .IsRequired()
+                    .HasConversion<string>();
 
-                // Configure one-to-one relationship with Cart
+                entity.Property(e => e.PaymentCurrency)
+                    .IsRequired()
+                    .HasDefaultValue("USD")
+                    .HasConversion<string>();
+
+                // One-to-one relationship with Cart
                 entity.HasOne(o => o.Cart)
                     .WithOne(c => c.Order)
                     .HasForeignKey<Order>(o => o.CartId)
@@ -113,23 +155,24 @@ namespace Persistence.Contexts
             // Cart Entity Configuration
             modelBuilder.Entity<Cart>(entity =>
             {
-                // The one-to-one relationship with User is configured in the User entity
-                entity.HasOne(c => c.User)
-                    .WithMany(u => u.Cart)
-                    .HasForeignKey(c => c.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
                 // One-to-one relationship with Order
                 entity.HasOne(c => c.Order)
                     .WithOne(o => o.Cart)
                     .HasForeignKey<Cart>(c => c.OrderId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                // Configure the relationship with CartItems
+                // One-to-many relationship with CartItems
                 entity.HasMany(c => c.CartItems)
                     .WithOne(ci => ci.Cart)
                     .HasForeignKey(ci => ci.CartId)
                     .OnDelete(DeleteBehavior.Cascade);
+
+                entity.Property(c => c.IsModifyable)
+                    .IsRequired()
+                    .HasDefaultValue(true);
+
+                entity.Property(c => c.Note)
+                    .HasMaxLength(500);
             });
 
             // CartItem Entity Configuration
@@ -149,10 +192,6 @@ namespace Persistence.Contexts
 
                 entity.Property(ci => ci.Quantity)
                     .IsRequired();
-                //Unrequired properties for CartItem are dropped here
-                entity.Ignore(ci => ci.Id);
-                entity.Ignore(ci => ci.CreatedDate);
-                entity.Ignore(ci => ci.UpdatedDate);
             });
 
             base.OnModelCreating(modelBuilder);

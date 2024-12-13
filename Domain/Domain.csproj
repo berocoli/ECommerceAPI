@@ -90,10 +90,12 @@
     <None Remove="Application\obj\project.nuget.cache" />
     <None Remove="Application\obj\project.assets.json" />
     <None Remove="Application\obj\Debug\net7.0\Application.csproj.AssemblyReference.cache" />
+    <None Remove="Enums\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
     <Folder Include="Entities\Base Entity\" />
+    <Folder Include="Enums\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />

@@ -7,6 +7,7 @@ namespace Application.Services
     {
         Task<CartResult> CreateCartAsync(string userId);
         Task<List<Guid>> CreateCartAuto(string? userId);
+        Task<CartResult> UpdateCartOrderId(string id, string userId, string orderId);
         Task<CartResult> AddToCartAsync(string userId, string cartId, string productId, int quantity);
         Task<CartResult> UpdateQuantity(string cartId, string productId, int quantity);
         Task<List<GetCartDto>> GetActiveCartsAsync();

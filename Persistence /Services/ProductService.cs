@@ -1,4 +1,5 @@
 ﻿using Application.DTOs;
+using Application.Exceptions;
 using Application.Repositories;
 using Application.Services;
 using AutoMapper;
@@ -10,7 +11,6 @@ namespace Persistence.Services
     {
         private readonly IProductReadRepository _productReadRepository;
         private readonly IProductWriteRepository _productWriteRepository;
-
         private readonly IMapper _mapper;
 
         public ProductService(IProductReadRepository productReadRepository, IProductWriteRepository productWriteRepository, IMapper mapper)
@@ -109,6 +109,36 @@ namespace Persistence.Services
                 ImageUrl = imageUrl                              
             };
             _mapper.Map(updateProductDto, product);
+            var result = _productWriteRepository.Update(product);
+            await _productWriteRepository.SaveAsync();
+            return result;
+        }
+
+        public async Task<bool> UpdateProductStock(string id, double newStock)
+        {
+            if (!Guid.TryParse(id, out var productGuid))
+                throw new FormatException("Wrong Guid format.");
+            var product = await _productReadRepository.GetByIdAsync(id);
+            if(product == null)
+            {
+                throw new GetRequestFailedException("Product does not exist.");
+            }
+            if (newStock < 0)
+            {
+                throw new FailException("Wrong product quantity.");
+            }
+
+            var pDto = new UpdateProductDto
+            {
+                CategoryId = product.CategoryId.ToString(),
+                Name = product.Name,
+                Price = product.Price,
+                Stock = newStock,
+                Description = product.Description,
+                ImageUrl = product.ImageUrl
+            };
+
+            _mapper.Map(pDto, product);
             var result = _productWriteRepository.Update(product);
             await _productWriteRepository.SaveAsync();
             return result;

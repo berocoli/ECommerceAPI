@@ -11,6 +11,7 @@ namespace Application.Services
         Task<bool> InsertRange(List<CreateProductDto> products);
         Task<bool> CreateProductsAsync(string categoryId, string name, double price, double stock, string description, string imageUrl);
         Task<bool> UpdateProductsAsync(string id, string categoryId, string name, double price, double stock, string description, string imageUrl);
+        Task<bool> UpdateProductStock(string id, double newStock);
         Task<bool> DeleteProductAsync(string id);
         Task<List<ProductDto>> GetAllProductsStorage();
         Task<ProductDto> GetProductAsJsonFunc(string id);

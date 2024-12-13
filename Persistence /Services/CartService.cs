@@ -17,16 +17,18 @@ namespace Persistence.Services
         private readonly IProductReadRepository _productReadRepository;
         private readonly ICartItemReadRepository _cartItemReadRepository;
         private readonly ICartItemWriteRepository _cartItemWriteRepository;
+        private readonly IOrderReadRepository _orderReadRepository;
         private readonly IMapper _mapper;
 
         public CartService(ICartReadRepository cartReadRepository, ICartWriteRepository cartWriteRepository,
-            IProductReadRepository productReadRepository, ICartItemReadRepository cartItemReadRepository, ICartItemWriteRepository cartItemWriteRepository, IMapper mapper)
+            IProductReadRepository productReadRepository, ICartItemReadRepository cartItemReadRepository, ICartItemWriteRepository cartItemWriteRepository, IOrderReadRepository orderReadRepository, IMapper mapper)
         {
             _cartReadRepository = cartReadRepository;
             _cartWriteRepository = cartWriteRepository;
             _productReadRepository = productReadRepository;
             _cartItemReadRepository = cartItemReadRepository;
             _cartItemWriteRepository = cartItemWriteRepository;
+            _orderReadRepository = orderReadRepository;
             _mapper = mapper;
         }
 
@@ -62,6 +64,41 @@ namespace Persistence.Services
             {
                 throw new FailException("No user were found without a cart. Check database for more information.");
             }
+        }
+
+        public async Task<CartResult> UpdateCartOrderId(string id, string userId, string orderId)
+        {
+            if (!Guid.TryParse(id, out var cartGuid))
+                throw new FormatException("Wrong cart Id format.");
+            if(!Guid.TryParse(userId, out var userGuid))
+                throw new FormatException("Wrong user Id format.");
+            if(!Guid.TryParse(orderId, out var orderGuid))
+                throw new FormatException("Wrong order Id format.");
+            var existingCart = await _cartReadRepository.GetSingleAsync(c => c.Id == cartGuid && c.UserId == userGuid);
+            if(existingCart == null)
+            {
+                throw new FailException("Cart does not exist.");
+            }
+
+            var newOrder = await _orderReadRepository.GetByIdAsync(orderId);
+            if (newOrder == null)
+                throw new FailException("Order creation incomplete or wrong. Might wanna check about the nullable order foreign key.");
+            var cartDto = new OrderCartDto
+            {
+                IsModifyable = false,
+                OrderId = newOrder.Id.ToString()
+            };
+            _mapper.Map(cartDto, existingCart);
+            var result = _cartWriteRepository.Update(existingCart);
+            await _cartWriteRepository.SaveAsync();
+            if (result)
+            {
+                return new CartResult
+                {
+                    CartCreated = "Cart updated successfully!"
+                };
+            }
+            throw new FailException("Cart could not be updated. Check FK.");
         }
 
         public async Task<CartResult> AddToCartAsync(string userId, string cartId, string productId, int quantity)

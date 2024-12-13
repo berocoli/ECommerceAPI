@@ -1,5 +1,4 @@
 ﻿using Domain;
-using Domain.Entities;
 using Domain.Entities.BaseEntity;
 
 public class Product : BaseEntity
@@ -12,6 +11,11 @@ public class Product : BaseEntity
     public double Price { get; set; }
     public string Description { get; set; }
     public string ImageUrl { get; set; }
+    public bool IsActive { get; set; }
+    public int TotalSold { get; set; }
+
+    public Guid CreatedBy { get; set; }
+    public User Creator { get; set; }
 
     public ICollection<CartItem> CartProducts { get; set; } = new List<CartItem>();
 }

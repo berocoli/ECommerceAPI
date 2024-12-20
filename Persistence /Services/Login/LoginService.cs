@@ -1,4 +1,5 @@
-﻿using Application.DTOs;
+﻿using System.Text.RegularExpressions;
+using Application.DTOs;
 using Application.DTOs.Token;
 using Application.Repositories;
 using Application.Services;
@@ -24,6 +25,12 @@ namespace Persistence.Services.Login
 
         public async Task<TokenModel> LoginHandler(string email, string password)
         {
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+                throw new ArgumentException("Name, email, and password cannot be null or empty.");
+
+            if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                throw new FormatException("Invalid email format.");         
+
             // Retrieve the user by email
             var user = await _userReadRepository.GetWhere(p => p.Email == email).FirstOrDefaultAsync();
             if (user == null)
@@ -44,7 +51,7 @@ namespace Persistence.Services.Login
             var userDto = _mapper.Map<UserDto>(user);
 
             // Create the token
-            TokenModel token = _tokenHandler.CreateAccessToken(5, userDto.Id, userDto.Email, userDto.Name, userDto.Surname, userDto.Role);
+            TokenModel token = _tokenHandler.CreateAccessToken(9, userDto.Id, userDto.Email, userDto.Name, userDto.Surname, userDto.Role);
 
             return token;
         }

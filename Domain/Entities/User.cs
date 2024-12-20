@@ -13,14 +13,11 @@ namespace Domain
 
         public UserCountry Country { get; set; }
 
-        public UserRole Role { get; set; }
+        public bool Role { get; set; }
 
         public PaymentCurrency PaymentCurrency { get; set; }
 
         public ICollection<Order>? Orders { get; set; } // Navigation property
         public ICollection<Cart>? Cart { get; set; } // Navigation property (one-to-one relationship)
-
-        // Navigation property to track products created by the user
-        public ICollection<Product> CreatedProducts { get; set; } = new List<Product>();
     }
 }

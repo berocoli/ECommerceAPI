@@ -34,7 +34,7 @@ namespace ECommerceAPI.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("getById/{id}")]
         public async Task<IActionResult> GetById(string id)
         {
             var request = new GetUsersByIdQueryRequest { UserId = id };
@@ -42,7 +42,7 @@ namespace ECommerceAPI.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("search")]
+        [HttpGet("search/")]
         public async Task<IActionResult> GetWhere(string name, string? surname)
         {
             var request = new GetUsersWhereQueryRequest { Name = name , Surname = surname};
@@ -66,13 +66,14 @@ namespace ECommerceAPI.API.Controllers
         }
 
         [HttpPut("update")]
+        [Authorize]
         public async Task<IActionResult> Update(UpdateUserCommandRequest request)
         {
             var result = await mediator.Send(request);
             return Ok(result);
         }
 
-        [HttpDelete("byId")]
+        [HttpDelete("byId/{id}")]
         public async Task<IActionResult> Delete(DeleteUserCommandRequest request)
         {
             var result = await mediator.Send(request);
@@ -80,6 +81,7 @@ namespace ECommerceAPI.API.Controllers
         }
 
         [HttpGet("PDF")]
+        [Authorize]
         public async Task<IActionResult> ListUsersPDF()
         {
             var result = await mediator.Send(new GetAllUsersQueryRequest());

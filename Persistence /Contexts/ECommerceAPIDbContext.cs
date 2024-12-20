@@ -17,6 +17,7 @@ namespace Persistence.Contexts
         // DbSets for your entities
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductsCategory> Categories { get; set; }
+        public DbSet<ProductDetail> ProductDetail { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Cart> Carts { get; set; }
@@ -46,24 +47,21 @@ namespace Persistence.Contexts
                     .HasMaxLength(256);
 
                 entity.Property(e => e.Role)
-                    .IsRequired()
-                    .HasConversion<string>();
+                    .IsRequired();
 
                 entity.Property(e => e.Country)
-                    .IsRequired()
-                    .HasConversion<string>();
+                    .HasConversion<string>() // Convert UserCountry enum to string
+                    .IsRequired();
 
                 entity.Property(e => e.PaymentCurrency)
-                    .IsRequired()
-                    .HasConversion<string>();
+                    .HasConversion<string>() // Convert PaymentCurrency enum to string
+                    .IsRequired();
 
-                // One-to-many relationship with Orders
                 entity.HasMany(u => u.Orders)
                     .WithOne(o => o.User)
                     .HasForeignKey(o => o.UserId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                // One-to-many relationship with Carts
                 entity.HasMany(u => u.Cart)
                     .WithOne(c => c.User)
                     .HasForeignKey(c => c.UserId)
@@ -95,16 +93,9 @@ namespace Persistence.Contexts
                 entity.Property(e => e.IsActive)
                     .IsRequired();
 
-                // Many-to-one relationship with ProductsCategory
                 entity.HasOne(p => p.Category)
                     .WithMany(c => c.Products)
                     .HasForeignKey(p => p.CategoryId)
-                    .OnDelete(DeleteBehavior.Restrict);
-
-                // Tracking creator of the product (CreatedBy)
-                entity.HasOne(p => p.Creator)
-                    .WithMany(u => u.CreatedProducts)
-                    .HasForeignKey(p => p.CreatedBy)
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
@@ -119,12 +110,28 @@ namespace Persistence.Contexts
                     .IsRequired();
             });
 
+            modelBuilder.Entity<ProductDetail>(entity =>
+            {
+                entity.HasKey(pd => pd.ProductId );
+
+                entity.Property(pd => pd.ProductDetail1)
+                    .HasMaxLength(100);
+
+                entity.Property(pd => pd.ProductDetail2)
+                    .HasMaxLength(100);
+
+                entity.Property(pd => pd.ProductDetail3)
+                    .HasMaxLength(100);
+
+                entity.HasOne(pd => pd.Product)
+                    .WithOne(p => p.ProductDetail)
+                    .HasForeignKey<ProductDetail>(pd => pd.ProductId) // Corrected Foreign Key
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
             // Order Entity Configuration
             modelBuilder.Entity<Order>(entity =>
             {
-                entity.HasIndex(e => e.OrderNumber)
-                    .IsUnique();
-
                 entity.Property(e => e.Address)
                     .IsRequired()
                     .HasMaxLength(200);
@@ -133,19 +140,17 @@ namespace Persistence.Contexts
                     .HasMaxLength(500);
 
                 entity.Property(e => e.Status)
-                    .IsRequired()
-                    .HasConversion<string>();
-
-                entity.Property(e => e.PaymentStatus)
-                    .IsRequired()
-                    .HasConversion<string>();
+                    .HasConversion<string>() // Convert OrderStatus enum to string
+                    .IsRequired();
 
                 entity.Property(e => e.PaymentCurrency)
-                    .IsRequired()
-                    .HasDefaultValue("USD")
-                    .HasConversion<string>();
+                    .HasConversion<string>() // Convert PaymentCurrency enum to string
+                    .IsRequired();
 
-                // One-to-one relationship with Cart
+                entity.Property(e => e.PaymentStatus)
+                    .HasConversion<string>() // Convert PaymentStatus enum to string
+                    .IsRequired();
+
                 entity.HasOne(o => o.Cart)
                     .WithOne(c => c.Order)
                     .HasForeignKey<Order>(o => o.CartId)
@@ -155,13 +160,11 @@ namespace Persistence.Contexts
             // Cart Entity Configuration
             modelBuilder.Entity<Cart>(entity =>
             {
-                // One-to-one relationship with Order
                 entity.HasOne(c => c.Order)
                     .WithOne(o => o.Cart)
                     .HasForeignKey<Cart>(c => c.OrderId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                // One-to-many relationship with CartItems
                 entity.HasMany(c => c.CartItems)
                     .WithOne(ci => ci.Cart)
                     .HasForeignKey(ci => ci.CartId)
@@ -196,6 +199,7 @@ namespace Persistence.Contexts
 
             base.OnModelCreating(modelBuilder);
         }
+
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

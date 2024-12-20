@@ -1,4 +1,5 @@
 ﻿using Application.DTOs;
+using Application.DTOs.Product.Details;
 
 namespace Application.Services
 {
@@ -15,6 +16,9 @@ namespace Application.Services
         Task<bool> DeleteProductAsync(string id);
         Task<List<ProductDto>> GetAllProductsStorage();
         Task<ProductDto> GetProductAsJsonFunc(string id);
+        Task<ProductDetailDto> GetProductDetails(string id);
+        Task<bool> CreateProductDetailsAsync(string id, string detail1, string detail2, string detail3);
+        Task<bool> UpdateProductDetails(string id, string detail1, string detail2, string detail3);
     }
 }
 

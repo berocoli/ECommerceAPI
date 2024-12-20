@@ -14,8 +14,7 @@ public class Product : BaseEntity
     public bool IsActive { get; set; }
     public int TotalSold { get; set; }
 
-    public Guid CreatedBy { get; set; }
-    public User Creator { get; set; }
+    public ProductDetail ProductDetail { get; set; }
 
     public ICollection<CartItem> CartProducts { get; set; } = new List<CartItem>();
 }

@@ -40,6 +40,7 @@
     <None Remove="Repositories\CartRepo\" />
     <None Remove="Repositories\CartItemRepo\" />
     <None Remove="Migrations\" />
+    <None Remove="Repositories\ProductDetailRepo\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.7" />
@@ -77,5 +78,6 @@
     <Folder Include="Repositories\CartRepo\" />
     <Folder Include="Repositories\CartItemRepo\" />
     <Folder Include="Migrations\" />
+    <Folder Include="Repositories\ProductDetailRepo\" />
   </ItemGroup>
 </Project>

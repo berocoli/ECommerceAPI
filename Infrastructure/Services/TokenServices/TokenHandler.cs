@@ -31,19 +31,19 @@ namespace Infrastructure.Services.TokenServices
             SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             // Set token expiration time
-            token.Expiration = DateTime.UtcNow.AddMinutes(minutes);
+            token.Expiration = DateTime.UtcNow.AddHours(minutes);
 
             // Create JWT claims
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), // Unique ID for this token
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64), // Issued at time
                 new Claim(JwtRegisteredClaimNames.Sub, id, ClaimValueTypes.String),
                 new Claim(JwtRegisteredClaimNames.Email, email, ClaimValueTypes.Email), 
                 new Claim(JwtRegisteredClaimNames.Name, name, ClaimValueTypes.String),
                 new Claim(JwtRegisteredClaimNames.FamilyName, surname, ClaimValueTypes.String),
                 
-                new Claim("role", role.ToString())
+                new Claim("role", role.ToString().ToLower())
             };
                        
             // Create the JWT security token

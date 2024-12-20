@@ -27,11 +27,11 @@ namespace ECommerceAPI.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("listById{id}")]
+        [HttpGet("listById/{id}")]
         public async Task<IActionResult> GetById(string id)
         {
             var request = new GetOrdersByIdQueryRequest { OrderId = id };
-            List<GetOrdersByIdQueryResponse> response = await mediator.Send(request);
+            GetOrdersByIdQueryResponse response = await mediator.Send(request);
             return Ok(response);
         }
 
@@ -57,7 +57,7 @@ namespace ECommerceAPI.API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("delete")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(DeleteOrderCommandRequest request)
         {
             var result = await mediator.Send(request);

@@ -1,5 +1,6 @@
 ﻿using Application.Features.Commands.Currency;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -16,6 +17,7 @@ public class CurrencyController : ControllerBase
     }
 
     [HttpGet("rates")]
+    [Authorize]
     public async Task<IActionResult> GetRates()
     {
         var currencies = await _mediator.Send(new CurrencyCommandRequest());  // Use await to get the result

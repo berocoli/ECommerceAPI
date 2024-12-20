@@ -51,7 +51,7 @@ namespace Persistence.Services
             return _mapper.Map<List<OrderDto>>(orders);
         }
 
-        public async Task<List<OrderDto>> GetOrderByIdAsync(string id)
+        public async Task<OrderDto> GetOrderByIdAsync(string id)
         {
             if (!Guid.TryParse(id, out var orderGuid))
                 return null;
@@ -59,10 +59,12 @@ namespace Persistence.Services
                 .Include(o => o.Cart)
                     .ThenInclude(c => c.CartItems)
                         .ThenInclude(ci => ci.Product)
-                .ToListAsync();
+                .FirstOrDefaultAsync();
+
             if (order == null)
                 return null;
-            return _mapper.Map<List<OrderDto>>(order);
+
+            return _mapper.Map<OrderDto>(order);
         }
 
         public async Task<List<OrderDto>> SearchOrdersByUserId(string userId)
@@ -130,17 +132,15 @@ namespace Persistence.Services
 
             var order = _mapper.Map<Order>(createOrderDto);
 
-            // Here is where we start a transaction
-            // Assuming you have access to the DbContext used by these repositories:
             using (var transaction = await _dbContext.Database.BeginTransactionAsync())
             {
                 try
                 {
-                    // Create the order and save
+                    // Creating the order and saving
                     var result = await _orderWriteRepository.AddAsync(order);
                     await _orderWriteRepository.SaveAsync();
 
-                    // Once the order is persisted, update the cart information
+                    // Once the order is persisted, order's cart information is updated
                     var finalOrder = await _orderReadRepository.GetSingleAsync(o => o.CartId == cartGuid);
                     var finalOrderId = finalOrder.Id.ToString();
 
@@ -148,7 +148,6 @@ namespace Persistence.Services
                     await cartService.CreateCartAsync(userId);
                     await cartService.UpdateCartOrderId(cartId, userId, finalOrderId);
 
-                    // Update product stocks based on the items in the cart
                     var cartProducts = await _cartItemReadRepository.GetWhere(ci => ci.CartId == cartGuid)
                         .Include(ci => ci.Product)
                         .ToListAsync();
@@ -159,16 +158,14 @@ namespace Persistence.Services
                         await productService.UpdateProductStock(productId, newStock);
                     }
 
-                    // If all operations succeeded, commit the transaction
                     await transaction.CommitAsync();
 
                     return result;
                 }
                 catch
                 {
-                    // If an error occurred at any point, roll back the transaction
                     await transaction.RollbackAsync();
-                    throw; // Rethrow the exception to handle it upstream or log it
+                    throw;
                 }
             }
         }

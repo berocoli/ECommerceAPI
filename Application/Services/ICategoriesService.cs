@@ -8,8 +8,8 @@ namespace Application.Services
         Task<List<GetByCategoryDto>> GetProductsByCategories();
         Task<GetByCategoryDto> GetProductByCategoryId(string productId);
         Task<CategoryDto> GetProductsByCategoryName(string categoryName);
-        Task<bool> CreateCategory(string categoryName);
-        Task<bool> UpdateCategory(string categoryName);
+        Task<bool> CreateCategory(string categoryName, bool isActive);
+        Task<bool> UpdateCategory(string categoryName, bool isActive);
         Task<bool> DeleteCategory(string id);
     }
 }

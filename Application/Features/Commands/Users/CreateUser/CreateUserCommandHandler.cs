@@ -14,7 +14,7 @@ namespace Application.Features.Commands.Users.CreateUser
 
         public async Task<CreateUserCommandResponse> Handle(CreateUserCommandRequest request, CancellationToken cancellationToken)
         {
-            var result = await _userService.CreateUserAsync(request.Name, request.Surname, request.EMail, request.Password);
+            var result = await _userService.CreateUserAsync(request.Name, request.Surname, request.EMail, request.Password, request.PhoneNumber, request.UserCountry);
             if(result)
             {
                 return new CreateUserCommandResponse

@@ -25,7 +25,7 @@ namespace ECommerceAPI.API.Controllers
             _productService = productService;
             mediator = _mediator;
         }
-        
+
         [HttpGet("list")]
         public async Task<IActionResult> ListProducts()
         {
@@ -49,11 +49,11 @@ namespace ECommerceAPI.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("Randomizer")]
+        [HttpGet("randomizer")]
         public async Task<IActionResult> Randomizer()
         {
             var response = await _productService.Randomizer();
-            if(response == null || !response.Any())
+            if (response == null || !response.Any())
             {
                 return NotFound("Products Not Found.");
             }
@@ -81,7 +81,7 @@ namespace ECommerceAPI.API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete]
+        [HttpDelete("byId/{id}")]
         public async Task<IActionResult> Delete(DeleteProductCommandRequest request)
         {
             var result = await mediator.Send(request);
@@ -99,6 +99,27 @@ namespace ECommerceAPI.API.Controllers
         public async Task<IActionResult> GetByIdFunc(string id)
         {
             var result = await _productService.GetProductAsJsonFunc(id);
+            return Ok(result);
+        }
+
+        [HttpGet("detail/productId")]
+        public async Task<IActionResult> GetDetailsById(string id)
+        {
+            var result = await _productService.GetProductDetails(id);
+            return Ok(result);
+        }
+
+        [HttpPost("detail/insert")]
+        public async Task<IActionResult> CreateDetail(string id, string detail1, string detail2, string detail3)
+        {
+            var result = await _productService.CreateProductDetailsAsync(id, detail1, detail2, detail3);
+            return Ok(result);
+        }
+
+        [HttpPut("detail/update")]
+        public async Task<IActionResult> UpdateDetail(string id, string detail1, string detail2, string detail3)
+        {
+            var result = await _productService.UpdateProductDetails(id, detail1, detail2, detail3);
             return Ok(result);
         }
     }

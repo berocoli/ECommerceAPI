@@ -30,7 +30,7 @@ namespace Persistence.Services
         public async Task<List<GetByCategoryDto>> GetProductsByCategories()
         {
             var cps = await _categoryReadRepository
-                .GetAll()
+                .GetWhere(ca => ca.IsActive == true)
                     .Include(ca => ca.Products)
                 .ToListAsync();
             return _mapper.Map<List<GetByCategoryDto>>(cps);
@@ -71,7 +71,7 @@ namespace Persistence.Services
             return _mapper.Map<CategoryDto>(category);
         }
 
-        public async Task<bool> CreateCategory(string categoryName)
+        public async Task<bool> CreateCategory(string categoryName, bool isActive)
         {
             var createCategoryDto = new CategoryDto
             {
@@ -84,11 +84,12 @@ namespace Persistence.Services
             return result;
         }
 
-        public async Task<bool> UpdateCategory(string categoryName)
+        public async Task<bool> UpdateCategory(string categoryName, bool isActive)
         {
             var updateCategoryDto = new CategoryDto
             {
                 CategoryName = categoryName,
+                IsActive = isActive
             };
 
             var category = _mapper.Map<ProductsCategory>(updateCategoryDto);

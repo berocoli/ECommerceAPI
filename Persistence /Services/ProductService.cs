@@ -1,8 +1,10 @@
 ﻿using Application.DTOs;
+using Application.DTOs.Product.Details;
 using Application.Exceptions;
 using Application.Repositories;
 using Application.Services;
 using AutoMapper;
+using Domain.Entities.BaseEntity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Services
@@ -11,13 +13,16 @@ namespace Persistence.Services
     {
         private readonly IProductReadRepository _productReadRepository;
         private readonly IProductWriteRepository _productWriteRepository;
+        private readonly IProductDetailReadRepository _productDetailReadRepository;
+        private readonly IProductDetailWriteRepository _productDetailWriteRepository;
         private readonly IMapper _mapper;
 
-        public ProductService(IProductReadRepository productReadRepository, IProductWriteRepository productWriteRepository, IMapper mapper)
+        public ProductService(IProductReadRepository productReadRepository, IProductWriteRepository productWriteRepository, IProductDetailReadRepository productDetailReadRepository, IProductDetailWriteRepository productDetailWriteRepository, IMapper mapper)
         {
             _productReadRepository = productReadRepository;
             _productWriteRepository = productWriteRepository;
-
+            _productDetailReadRepository = productDetailReadRepository;
+            _productDetailWriteRepository = productDetailWriteRepository;
             _mapper = mapper;
         }
                 
@@ -45,15 +50,13 @@ namespace Persistence.Services
 
         public async Task<List<RandomizedProductDto>> Randomizer()
         {
-            // Fetch products from the repository
             var products = await _productReadRepository.Randomizer();
 
             if (products == null || !products.Any())
             {
-                return null; // Handle null or empty results
+                return null;
             }
 
-            // Map the products to RandomizedProductDto
             return _mapper.Map<List<RandomizedProductDto>>(products);
         }
 
@@ -169,6 +172,77 @@ namespace Persistence.Services
             var result = _mapper.Map<ProductDto>(products);
 
             return result;  
+        }
+
+        public async Task<ProductDetailDto> GetProductDetails(string id)
+        {
+            if (!Guid.TryParse(id, out var productGuid))
+                throw new FormatException("Wrong Id Format.");
+
+            var details = await _productDetailReadRepository.GetByIdAsync(id);
+
+            return _mapper.Map<ProductDetailDto>(details);         
+        }
+
+        public async Task<bool> CreateProductDetailsAsync(string id, string detail1, string detail2, string detail3)
+        {
+            if (!Guid.TryParse(id, out var productGuid))
+                throw new FormatException("Wrong Id format.");
+
+            var doesExist = await _productDetailReadRepository.GetByIdAsync(id);
+            Console.WriteLine($"DoesExist Value: {doesExist}");
+            if (doesExist != null)
+            {
+                throw new FailException($"Product with Id {id} has details set already!");
+            }
+
+            var dto = new ProductDetailDto
+            {
+                ProductId = id,
+                ProductDetail1 = detail1,
+                ProductDetail2 = detail2,
+                ProductDetail3 = detail3
+            };
+
+            var detail = _mapper.Map<ProductDetail>(dto);
+            var result = await _productDetailWriteRepository.AddAsync(detail);
+            await _productDetailWriteRepository.SaveAsync();
+
+            return result;
+        }
+
+        public async Task<bool> UpdateProductDetails(string id, string detail1, string detail2, string detail3)
+        {
+            if (!Guid.TryParse(id, out var productGuid))
+                throw new FormatException("Wrong Id format.");
+
+            var doesExist = await _productDetailReadRepository.GetByIdAsync(id);
+            if(doesExist == null)
+            {
+                var product = await _productReadRepository.GetByIdAsync(id) ??
+                    throw new FailException("Product does not exist!");
+
+                var cDto = new ProductDetailDto
+                {
+                    ProductId = id,
+                    ProductDetail1 = detail1,
+                    ProductDetail2 = detail2,
+                    ProductDetail3 = detail3
+                };
+                var createProduct = _mapper.Map<ProductDetail>(cDto);
+                var createResult = await _productDetailWriteRepository.AddAsync(createProduct);
+                await _productDetailWriteRepository.SaveAsync();
+                return createResult;
+            }
+
+            doesExist.ProductDetail1 = detail1;
+            doesExist.ProductDetail2 = detail2;
+            doesExist.ProductDetail3 = detail3;
+
+            var result = _productDetailWriteRepository.Update(doesExist);
+            await _productDetailWriteRepository.SaveAsync();
+
+            return result;
         }
     }
 }

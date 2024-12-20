@@ -10,8 +10,9 @@ namespace Application.Features.Commands.Users.CreateUser
         public string Surname { get; set; }
         public string EMail { get; set; }
         public string Password { get; set; }
-        
-
+        public string PhoneNumber { get; set; }
+        public string UserCountry { get; set; }
+   
         //public CreateUserDto CreateUser { get; set; }
     }
 }

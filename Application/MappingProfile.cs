@@ -1,6 +1,8 @@
 ﻿using Domain;
 using AutoMapper;
 using Application.DTOs;
+using Domain.Entities.BaseEntity;
+using Application.DTOs.Product.Details;
 
 namespace Application
 {
@@ -34,6 +36,9 @@ namespace Application
 
             CreateMap<ProductDto, CategoryDto>().ReverseMap();
             CreateMap<ProductsCategory, ProductsCategoryDto>().ReverseMap();
+            CreateMap<ProductDetail, ProductDetailDto>()
+                .ForMember(dest => dest.ProductId, opt => opt.Ignore())
+                .ReverseMap();
 
             // Cart mappings
             CreateMap<Cart, GetCartDto>()

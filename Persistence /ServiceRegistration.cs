@@ -23,6 +23,8 @@ namespace Persistence
             services.AddScoped<IUserWriteRepository, UserWriteRepository>();
             services.AddScoped<IProductReadRepository, ProductReadRepository>();
             services.AddScoped<IProductWriteRepository, ProductWriteRepository>();
+            services.AddScoped<IProductDetailReadRepository, ProductDetailReadRepository>();
+            services.AddScoped<IProductDetailWriteRepository, ProductDetailWriteRepository>();
             services.AddScoped<IOrderReadRepository, OrderReadRepository>();
             services.AddScoped<IOrderWriteRepository, OrderWriteRepository>();
             services.AddScoped<ICategoryReadRepository, CategoryReadRepository>();

@@ -26,7 +26,7 @@ namespace ECommerceAPI.API.Controllers
             var result = await _categoryService.GetAllCategories();
             return Ok(result);
         }
-        //Added Endpoint
+
         [HttpGet("byName{name}")]
         public async Task<IActionResult> GetCategoriesByName(string name)
         {
@@ -35,20 +35,20 @@ namespace ECommerceAPI.API.Controllers
         }
 
         [HttpPost("byName{name}")]
-        public async Task<IActionResult> CreateCategory(string name)
+        public async Task<IActionResult> CreateCategory(string name, bool isActive)
         {
-            var result = await _categoryService.CreateCategory(name);
+            var result = await _categoryService.CreateCategory(name, isActive);
             return Ok(result);
         }
 
         [HttpPut("byName")]
-        public async Task<IActionResult> UpdateCategory(string name)
+        public async Task<IActionResult> UpdateCategory(string name, bool isActive)
         {
             if(name == null)
             {
                 throw new FormatException("Name is null. Try again.");
             }
-            var result = await _categoryService.UpdateCategory(name);
+            var result = await _categoryService.UpdateCategory(name, isActive);
             return Ok(result);
         }
 

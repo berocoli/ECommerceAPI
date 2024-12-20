@@ -7,7 +7,8 @@ namespace Domain.Enums
         EUR,
         CHF,
         JPY,
-        QAR
+        QAR,
+        TRY
     }
 }
    

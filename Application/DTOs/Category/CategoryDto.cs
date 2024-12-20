@@ -5,6 +5,7 @@ namespace Application.DTOs
     {
         public string Id { get; set; }
         public string CategoryName { get; set; }
+        public bool IsActive { get; set; }
         public List<CategoryProduct> CategoryProducts { get; set; }
     }
 

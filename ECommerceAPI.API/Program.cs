@@ -43,22 +43,30 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = configuration["JwtSettings:Issuer"],
         ValidAudience = configuration["JwtSettings:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Secret"])),
     };
 
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            Console.WriteLine($"Token received: {context.Token}");
+            return Task.CompletedTask;
+        },
+        OnAuthenticationFailed = context =>
+        {
+            Console.WriteLine($"Authentication failed: {context.Exception.Message}");
+            return Task.CompletedTask;
+        },
+        OnTokenValidated = context =>
+        {
+            Console.WriteLine($"Token validated successfully for user: {context.Principal.Identity.Name}");
+            return Task.CompletedTask;
+        }
+    };
 });
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("AdminOnly", policy =>
-    {
-        policy.RequireAssertion(context =>
-        {
-            var roleClaim = context.User.FindFirst("role");
-            return roleClaim != null && bool.TryParse(roleClaim.Value, out var isAdmin) && isAdmin;
-        });
-    });
-});
+builder.Services.AddAuthorization();
 
 
 // Register services
@@ -91,8 +99,7 @@ using (var scope = app.Services.CreateScope())
     await DbInitializer.SeedAsync(dbContext);
 }
 
-
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -107,6 +114,7 @@ app.UseRouting();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

@@ -76,6 +76,8 @@
     <None Remove="Features\Queries\Categories\GetAllCategories\" />
     <None Remove="Features\Queries\Categories\GetCategoryById\" />
     <None Remove="DTOs\CartDto\" />
+    <None Remove="Repositories\ProductDetailRepo\" />
+    <None Remove="DTOs\Product\Details\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />
@@ -135,6 +137,8 @@
     <Folder Include="Features\Queries\Categories\GetAllCategories\" />
     <Folder Include="Features\Queries\Categories\GetCategoryById\" />
     <Folder Include="DTOs\CartDto\" />
+    <Folder Include="Repositories\ProductDetailRepo\" />
+    <Folder Include="DTOs\Product\Details\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />

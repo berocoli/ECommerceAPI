@@ -1,8 +1,10 @@
-﻿using Application.DTOs;
+﻿using System.Text.RegularExpressions;
+using Application.DTOs;
 using Application.Repositories;
 using Application.Services;
 using AutoMapper;
 using Domain;
+using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Services
@@ -38,7 +40,6 @@ namespace Persistence.Services
 
         public async Task<List<UserDto>> SearchUsersByNameAsync(string name, string? surname)
         {
-            // Start by querying all users
             var query = _userReadRepository.GetWhere(u => u.Name.Contains(name));
 
             // Only filter by surname if it's provided (not null or empty)
@@ -51,27 +52,69 @@ namespace Persistence.Services
 
             if (users == null || users.Count == 0)
             {
-                return new List<UserDto>(); // Return empty list if no users found
+                return new List<UserDto>(); 
             }
 
             return _mapper.Map<List<UserDto>>(users);
         }
 
-        public async Task<bool> CreateUserAsync(string name, string surname, string email, string password)
+        public async Task<bool> CreateUserAsync(string name, string surname, string email, string password, string phoneNumber, string country)
         {
+            // Validations
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+                throw new ArgumentException("Name, email, and password cannot be null or empty.");
+
+            if (name.Length < 2 || name.Length > 50)
+                throw new FormatException("Name must be between 2 and 50 characters long.");
+
+            if (!string.IsNullOrEmpty(surname) && (surname.Length < 2 || surname.Length > 50))
+                throw new FormatException("Surname must be between 2 and 50 characters long.");
+
+            if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                throw new FormatException("Invalid email format.");
+
+            var existingUser = await _userReadRepository.GetUserByEmailAsync(email);
+            if (existingUser != null)
+                throw new ArgumentException("An account with this email already exists.");
+
+            if (password.Length < 8 || !Regex.IsMatch(password, @"[A-Z]") || !Regex.IsMatch(password, @"[a-z]") || !Regex.IsMatch(password, @"[0-9]") || !Regex.IsMatch(password, @"[\W_]"))
+                throw new FormatException("Password must be at least 8 characters long and include uppercase, lowercase, numeric, and special characters.");
+
+            if (string.IsNullOrWhiteSpace(phoneNumber) || !Regex.IsMatch(phoneNumber, @"^\+?[0-9]{10,15}$"))
+                throw new FormatException("Phone number must be between 10 and 15 digits and may include an optional '+' for the country code.");
+
+            if (!Enum.TryParse<UserCountry>(country, true, out var parsedCountry))
+                throw new FormatException($"Invalid country value. Accepted values: {string.Join(", ", Enum.GetNames(typeof(UserCountry)))}");
+
+            var paymentCurrency = parsedCountry switch
+            {
+                UserCountry.Turkey => PaymentCurrency.TRY,
+                UserCountry.America => PaymentCurrency.USD,
+                UserCountry.Europe => PaymentCurrency.EUR,
+                UserCountry.Switzerland => PaymentCurrency.CHF,
+                UserCountry.Japan => PaymentCurrency.JPY,
+                UserCountry.Qatar => PaymentCurrency.QAR,
+                _ => PaymentCurrency.USD // Default to USD 
+            };
+
+            // Create the user DTO
             var createUserDto = new CreateUserDto
             {
                 Name = name,
                 Surname = surname,
                 EMail = email,
-                Password = password 
+                Password = password, 
+                PhoneNumber = phoneNumber,
+                UserCountry = parsedCountry,
+                PaymentCurrency = paymentCurrency 
             };
 
-            
             var user = _mapper.Map<User>(createUserDto);
             var result = await _userWriteRepository.AddAsync(user);
             await _cartService.CreateCartAsync(user.Id.ToString());
+
             await _userWriteRepository.SaveAsync();
+
             return result;
         }
 

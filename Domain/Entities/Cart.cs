@@ -13,7 +13,7 @@ namespace Domain
         public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
 
         public bool IsModifyable { get; set; } = true;
-        public string Note { get; set; }
+        public string? Note { get; set; }
 
         public Guid? OrderId { get; set; }
         public Order? Order { get; set; }

@@ -8,7 +8,6 @@ namespace Domain
         public Guid UserId { get; set; }
         public User User { get; set; } // Navigation property
 
-        public string OrderNumber { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
 

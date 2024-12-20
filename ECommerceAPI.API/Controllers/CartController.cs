@@ -56,14 +56,14 @@ public class CartController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("byIdSP{userId}")]
+    [HttpGet("byIdSP/{userId}")]
     public async Task<IActionResult> GetCartsByIdSP(string userId)
     {
         var result = await _cartService.GetCartsByIdSP(userId);
         return Ok(result);
     }
 
-    [HttpDelete("cart{cartId}")]
+    [HttpDelete("remove-cart/{cartId}")]
     public async Task<IActionResult> RemoveCart(Guid cartId)
     {
         var result = await _cartService.RemoveCart(cartId);
